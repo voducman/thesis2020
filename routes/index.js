@@ -1,6 +1,8 @@
-const express = require("express");
-const router  = express.Router();
-const User    = require('../models/user');
+const express  = require("express");
+const router   = express.Router();
+const mongoose = require('mongoose');
+const User     = require('../models/user');
+
 
 const dbModel  = require("../models/databaseModel");
 const passport = require("passport");
@@ -63,31 +65,79 @@ router.get("/logout", function(req, res) {
 router.get("/dashboard", isLoggedIn, function(req, res){
   console.log('req.user ',req.user);
   console.log('req.session ', req.session);
-<<<<<<< HEAD
+
   const sessionUser = {
     username: req.user.local.username,
     email:    req.user.local.email
   }
   res.render("dashboard", {title: "Advanced SCADA", user: sessionUser});
-=======
-  res.render("dashboard", {title: "Advanced SCADA", username: req.user.local.username, email: req.user.local.email});
->>>>>>> d08db7523eb668d6f439cf239e783dc33e314cd7
 })
 
 
 router.get("/profile", isLoggedIn, function(req, res){
-<<<<<<< HEAD
-  const sessionUser = {
-    username: req.user.local.username,
-    email:    req.user.local.email
-  }
-  res.render("profile",{title: "Advanced SCADA", user: sessionUser});
-=======
-  console.log(req.user);
-  req.session.name = req.user.local.email;
+  let sessionUser;
 
-  res.render("profile",{title: "Advanced SCADA", username: req.user.local.username, email: req.user.local.email});
->>>>>>> d08db7523eb668d6f439cf239e783dc33e314cd7
+  User.findById(req.user._id, function(error, document){
+    if (error){
+      res.render('error', {
+        code: 404,
+        content: "we are sorry, We could not find your data"
+      })
+
+    }else{
+      sessionUser = document.local;
+      console.log(sessionUser);
+      //res.send("success");
+      res.render("profile",{title: "Advanced SCADA", user: sessionUser});
+    }
+  })
+
+})
+
+
+router.put("/profile/:command", isLoggedIn, function(req, res){
+  
+  console.log("PUT: /profile", req.body);
+  const data = req.body;
+  let updateDB;
+
+  if (req.params.command == "updateInfo"){
+    updateDB = {
+      "local.company"        : data.company,
+      "local.username"       : data.username,
+      "local.email"          : data.email,
+      "local.roles"          : data.roles,
+      "local.firstname"      : data.firstname,
+      "local.lastname"       : data.lastname,
+      "local.address"        : data.address,
+      "local.city"           : data.city,
+      "local.country"        : data.country,
+      "local.postalCode"     : data.postalcode,
+      "local.aboutMe"        : data.aboutme
+     }
+  }else if (req.params.command === "updateAvatar"){
+    console.log("image upload: ", req.body);
+    updateDB = {
+      "local.avatarLink"     : data.avatarLink
+    }
+  }else{
+    res.status("500").end("command error");
+  }
+  
+  User.findOneAndUpdate({"_id": req.user._id},
+    { $set: updateDB },
+    {new: true},
+    function(error, result){
+      if (error){
+        res.send(error);
+      }else{
+        result.local.password = "";
+        console.log(result.local);
+        res.send("success");
+      }
+    }
+  )
+
 })
 
 

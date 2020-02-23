@@ -72,11 +72,11 @@ module.exports = function(passport){
                 if (user) {
                     return done(null, false);
                 } else {
-                    var newUser            = new User();
-                    newUser.local.email    = email;
-                    newUser.local.password = newUser.generateHash(password);
-                    newUser.local.username = req.body["name"];
-                    newUser.local.termCond = true;
+                    let newUser               = new User();
+                    newUser.local.email       = email;
+                    newUser.local.password    = newUser.generateHash(password);
+                    newUser.local.username    = req.body["name"];
+                    newUser.local.termCond    = true;
                     newUser.save(function(err) {
                         if (err)
                             throw err;

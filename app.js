@@ -23,6 +23,7 @@ const dataRouter  = require('./routes/data');
 
 // Connect to Database
 mongoose.connect(configDB.url, { useNewUrlParser: true, useUnifiedTopology: true });   
+
 // Load resource to config passport
 require('./config/passport')(passport);                                      
 
@@ -41,16 +42,12 @@ app.use(cookieParser());
 app.use(session({
   secret           : process.env.SECRET || 'xxxxxxxx', 
   cookie           : { maxAge: 900000 },     // maxAge = 15 minutes = 900000
-  resave           : false,                  // forces the session to be saved back to the store
+  resave           : true,                   // forces the session to be saved back to the store
   saveUninitialized: false                   // dont save unmodified
 }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
-<<<<<<< HEAD
-
-=======
->>>>>>> d08db7523eb668d6f439cf239e783dc33e314cd7
 
 app.use('/static',       express.static(path.join(__dirname, 'public')));
 app.use('/admin/static', express.static(path.join(__dirname, 'public')));

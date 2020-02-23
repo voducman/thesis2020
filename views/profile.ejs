@@ -2,361 +2,64 @@
 <html lang="en">
 
 <head>
-<<<<<<< HEAD
     <% include metadata %>
-=======
-    <meta charset="utf-8" />
-    <link rel="apple-touch-icon" sizes="76x76" href="static/icons/favicon.png" />
-    <link rel="icon" type="image/png" href="static/icons/favicon.png" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>Material Dashboard Pro by Creative Tim</title>
-    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
-    <meta name="viewport" content="width=device-width" />
-    <!-- Bootstrap core CSS     -->
-    <link href="static/assets/css/bootstrap.min.css" rel="stylesheet" />
-    <!--  Material Dashboard CSS    -->
-    <link href="static/assets/css/material-dashboard.css" rel="stylesheet" />
-    <!--  CSS for Demo Purpose, don't include it in your project     -->
-    <link href="static/assets/css/demo.css" rel="stylesheet" />
-    <!--     Fonts and icons     -->
-    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons" />
->>>>>>> d08db7523eb668d6f439cf239e783dc33e314cd7
 </head>
 
 <body>
     <div class="wrapper" id="main-view">
-<<<<<<< HEAD
         <% include sidebar %>
         <div class="main-panel">
             <% include header %>
-=======
-        <div class="sidebar" data-active-color="rose" data-background-color="black" data-image="static/assets/img/sidebar-1.jpg">
-            <!--
-        Tip 1: You can change the color of active element of the sidebar using: data-active-color="purple | blue | green | orange | red | rose"
-        Tip 2: you can also add an image using data-image tag
-        Tip 3: you can change the color of the sidebar with data-background-color="white | black"
-    -->
-            <div class="logo">
-                <a href="/" class="simple-text">
-                    ADVANCED SCADA
-                </a>
-            </div>
-            <div class="logo logo-mini">
-                <a href="/" class="simple-text">
-                    Ct
-                </a>
-            </div>
-            <div class="sidebar-wrapper">
-                <div class="user">
-                    <div class="photo">
-                        <img src="static/assets/img/faces/avatar.jpg" />
-                    </div>
-                    <div class="info">
-                        <a data-toggle="collapse" href="#collapseExample" class="collapsed">
-                            Tania Andrew
-                            <b class="caret"></b>
-                        </a>
-                        <div class="collapse" id="collapseExample">
-                            <ul class="nav">
-                                <li>
-                                    <a href="/profile" style="max-width: 70px; padding-left: 50px;"><i class="material-icons" style="margin-top: -5px;">edit</i>Edit Profile</a>
-                                </li>
-                                <li>
-                                    <a href="#" style="max-width: 70px; padding-left: 50px;"><i class="material-icons" style="margin-top: -5px;">language</i>Languages</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <ul class="nav">
-                    <li>
-                        <a href="/dashboard">
-                            <i class="material-icons">dashboard</i>
-                            <p>Dashboard</p>
-                        </a>
-                    </li>
-                    <li class="active">
-                        <a data-toggle="collapse" href="#pagesExamples" aria-expanded="true">
-                            <i class="material-icons">image</i>
-                            <p>Pages
-                                <b class="caret"></b>
-                            </p>
-                        </a>
-                        <div class="collapse in" id="pagesExamples">
-                            <ul class="nav">
-                                <li>
-                                    <a href="../pages/pricing.html">Pricing</a>
-                                </li>
-                                <li>
-                                    <a href="../pages/timeline.html">Timeline</a>
-                                </li>
-                                <li>
-                                    <a href="../pages/login.html">Login Page</a>
-                                </li>
-                                <li>
-                                    <a href="../pages/register.html">Register Page</a>
-                                </li>
-                                <li>
-                                    <a href="../pages/lock.html">Lock Screen Page</a>
-                                </li>
-                                <li class="active">
-                                    <a href="../pages/user.html">User Profile</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <a data-toggle="collapse" href="#componentsExamples">
-                            <i class="material-icons">apps</i>
-                            <p>Components
-                                <b class="caret"></b>
-                            </p>
-                        </a>
-                        <div class="collapse" id="componentsExamples">
-                            <ul class="nav">
-                                <li>
-                                    <a href="../components/buttons.html">Buttons</a>
-                                </li>
-                                <li>
-                                    <a href="../components/grid.html">Grid System</a>
-                                </li>
-                                <li>
-                                    <a href="../components/panels.html">Panels</a>
-                                </li>
-                                <li>
-                                    <a href="../components/sweet-alert.html">Sweet Alert</a>
-                                </li>
-                                <li>
-                                    <a href="../components/notifications.html">Notifications</a>
-                                </li>
-                                <li>
-                                    <a href="../components/icons.html">Icons</a>
-                                </li>
-                                <li>
-                                    <a href="../components/typography.html">Typography</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <a data-toggle="collapse" href="#formsExamples">
-                            <i class="material-icons">content_paste</i>
-                            <p>Forms
-                                <b class="caret"></b>
-                            </p>
-                        </a>
-                        <div class="collapse" id="formsExamples">
-                            <ul class="nav">
-                                <li>
-                                    <a href="../forms/regular.html">Regular Forms</a>
-                                </li>
-                                <li>
-                                    <a href="../forms/extended.html">Extended Forms</a>
-                                </li>
-                                <li>
-                                    <a href="../forms/validation.html">Validation Forms</a>
-                                </li>
-                                <li>
-                                    <a href="../forms/wizard.html">Wizard</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <a data-toggle="collapse" href="#tablesExamples">
-                            <i class="material-icons">grid_on</i>
-                            <p>Tables
-                                <b class="caret"></b>
-                            </p>
-                        </a>
-                        <div class="collapse" id="tablesExamples">
-                            <ul class="nav">
-                                <li>
-                                    <a href="../tables/regular.html">Regular Tables</a>
-                                </li>
-                                <li>
-                                    <a href="../tables/extended.html">Extended Tables</a>
-                                </li>
-                                <li>
-                                    <a href="../tables/datatables.net.html">DataTables.net</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <a data-toggle="collapse" href="#mapsExamples">
-                            <i class="material-icons">place</i>
-                            <p>Maps
-                                <b class="caret"></b>
-                            </p>
-                        </a>
-                        <div class="collapse" id="mapsExamples">
-                            <ul class="nav">
-                                <li>
-                                    <a href="../maps/google.html">Google Maps</a>
-                                </li>
-                                <li>
-                                    <a href="../maps/fullscreen.html">Full Screen Map</a>
-                                </li>
-                                <li>
-                                    <a href="../maps/vector.html">Vector Map</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="../widgets.html">
-                            <i class="material-icons">widgets</i>
-                            <p>Widgets</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="../charts.html">
-                            <i class="material-icons">timeline</i>
-                            <p>Charts</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="../calendar.html">
-                            <i class="material-icons">date_range</i>
-                            <p>Calendar</p>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="main-panel">
-            <nav class="navbar navbar-transparent navbar-absolute">
-                <div class="container-fluid">
-                    <div class="navbar-minimize">
-                        <button id="minimizeSidebar" class="btn btn-round btn-white btn-fill btn-just-icon">
-                            <i class="material-icons visible-on-sidebar-regular">more_vert</i>
-                            <i class="material-icons visible-on-sidebar-mini">view_list</i>
-                        </button>
-                    </div>
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" href="#"> Profile </a>
-                    </div>
-                    <div class="collapse navbar-collapse">
-                        <ul class="nav navbar-nav navbar-right">
-                            <li>
-                                <a href="#pablo" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="material-icons">dashboard</i>
-                                    <p class="hidden-lg hidden-md">Dashboard</p>
-                                </a>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="material-icons">notifications</i>
-                                    <span class="notification">5</span>
-                                    <p class="hidden-lg hidden-md">
-                                        Notifications
-                                        <b class="caret"></b>
-                                    </p>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a href="#">Mike John responded to your email</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">You have 5 new tasks</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">You're now friend with Andrew</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Another Notification</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Another One</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="#pablo" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="material-icons">person</i>
-                                    <p class="hidden-lg hidden-md">Profile</p>
-                                </a>
-                                <ul class="dropdown-menu" style="text-align: center;">
-                                    <label class="dropdown-header"><%= email %></label>
-                                    <li>
-                                        <a href="/profile"><i class="material-icons" style="margin-top: -5px;">face</i>&nbsp;&nbsp;&nbsp;Profile</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" id="lockscreen"><i class="material-icons" style="margin-top: -5px;">lock</i>&nbsp;&nbsp;&nbsp;Lock&nbsp;&nbsp;&nbsp;</a>
-                                    </li>
-                                    <div class="divider"></div>
-                                    <li>
-                                        <a href="/logout"><i class="material-icons" style="margin-top: -5px;">logout</i>&nbsp;&nbsp;&nbsp;Logout</a>
-                                    </li> 
-                                </ul>
-
-                            </li>
-                            <li class="separator hidden-lg hidden-md"></li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
->>>>>>> d08db7523eb668d6f439cf239e783dc33e314cd7
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-8">
                             <div class="card">
-<<<<<<< HEAD
                                 <div class="card-header card-header-icon" data-background-color="rose" data-toggle="tooltip" title="Click to edit your profile.">
                                     <i class="material-icons">perm_identity</i>
                                 </div>
                                 <div class="card-content">
                                     <h4 class="card-title" data-toggle="tooltip" title="Click to edit your profile.">Edit Profile -
-=======
-                                <div class="card-header card-header-icon" data-background-color="rose">
-                                    <i class="material-icons">perm_identity</i>
-                                </div>
-                                <div class="card-content">
-                                    <h4 class="card-title">Edit Profile -
->>>>>>> d08db7523eb668d6f439cf239e783dc33e314cd7
                                         <small class="category">Complete your profile</small>
                                     </h4>
-                                    <form>
+                                    <form id="updateProfile" action="#" method="POST">
                                         <div class="row">
                                             <div class="col-md-5">
                                                 <div class="form-group label-floating">
-                                                    <label class="control-label">Company</label>
-                                                    <input name="company" type="text" class="form-control">
+                                                    <label class="control-label">Company (at least 3)</label>
+                                                    <input name="company" type="text" class="form-control" minlength="3" required value="<%= user.company %>">
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group label-floating">
-                                                    <label class="control-label">Username</label>
-                                                    <input name="username" type="text" class="form-control">
+                                                    <label class="control-label">Username (at least 5)</label>
+                                                    <input name="username" type="text" class="form-control" minlength="5" required value="<%= user.username %>">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group label-floating">
                                                     <label class="control-label">Email address</label>
-                                                    <input name="email" type="email" class="form-control">
+                                                    <input name="email" type="email" class="form-control" email="true" required value="<%= user.email %>">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <div class="form-group label-floating">
                                                     <label class="control-label">First Name</label>
-                                                    <input name="firstname" type="text" class="form-control">
+                                                    <input name="firstname" type="text" class="form-control" required value="<%= user.firstname %>">
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <div class="form-group label-floating">
                                                     <label class="control-label">Last Name</label>
-                                                    <input name="lastname" type="text" class="form-control">
+                                                    <input name="lastname" type="text" class="form-control" required value="<%= user.lastname %>">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Roles (Ex: Engineer/CEO)</label>
+                                                    <input name="roles" type="text" class="form-control" required value="<%= user.roles %>" >
                                                 </div>
                                             </div>
                                         </div>
@@ -364,7 +67,7 @@
                                             <div class="col-md-12">
                                                 <div class="form-group label-floating">
                                                     <label class="control-label">Adress</label>
-                                                    <input name="address" type="text" class="form-control">
+                                                    <input name="address" type="text" class="form-control" required value="<%= user.address %>"> 
                                                 </div>
                                             </div>
                                         </div>
@@ -372,29 +75,29 @@
                                             <div class="col-md-4">
                                                 <div class="form-group label-floating">
                                                     <label class="control-label">City</label>
-                                                    <input name="city" type="text" class="form-control">
+                                                    <input name="city" type="text" class="form-control" required value="<%= user.city %>">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group label-floating">
                                                     <label class="control-label">Country</label>
-                                                    <input name="country" type="text" class="form-control">
+                                                    <input name="country" type="text" class="form-control" required value="<%= user.country %>">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group label-floating">
                                                     <label class="control-label">Postal Code</label>
-                                                    <input name="postalcode" type="text" class="form-control">
+                                                    <input name="postalcode" type="text" class="form-control" required value="<%= user.postalCode %>">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label>About Me</label>
+                                                    <label>About Me (at least 10)</label>
                                                     <div class="form-group label-floating">
                                                         <label class="control-label"><b>Ex: </b>Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</label>
-                                                        <textarea class="form-control" rows="5"></textarea>
+                                                        <textarea class="form-control" name="aboutme" rows="5" minlength="10" required ><%= user.aboutMe %></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -409,16 +112,33 @@
                             <div class="card card-profile">
                                 <div class="card-avatar">
                                     <a href="#pablo">
-                                        <img class="img" src="static/assets/img/faces/marc.jpg" />
+                                        <img class="img" src="static/images/default-avatar-1.png" />
                                     </a>
                                 </div>
                                 <div class="card-content">
-                                    <h6 class="category text-gray">CEO / Co-Founder</h6>
-                                    <h4 class="card-title">Alec Thompson</h4>
+                                    <!-- show roles of user -->
+                                <% if (typeof user.roles == "string") { %>
+                                    <h6 class="category text-info"><%= user.roles %></h6>
+                                <% }else{ %>
+                                    <h6 class="category text-info">CEO / Co-Founder</h6>
+                                <% }      %>
+                                    <!-- show username of user -->
+                                <% if (typeof user.username == "string") { %>
+                                    <h4 class="card-title text-danger"><%= user.username %></h4>
+                                <% }else{ %>
+                                    <h4 class="card-title text-danger">Username</h4>
+                                <% }      %>
+                                    <!-- show description of user -->
+                                <% if (typeof user.aboutMe == "string") { %>
+                                    <p class="description"><%= user.aboutMe %></p>
+                                <% }else{ %>
                                     <p class="description">
-                                        Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+                                        This is only the default description information. Please change this information in the About Me section on the side. Thank you very much.
                                     </p>
-                                    <a href="#pablo" class="btn btn-rose btn-round">Change Avatar</a>
+                                <% }      %>
+                                    
+                                    <input id="file-input" type="file" accept=".png, .jpg, .jpeg" class="hidden"></input>
+                                    <a id="change-avatar"  class="btn btn-rose btn-round" onclick="document.getElementById('file-input').click()">Change Avatar</a>
                                 </div>
                             </div>
                         </div>
@@ -428,33 +148,6 @@
         </div>
     </div>
 </body>
-<<<<<<< HEAD
 <% include footer %>
 <script src="/static/javascripts/profile.js"></script>
-=======
-<!--   Core JS Files   -->
-<script src="static/assets/js/jquery-3.1.1.min.js" type="text/javascript"></script>
-<script src="static/assets/js/jquery-ui.min.js" type="text/javascript"></script>
-<script src="static/assets/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="static/assets/js/material.min.js" type="text/javascript"></script>
-<script src="static/assets/js/perfect-scrollbar.jquery.min.js" type="text/javascript"></script>
-<!-- Forms Validations Plugin -->
-<script src="static/assets/js/jquery.validate.min.js"></script>
-<script src="static/assets/js/jquery.bootstrap-wizard.js"></script>
-<!--  Notifications Plugin    -->
-<script src="static/assets/js/bootstrap-notify.js"></script>
-
-<!-- Select Plugin -->
-<script src="static/assets/js/jquery.select-bootstrap.js"></script>
-<!--  DataTables.net Plugin    -->
-<script src="static/assets/js/sweetalert2.js"></script>
-<!--	Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
-<script src="static/assets/js/jasny-bootstrap.min.js"></script>
-<!-- Material Dashboard javascript methods -->
-<script src="static/assets/js/material-dashboard.js"></script>
-<!-- Material Dashboard DEMO methods, don't include it in your project! -->
-<script src="static/assets/js/demo.js"></script>
-<script src="/static/javascripts/profile.js"></script>
-<script src="/static/javascripts/utils.js"></script>
->>>>>>> d08db7523eb668d6f439cf239e783dc33e314cd7
 </html>

@@ -6,7 +6,18 @@ let userSchema = mongoose.Schema({
         email       : String,
         password    : String,
         username    : String,
-        termCond    : Boolean
+        roles       : String,
+        termCond    : Boolean,
+        createdTime : { type: Date, default: Date.now },
+        avataLink   : String,
+        company     : String,
+        firstname   : String,
+        lastname    : String,
+        address     : String,
+        city        : String,
+        country     : String,
+        postalCode  : String,
+        aboutMe     : String
     },
     facebook        : {
         id          : String,
