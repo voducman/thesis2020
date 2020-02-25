@@ -1,0 +1,20 @@
+{
+    "profile_edit":        "Chỉnh sửa lý lịch",
+    "profile_comp":        "Hoàn thành lý lịch của bạn",
+    "profile_company":     "Tên công ty (ít nhất 3 kí tự)",
+    "profile_username":    "Tên đại diện (ít nhất 5 kí tự)",
+    "profile_email":       "Địa chỉ Email",
+    "profile_firstname":   "Họ",
+    "profile_lastname":    "Tên",
+    "profile_roles":       "Chức danh (Vd: Engineer/CEO)",
+    "profile_address":     "Địa chỉ",
+    "profile_city":        "Thành phố",
+    "profile_country":     "QUốc Gia",
+    "profile_poscode":     "Mã số bưu điệg",
+    "profile_aboutme":     "Mô tả bản thân (ít nhất 10 kí tự)",
+    "profile_example":     "Vd: ",
+    "profile_btn_update":  "Cập nhật",
+    "profile_btn_change_avatar":  "Thay đổi ảnh đại diện"
+    
+
+}

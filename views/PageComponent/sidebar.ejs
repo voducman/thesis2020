@@ -17,178 +17,141 @@ Tip 3: you can change the color of the sidebar with data-background-color="white
     <div class="sidebar-wrapper">
         <div class="user">
             <div class="photo">
-                <img src="static/images/default-avatar.png" />
+                <% if (typeof user.avatarLink == "string") { %>
+                    <img src="<%= user.avatarLink %>" />
+                <% }else{ %>
+                    <img src="static/images/default-avatar.png" />
+                <% }      %>
             </div>
             <div class="info">
                 <a data-toggle="collapse" href="#collapseExample" class="collapsed">
                     <%= user.username %>
                     <b class="caret"></b>
                 </a>
-                <div class="collapse" id="collapseExample">
+                <div class="collapse" id="collapseExample"> 
                     <ul class="nav">
-                        <li>
-                            <a href="/profile" style="max-width: 70px; padding-left: 50px;"><i class="material-icons" style="margin-top: -5px;">edit</i>Edit Profile</a>
+                        <li style="max-width: 170px; margin-left: 40px;">
+                            <a href="/profile">
+                                <i class="material-icons" style="margin-top: -5px;">edit</i>
+                                Edit Profile
+                            </a>
                         </li>
-                        <li>
-                            <a href="/lang" style="max-width: 70px; padding-left: 50px;"><i class="material-icons" style="margin-top: -5px;">language</i>Languages</a>
-                        </li>
+                        <li style="max-width: 170px; margin-left: 40px;">
+                            <a href="#collapseEx" class="collapsed" data-toggle="collapse" >
+                                <i class="material-icons" style="margin-top: -5px;">language</i>
+                                Languages
+                            </a>
+                            <div class="collapse" id="collapseEx">
+                                <ul class="nav">
+                                    <li> 
+                                        <a href="/?lang=vn" style="right: 30px;"><img class="flag" src="static/assets/img/flags/VN.png" >&nbsp;&nbsp;Vietnamese</a>
+                                    </li>
+                                    <li>
+                                        <a href="/?lang=en" style="right: 30px;"><img class="flag" src="static/assets/img/flags/US.png">&nbsp;&nbsp;English</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>                   
                     </ul>
                 </div>
             </div>
         </div>
         <ul class="nav">
-            <li class="active">
+            <li class="dashboard" >
                 <a href="./dashboard">
                     <i class="material-icons">dashboard</i>
                     <p>Dashboard</p>
                 </a>
             </li>
+            <li class="profile">
+                <a href="./profile">
+                    <i class="material-icons">perm_identity</i>
+                    <p>Profile</p>
+                </a>
+            </li>
+            <li class="factory">
+                <a href="./factory">
+                    <i class="material-icons">location_city</i>
+                    <p>Factory</p>
+                </a>
+            </li>
+            <li class="alarm">
+                <a href="./alarm">
+                    <i class="material-icons">warning</i>
+                    <p>Alarm</p>
+                </a>
+            </li>
             <li>
-                <a data-toggle="collapse" href="#pagesExamples">
-                    <i class="material-icons">image</i>
-                    <p>Pages
+                <a data-toggle="collapse" href="#history">
+                    <i class="material-icons">history</i>
+                    <p>History
                         <b class="caret"></b>
                     </p>
                 </a>
-                <div class="collapse" id="pagesExamples">
+                <div class="collapse in" id="history">
                     <ul class="nav">
-                        <li>
-                            <a href="#">Pricing</a>
+                        <li class="trend">
+                            <a href="/trend">
+                                <i class="material-icons">trending_up</i>
+                                <p>Trend</p>
+                            </a>
                         </li>
-                        <li>
-                            <a href="#">Timeline</a>
+                        <li class="log">
+                            <a href="/log">
+                                <i class="material-icons">note</i>
+                                <p>Log</p>
+                            </a>
                         </li>
-                        <li>
-                            <a href="#">Login Page</a>
-                        </li>
-                        <li>
-                            <a href="#">Register Page</a>
-                        </li>
-                        <li>
-                            <a href="#">Lock Screen Page</a>
-                        </li>
-                        <li>
-                            <a href="#">User Profile</a>
+                        <li class="notify">
+                            <a href="/notify">
+                                <i class="material-icons">notifications_active</i>
+                                <p>Notify</p>
+                            </a>
                         </li>
                     </ul>
                 </div>
             </li>
+            <li class="stream">
+                <a href="./stream">
+                    <i class="material-icons">ondemand_video</i>
+                    <p>Camera</p>
+                </a>
+            </li>
+            <li class="report">
+                <a href="./report">
+                    <i class="material-icons">chat</i>
+                    <p>Report</p>
+                </a>
+            </li>
             <li>
-                <a data-toggle="collapse" href="#componentsExamples">
-                    <i class="material-icons">apps</i>
-                    <p>Components
+                <a data-toggle="collapse" href="#help">
+                    <i class="material-icons">live_help</i>
+                    <p>Help
                         <b class="caret"></b>
                     </p>
                 </a>
-                <div class="collapse" id="componentsExamples">
+                <div class="collapse in" id="help">
                     <ul class="nav">
-                        <li>
-                            <a href="./components/buttons.html">Buttons</a>
+                        <li class="aboutus">
+                            <a href="/aboutus">
+                                <i class="material-icons">person_pin</i>
+                                <p>About Us</p>
+                            </a>
                         </li>
-                        <li>
-                            <a href="./components/grid.html">Grid System</a>
+                        <li class="contact">
+                            <a href="contact">
+                                <i class="material-icons">perm_phone_msg</i>
+                                <p>Contact Us</p>
+                            </a>
                         </li>
-                        <li>
-                            <a href="./components/panels.html">Panels</a>
-                        </li>
-                        <li>
-                            <a href="./components/sweet-alert.html">Sweet Alert</a>
-                        </li>
-                        <li>
-                            <a href="./components/notifications.html">Notifications</a>
-                        </li>
-                        <li>
-                            <a href="./components/icons.html">Icons</a>
-                        </li>
-                        <li>
-                            <a href="./components/typography.html">Typography</a>
+                        <li class="userguide">
+                            <a href="userguide">
+                                <i class="material-icons">import_contacts</i>
+                                <p>User Guide</p>
+                            </a>
                         </li>
                     </ul>
                 </div>
-            </li>
-            <li>
-                <a data-toggle="collapse" href="#formsExamples">
-                    <i class="material-icons">content_paste</i>
-                    <p>Forms
-                        <b class="caret"></b>
-                    </p>
-                </a>
-                <div class="collapse" id="formsExamples">
-                    <ul class="nav">
-                        <li>
-                            <a href="./forms/regular.html">Regular Forms</a>
-                        </li>
-                        <li>
-                            <a href="./forms/extended.html">Extended Forms</a>
-                        </li>
-                        <li>
-                            <a href="./forms/validation.html">Validation Forms</a>
-                        </li>
-                        <li>
-                            <a href="./forms/wizard.html">Wizard</a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li>
-                <a data-toggle="collapse" href="#tablesExamples">
-                    <i class="material-icons">grid_on</i>
-                    <p>Tables
-                        <b class="caret"></b>
-                    </p>
-                </a>
-                <div class="collapse" id="tablesExamples">
-                    <ul class="nav">
-                        <li>
-                            <a href="./tables/regular.html">Regular Tables</a>
-                        </li>
-                        <li>
-                            <a href="./tables/extended.html">Extended Tables</a>
-                        </li>
-                        <li>
-                            <a href="./tables/datatables.net.html">DataTables.net</a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li>
-                <a data-toggle="collapse" href="#mapsExamples">
-                    <i class="material-icons">place</i>
-                    <p>Maps
-                        <b class="caret"></b>
-                    </p>
-                </a>
-                <div class="collapse" id="mapsExamples">
-                    <ul class="nav">
-                        <li>
-                            <a href="./maps/google.html">Google Maps</a>
-                        </li>
-                        <li>
-                            <a href="./maps/fullscreen.html">Full Screen Map</a>
-                        </li>
-                        <li>
-                            <a href="./maps/vector.html">Vector Map</a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li>
-                <a href="./widgets.html">
-                    <i class="material-icons">widgets</i>
-                    <p>Widgets</p>
-                </a>
-            </li>
-            <li>
-                <a href="./charts.html">
-                    <i class="material-icons">timeline</i>
-                    <p>Charts</p>
-                </a>
-            </li>
-            <li>
-                <a href="./calendar.html">
-                    <i class="material-icons">date_range</i>
-                    <p>Calendar</p>
-                </a>
             </li>
         </ul>
     </div>

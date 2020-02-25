@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <% include metadata %>
+</head>
+
+<body>
+    <div class="wrapper" id="main-view">
+        <% include sidebar %>
+        <div class="main-panel">
+            <% include header %>
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-10 col-md-offset-1">
+                            <div class="card card-plain">
+                                <div class="card-content" style="border:  5px solid rgb(216, 213, 209)!important" >
+                                    <div id="worldMap" class="map map-big"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>    
+                    <div class="row">
+                        <div class="col-md-offset-10">
+                            <button type="button" rel="tooltip" class="btn btn-success" data-original-title="" title="Add Factory">
+                                <i class="material-icons">add</i>
+                            </button>
+                            <button type="button" rel="tooltip" class="btn btn-danger" data-original-title="" title="Delete Factory">
+                                <i class="material-icons">close</i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class="table-bordered table text-primary">
+                                        <tr>
+                                            <th class="text-center">ID</th>
+                                            <th>Factory Name</th>
+                                            <th>Create TIme</th>
+                                            <th>Last Active</th>
+                                            <th>Longitude</th>
+                                            <th>Latitude</th>
+                                            <th>Status</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-center">1</td>
+                                            <td>Andrew Mike</td>
+                                            <td>Develop</td>
+                                            <td>2013</td>
+                                            <td class="text-right">€ 99,225</td>
+                                            <td class="td-actions text-right">
+                                                <button type="button" rel="tooltip" class="btn btn-info" data-original-title="" title="">
+                                                    <i class="material-icons">person</i>
+                                                </button>
+                                                <button type="button" rel="tooltip" class="btn btn-success" data-original-title="" title="">
+                                                    <i class="material-icons">edit</i>
+                                                </button>
+                                                <button type="button" rel="tooltip" class="btn btn-danger" data-original-title="" title="">
+                                                    <i class="material-icons">close</i>
+                                                </button>
+                                            </td>
+                                        </tr>         
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>      
+                </div>
+            </div>
+            <% include footer %>
+        </div>
+    </div>
+</body>
+<% include scripts %>
+<script type="text/javascript">
+    $(document).ready(function() {
+        // demo.initDashboardPageCharts();
+        demo.initVectorMap();
+    });
+</script>
+
+</html>

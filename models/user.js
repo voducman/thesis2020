@@ -9,7 +9,7 @@ let userSchema = mongoose.Schema({
         roles       : String,
         termCond    : Boolean,
         createdTime : { type: Date, default: Date.now },
-        avataLink   : String,
+        avatarLink   : String,
         company     : String,
         firstname   : String,
         lastname    : String,

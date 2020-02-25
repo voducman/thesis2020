@@ -19,26 +19,26 @@
                                     <i class="material-icons">perm_identity</i>
                                 </div>
                                 <div class="card-content">
-                                    <h4 class="card-title" data-toggle="tooltip" title="Click to edit your profile.">Edit Profile -
-                                        <small class="category">Complete your profile</small>
+                                    <h4 class="card-title" data-toggle="tooltip" title="Click to edit your profile."><%= langs.profile_edit %> -
+                                        <small class="category"><%= langs.profile_comp %></small>
                                     </h4>
                                     <form id="updateProfile" action="#" method="POST">
                                         <div class="row">
                                             <div class="col-md-5">
                                                 <div class="form-group label-floating">
-                                                    <label class="control-label">Company (at least 3)</label>
+                                                    <label class="control-label"><%= langs.profile_company %></label>
                                                     <input name="company" type="text" class="form-control" minlength="3" required value="<%= user.company %>">
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group label-floating">
-                                                    <label class="control-label">Username (at least 5)</label>
+                                                    <label class="control-label"><%= langs.profile_username %></label>
                                                     <input name="username" type="text" class="form-control" minlength="5" required value="<%= user.username %>">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group label-floating">
-                                                    <label class="control-label">Email address</label>
+                                                    <label class="control-label"><%= langs.profile_email %></label>
                                                     <input name="email" type="email" class="form-control" email="true" required value="<%= user.email %>">
                                                 </div>
                                             </div>
@@ -46,19 +46,19 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <div class="form-group label-floating">
-                                                    <label class="control-label">First Name</label>
+                                                    <label class="control-label"><%= langs.profile_firstname %></label>
                                                     <input name="firstname" type="text" class="form-control" required value="<%= user.firstname %>">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group label-floating">
-                                                    <label class="control-label">Last Name</label>
+                                                    <label class="control-label"><%= langs.profile_lastname %></label>
                                                     <input name="lastname" type="text" class="form-control" required value="<%= user.lastname %>">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group label-floating">
-                                                    <label class="control-label">Roles (Ex: Engineer/CEO)</label>
+                                                    <label class="control-label"><%= langs.profile_roles %></label>
                                                     <input name="roles" type="text" class="form-control" required value="<%= user.roles %>" >
                                                 </div>
                                             </div>
@@ -66,7 +66,7 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group label-floating">
-                                                    <label class="control-label">Adress</label>
+                                                    <label class="control-label"><%= langs.profile_adress %></label>
                                                     <input name="address" type="text" class="form-control" required value="<%= user.address %>"> 
                                                 </div>
                                             </div>
@@ -74,19 +74,19 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <div class="form-group label-floating">
-                                                    <label class="control-label">City</label>
+                                                    <label class="control-label"><%= langs.profile_city %></label>
                                                     <input name="city" type="text" class="form-control" required value="<%= user.city %>">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group label-floating">
-                                                    <label class="control-label">Country</label>
+                                                    <label class="control-label"><%= langs.profile_country %></label>
                                                     <input name="country" type="text" class="form-control" required value="<%= user.country %>">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group label-floating">
-                                                    <label class="control-label">Postal Code</label>
+                                                    <label class="control-label"><%= langs.profile_poscode %></label>
                                                     <input name="postalcode" type="text" class="form-control" required value="<%= user.postalCode %>">
                                                 </div>
                                             </div>
@@ -94,15 +94,15 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label>About Me (at least 10)</label>
+                                                    <label><%= langs.profile_aboutme %></label>
                                                     <div class="form-group label-floating">
-                                                        <label class="control-label"><b>Ex: </b>Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</label>
+                                                        <label class="control-label"><b><%= langs.profile_example %></b>Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</label>
                                                         <textarea class="form-control" name="aboutme" rows="5" minlength="10" required ><%= user.aboutMe %></textarea>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-rose pull-right">Update Profile</button>
+                                        <button type="submit" class="btn btn-rose pull-right"><%= langs.profile_btn_update %></button>
                                         <div class="clearfix"></div>
                                     </form>
                                 </div>
@@ -111,9 +111,15 @@
                         <div class="col-md-4">
                             <div class="card card-profile">
                                 <div class="card-avatar">
-                                    <a href="#pablo">
-                                        <img class="img" src="static/images/default-avatar-1.png" />
-                                    </a>
+                                    <% if (typeof user.avatarLink == "string") { %>
+                                        <a href="#">
+                                            <img class="img" src="<%= user.avatarLink %>" />
+                                        </a>
+                                    <% }else{ %>
+                                        <a href="#">
+                                            <img class="img" src="static/images/default-avatar-1.png" />
+                                        </a>
+                                    <% }      %>
                                 </div>
                                 <div class="card-content">
                                     <!-- show roles of user -->
@@ -138,16 +144,17 @@
                                 <% }      %>
                                     
                                     <input id="file-input" type="file" accept=".png, .jpg, .jpeg" class="hidden"></input>
-                                    <a id="change-avatar"  class="btn btn-rose btn-round" onclick="document.getElementById('file-input').click()">Change Avatar</a>
+                                    <a id="change-avatar"  class="btn btn-rose btn-round" onclick="document.getElementById('file-input').click()"><%= langs.profile_btn_change_avatar %></a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <% include footer %>
         </div>
     </div>
 </body>
-<% include footer %>
+<% include scripts %>
 <script src="/static/javascripts/profile.js"></script>
 </html>

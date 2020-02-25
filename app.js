@@ -10,6 +10,9 @@ const logger         = require('morgan');
 const session        = require('express-session');
 const flash          = require('connect-flash');
 const passport       = require('passport');
+/* support multi-languages ['en', 'vn'] */
+const i18n           = require("i18n-express"); 
+
 const configDB       = require('./config/database');
 const mongoose       = require('mongoose');
 const app            = express();
@@ -47,7 +50,15 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(flash());
+
+app.use(i18n({
+  translationsPath:  path.join(__dirname,'config'),
+  cookieLangName  : 'lang',
+  paramLangName   : 'lang',
+  defaultLang     : 'en',
+  siteLangs       : ['vn', 'en'],
+  textsVarName    : 'langs'
+}));
 
 app.use('/static',       express.static(path.join(__dirname, 'public')));
 app.use('/admin/static', express.static(path.join(__dirname, 'public')));

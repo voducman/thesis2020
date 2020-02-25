@@ -108,7 +108,7 @@ function showImageOnModal(img, data){
             contentType: false,
             data:  formdata,
             success: function(result){
-               
+        
                 swal({
                     title: 'Update avatar success',
                     text: "You clicked the button to reload Profile Page",

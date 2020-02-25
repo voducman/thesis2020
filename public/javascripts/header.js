@@ -2,14 +2,11 @@ let sessionUser;
 
 $(document).ready(function(){
     $.get("user/infor", function(data, status){
-        if (status == 'success'){
+
             console.log(data);
             sessionUser = data;
-            addLockScreen2Page(data.username,"static/assets/img/faces/avatar.jpg");
-        }else{
-            addLockScreen2Page("username","static/assets/img/faces/avatar.jpg");
-        }
-
+            addLockScreen2Page(data.username, data.avatarLink);
+    
         $("#btn-unlock").click(function(event){
 
             event.preventDefault();

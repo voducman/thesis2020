@@ -1,0 +1,19 @@
+{
+    "profile_edit":        "Edit Profile",
+    "profile_comp":        "Complete your profile",
+    "profile_company":     "Company (at least 3)",
+    "profile_username":    "Username (at least 5)",
+    "profile_email":       "Email address",
+    "profile_firstname":   "First Name",
+    "profile_lastname":    "Last Name",
+    "profile_roles":       "Roles (Ex: Engineer/CEO)",
+    "profile_address":     "Adress",
+    "profile_city":        "City",
+    "profile_country":     "Country",
+    "profile_poscode":     "Postal Code",
+    "profile_aboutme":     "About Me (at least 10)",
+    "profile_example":     "Ex: ",
+    "profile_btn_update":  "Update Profile",
+    "profile_btn_change_avatar":  "Change Avatar"
+
+}

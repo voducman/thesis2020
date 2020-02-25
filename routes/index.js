@@ -1,20 +1,27 @@
-const express  = require("express");
-const router   = express.Router();
-const mongoose = require('mongoose');
-const User     = require('../models/user');
+const express    = require("express");
+const router     = express.Router();
+const mongoose   = require('mongoose');
+const formidable = require('formidable');
+const util       = require('util');
+const User       = require('../models/user');
+const fs         = require('fs');
 
 
 const dbModel  = require("../models/databaseModel");
 const passport = require("passport");
 const utils    = require('../controller/Utils');
 
-router.get("/", isLoggedIn, function(req, res){
+router.get("/", utils.isLoggedIn, function(req, res){
   res.redirect('/dashboard');
 });
 
 router.get("/files/:name", function(req, res) {
   res.send(req.params.name);
 });
+
+router.get("/lang/:id", utils.isLoggedIn, function(req, res){
+  res.cookie('lang', req.params.id);
+})
 
 router.get("/register", function(req, res) {
   res.render("register");
@@ -62,40 +69,24 @@ router.get("/logout", function(req, res) {
   res.redirect("/");
 });
 
-router.get("/dashboard", isLoggedIn, function(req, res){
-  console.log('req.user ',req.user);
-  console.log('req.session ', req.session);
+router.get("/dashboard", utils.isLoggedIn, function(req, res){
+  const sessionUser = req.user.local;
 
-  const sessionUser = {
-    username: req.user.local.username,
-    email:    req.user.local.email
-  }
   res.render("dashboard", {title: "Advanced SCADA", user: sessionUser});
 })
 
 
-router.get("/profile", isLoggedIn, function(req, res){
-  let sessionUser;
+router.get("/profile", utils.isLoggedIn, function(req, res){
 
-  User.findById(req.user._id, function(error, document){
-    if (error){
-      res.render('error', {
-        code: 404,
-        content: "we are sorry, We could not find your data"
-      })
-
-    }else{
-      sessionUser = document.local;
+  let sessionUser = req.user.local;
       console.log(sessionUser);
       //res.send("success");
       res.render("profile",{title: "Advanced SCADA", user: sessionUser});
-    }
-  })
 
 })
 
 
-router.put("/profile/:command", isLoggedIn, function(req, res){
+router.put("/profile/:command", utils.isLoggedIn, function(req, res){
   
   console.log("PUT: /profile", req.body);
   const data = req.body;
@@ -115,16 +106,8 @@ router.put("/profile/:command", isLoggedIn, function(req, res){
       "local.postalCode"     : data.postalcode,
       "local.aboutMe"        : data.aboutme
      }
-  }else if (req.params.command === "updateAvatar"){
-    console.log("image upload: ", req.body);
-    updateDB = {
-      "local.avatarLink"     : data.avatarLink
-    }
-  }else{
-    res.status("500").end("command error");
-  }
-  
-  User.findOneAndUpdate({"_id": req.user._id},
+
+     User.findOneAndUpdate({"_id": req.user._id},
     { $set: updateDB },
     {new: true},
     function(error, result){
@@ -135,20 +118,55 @@ router.put("/profile/:command", isLoggedIn, function(req, res){
         console.log(result.local);
         res.send("success");
       }
-    }
-  )
+    })
+
+  }else if (req.params.command === "updateAvatar"){
+    console.log("PUT request image upload: ");
+
+    let form = new formidable.IncomingForm();
+    form.uploadDir = "public/avatar";
+    form.keepExtensions = true;
+    form.parse(req, function(err, fields, files) {
+      // change path to add database
+      const avatarLink = files.avatarImage.path.replace('public', 'static');
+      console.log('avatar link: ', avatarLink);
+
+      updateDB = {
+        "local.avatarLink"     : avatarLink
+      }
+
+      // Remove old avatar file in public folder
+      fs.unlink(req.user.local.avatarLink.replace('static', 'public'), function(error){
+        if (error) throw error;
+        console.log(req.user.local.avatarLink.replace('static', 'public'), ' was deleted');
+      });
+
+      User.findOneAndUpdate({ "_id": req.user._id },
+        { $set: updateDB },
+        { new: true },
+        function (error, result) {
+          if (error) {
+            res.send(error);
+          } else {
+            result.local.password = "";
+            console.log(result.local);
+            res.send("success");
+          }
+        })
+
+    });
+
+  }else{
+    res.status("500").end("command error");
+  }
 
 })
 
 
+router.get("/factory", utils.isLoggedIn, function(req, res){
+  let sessionUser = req.user.local;
 
-
-/******  Pravite functions  ******/
-function isLoggedIn(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect("/login");
-}
+  res.render('factory', {title: "Advanced SCADA", user: sessionUser});
+})
 
 module.exports = router;
