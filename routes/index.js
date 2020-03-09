@@ -19,10 +19,6 @@ router.get("/files/:name", function(req, res) {
   res.send(req.params.name);
 });
 
-router.get("/lang/:id", utils.isLoggedIn, function(req, res){
-  res.cookie('lang', req.params.id);
-})
-
 router.get("/register", function(req, res) {
   res.render("register");
 });
@@ -163,10 +159,16 @@ router.put("/profile/:command", utils.isLoggedIn, function(req, res){
 })
 
 
-router.get("/factory", utils.isLoggedIn, function(req, res){
+router.get("/gateway", utils.isLoggedIn, function(req, res){
   let sessionUser = req.user.local;
 
-  res.render('factory', {title: "Advanced SCADA", user: sessionUser});
+  res.render('gateway', {title: "Advanced SCADA", user: sessionUser});
 })
+
+router.get("/design", utils.isLoggedIn, function(req, res){
+  let sessionUser = req.user.local;
+  res.render('design', {title: "Advanced SCADA", user: sessionUser});
+})
+
 
 module.exports = router;

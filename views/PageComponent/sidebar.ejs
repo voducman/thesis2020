@@ -24,33 +24,25 @@ Tip 3: you can change the color of the sidebar with data-background-color="white
                 <% }      %>
             </div>
             <div class="info">
-                <a data-toggle="collapse" href="#collapseExample" class="collapsed">
+                <a data-toggle="collapse" href="#collapseUser" class="collapsed">
                     <%= user.username %>
                     <b class="caret"></b>
                 </a>
-                <div class="collapse" id="collapseExample"> 
+                <div class="collapse" id="collapseUser"> 
                     <ul class="nav">
-                        <li style="max-width: 170px; margin-left: 40px;">
-                            <a href="/profile">
-                                <i class="material-icons" style="margin-top: -5px;">edit</i>
-                                Edit Profile
+                        <li class="pull-left" style="margin-left: 45px;">
+                            <a href="/?lang=vn">
+                                <img class="flag" src="static/assets/img/flags/VN.png" >&nbsp;&nbsp;
+                                Vietnamese
                             </a>
                         </li>
-                        <li style="max-width: 170px; margin-left: 40px;">
-                            <a href="#collapseEx" class="collapsed" data-toggle="collapse" >
-                                <i class="material-icons" style="margin-top: -5px;">language</i>
-                                Languages
+                        <li class="pull-left" style="margin-left: 45px;">
+                            <!-- style="max-width: 170px; margin-left: 40px; text-align: left !important;" -->
+                            <a href="?lang=en">
+                                <img class="flag" src="static/assets/img/flags/US.png">&nbsp;&nbsp;
+                                English
                             </a>
-                            <div class="collapse" id="collapseEx">
-                                <ul class="nav">
-                                    <li> 
-                                        <a href="/?lang=vn" style="right: 30px;"><img class="flag" src="static/assets/img/flags/VN.png" >&nbsp;&nbsp;Vietnamese</a>
-                                    </li>
-                                    <li>
-                                        <a href="/?lang=en" style="right: 30px;"><img class="flag" src="static/assets/img/flags/US.png">&nbsp;&nbsp;English</a>
-                                    </li>
-                                </ul>
-                            </div>
+                           
                         </li>                   
                     </ul>
                 </div>
@@ -69,10 +61,16 @@ Tip 3: you can change the color of the sidebar with data-background-color="white
                     <p>Profile</p>
                 </a>
             </li>
-            <li class="factory">
-                <a href="./factory">
-                    <i class="material-icons">location_city</i>
-                    <p>Factory</p>
+            <li class="gateway">
+                <a href="./gateway">
+                    <i class="material-icons">settings_remote</i>
+                    <p>Gateway</p>
+                </a>
+            </li>
+            <li class="design">
+                <a href="./design">
+                    <i class="material-icons">category</i>
+                    <p>Design</p>
                 </a>
             </li>
             <li class="alarm">
