@@ -39,7 +39,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group label-floating">
                                                     <label class="control-label"><%= langs.profile_email %></label>
-                                                    <input name="email" type="email" class="form-control" email="true" required value="<%= user.email %>">
+                                                    <input name="email" type="email" class="form-control" email="true" required value="<%= user.email %>" disabled>
                                                 </div>
                                             </div>
                                         </div>
@@ -66,7 +66,7 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group label-floating">
-                                                    <label class="control-label"><%= langs.profile_adress %></label>
+                                                    <label class="control-label"><%= langs.profile_address %></label>
                                                     <input name="address" type="text" class="form-control" required value="<%= user.address %>"> 
                                                 </div>
                                             </div>

@@ -3,11 +3,10 @@ const router     = express.Router();
 const mongoose   = require('mongoose');
 const formidable = require('formidable');
 const util       = require('util');
-const User       = require('../models/user');
+const User       = require('../models/User');
 const fs         = require('fs');
 
 
-const dbModel  = require("../models/databaseModel");
 const passport = require("passport");
 const utils    = require('../controller/Utils');
 
@@ -92,7 +91,6 @@ router.put("/profile/:command", utils.isLoggedIn, function(req, res){
     updateDB = {
       "local.company"        : data.company,
       "local.username"       : data.username,
-      "local.email"          : data.email,
       "local.roles"          : data.roles,
       "local.firstname"      : data.firstname,
       "local.lastname"       : data.lastname,

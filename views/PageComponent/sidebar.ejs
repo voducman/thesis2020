@@ -1,4 +1,4 @@
-<div class="sidebar" data-active-color="rose" data-background-color="black" data-image="static/assets/img/sidebar-1.jpg">
+<div class="sidebar" data-active-color="blue" data-background-color="black" data-image="static/assets/img/sidebar-6.jpg">
     <!--
 Tip 1: You can change the color of active element of the sidebar using: data-active-color="purple | blue | green | orange | red | rose"
 Tip 2: you can also add an image using data-image tag
@@ -63,7 +63,7 @@ Tip 3: you can change the color of the sidebar with data-background-color="white
             </li>
             <li class="gateway">
                 <a href="./gateway">
-                    <i class="material-icons">settings_remote</i>
+                    <i class="material-icons">router</i>
                     <p>Gateway</p>
                 </a>
             </li>
@@ -73,21 +73,21 @@ Tip 3: you can change the color of the sidebar with data-background-color="white
                     <p>Design</p>
                 </a>
             </li>
-            <li class="alarm">
-                <a href="./alarm">
-                    <i class="material-icons">warning</i>
-                    <p>Alarm</p>
-                </a>
-            </li>
             <li>
-                <a data-toggle="collapse" href="#history">
+                <a data-toggle="collapse" href="#history" class="collapsed">
                     <i class="material-icons">history</i>
                     <p>History
                         <b class="caret"></b>
                     </p>
                 </a>
-                <div class="collapse in" id="history">
+                <div class="collapse" id="history">
                     <ul class="nav">
+                        <li class="alarm">
+                            <a href="./alarm">
+                                <i class="material-icons">warning</i>
+                                <p>Alarm</p>
+                            </a>
+                        </li>
                         <li class="trend">
                             <a href="/trend">
                                 <i class="material-icons">trending_up</i>
@@ -115,6 +115,36 @@ Tip 3: you can change the color of the sidebar with data-background-color="white
                     <p>Camera</p>
                 </a>
             </li>
+            <li>
+                <a data-toggle="collapse" href="#manager" class="collapsed">
+                    <i class="material-icons">list_alt</i>
+                    <p>Manager
+                        <b class="caret"></b>
+                    </p>
+                </a>
+                <div class="collapse" id="manager">
+                    <ul class="nav">
+                        <li class="list">
+                            <a href="./gateway/list">
+                                <i class="material-icons">router</i>
+                                <p>Gateway List</p>
+                            </a>
+                        </li>
+                        <li class="plc">
+                            <a href="./gateway/plc">
+                                <i class="material-icons">kitchen</i>
+                                <p>PLC List</p>
+                            </a>
+                        </li>
+                        <li class="tag">
+                            <a href="./gateway/tag">
+                                <i class="material-icons">style</i>
+                                <p>Tag List</p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
             <li class="report">
                 <a href="./report">
                     <i class="material-icons">chat</i>
@@ -122,13 +152,13 @@ Tip 3: you can change the color of the sidebar with data-background-color="white
                 </a>
             </li>
             <li>
-                <a data-toggle="collapse" href="#help">
+                <a data-toggle="collapse" href="#help" class="collapsed">
                     <i class="material-icons">live_help</i>
                     <p>Help
                         <b class="caret"></b>
                     </p>
                 </a>
-                <div class="collapse in" id="help">
+                <div class="collapse" id="help">
                     <ul class="nav">
                         <li class="aboutus">
                             <a href="/aboutus">

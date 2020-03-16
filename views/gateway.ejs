@@ -15,77 +15,609 @@
                     <div class="row">
                         <div class="col-md-10 col-md-offset-1">
                             <div class="card card-plain">
-                                <div class="card-content" style="border:  5px solid rgb(216, 213, 209)!important" >
+                                <div class="card-content" >
                                     <div id="worldMap" class="map map-big"></div>
                                 </div>
                             </div>
                         </div>
-                    </div>    
+                    </div>
                     <div class="row">
-                        <div class="col-md-offset-8">
-                            <button type="button" rel="tooltip" class="btn btn-success" data-original-title="" title="Add Gateway">
+                        <div class="col-md-3 col-md-offset-9 text-right" style="margin-bottom: -2%">
+                            <button type="button" rel="tooltip" class="btn btn-success" data-original-title=""
+                                title="Create New" onclick="addPopupCreateNew()">
                                 <i class="material-icons">add</i>
-                                Add Factory
+                                Add
                             </button>
-                            <button type="button" rel="tooltip" class="btn btn-danger" data-original-title="" title="Delete Gateway">
-                                <i class="material-icons">close</i>
-                                Delete Factory
+                            <button type="button" rel="tooltip" class="btn btn-danger" data-original-title=""
+                                title="Save Gateway">
+                                <i class="material-icons">save</i>
+                                Save
                             </button>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead class="table-bordered table text-primary">
-                                        <tr>
-                                            <th class="text-center">ID</th>
-                                            <th>Name</th>
-                                            <th>Create Time</th>
-                                            <th>Last Modify</th>
-                                            <th class="text-center">Num of Tag</th>
-                                            <th class="text-center">Status</th>
-                                            <th class="text-center">Action</th>
-                                    
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="text-center">01</td>
-                                            <td>Sabeco</td>
-                                            <td>25/15/2512 8:55</td>
-                                            <td>25/15/2512 8:55</td>
-                                            <td class="text-center">25</td>
-                                            <td class="text-center"><i class="material-icons">panorama_fish_eye</i></td>
-                                            <td class="td-actions text-center">
-                                                <button type="button" rel="tooltip" class="btn btn-danger" data-original-title="Gateway Info" title="">
-                                                    <i class="material-icons">info</i>
-                                                </button>
-                                                <button type="button" rel="tooltip" class="btn btn-success" data-original-title="Edit Gateway" title="">
-                                                    <i class="material-icons">edit</i>
-                                                </button>
-                                                <button type="button" rel="tooltip" class="btn btn-danger" data-original-title="Delete Gateway" title="">
-                                                    <i class="material-icons">close</i>
-                                                </button>
-                                            </td>
-                                        </tr>         
-                                    </tbody>
-                                </table>
-                            </div>
+                            <div class="card" style="background-color: #f3f9f7;">
+                                <!-- <div class="card-header card-header-icon" data-background-color="green">
+                                    <i class="material-icons">assignment</i>
+                                </div> -->
+                                <div class="card-content">
+                                    <!-- <h4 class="card-title">Gateway Table</h4> -->
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead style="background-color: #3fb0ac; font-weight: 900!important;">
+                                                <tr>
+                                                    <th class="text-center">ID</th>
+                                                    <th>Name</th>
+                                                    <th>Created Time</th>
+                                                    <th>Last Modified</th>
+                                                    <th class="text-center">PLCs</th>
+                                                    <th class="text-center">Tags</th>
+                                                    <th class="text-center">Status</th>
+                                                    <th class="text-center">Action</th>
+    
+                                                </tr>
+                                            </thead>
+                                            <tbody id="render-row">
+                                                <tr>
+                                                    <td class="text-center">01</td>
+                                                    <td>Sabeco</td>
+                                                    <td>25/15/2512 8:55</td>
+                                                    <td>25/15/2512 8:55</td>
+                                                    <td class="text-center">2</td>
+                                                    <td class="text-center">25</td>
+                                                    <td class="text-center"><i class="material-icons disconnected">lens</i>
+                                                    </td>
+                                                    <td class="td-actions text-center">
+                                                        <button type="button" rel="tooltip" class="btn btn-danger"
+                                                            data-original-title="Gateway Info" title=""
+                                                            data-toggle="collapse" data-target="#row-01">
+                                                            <i class="material-icons">info</i>
+                                                        </button>
+                                                        <button type="button" rel="tooltip" class="btn btn-success"
+                                                            data-original-title="Edit Gateway" title="" onclick="$('#showEditGateway').click()">
+                                                            <i class="material-icons">edit</i>
+                                                        </button>
+                                                        <button type="button" rel="tooltip" class="btn btn-danger"
+                                                            data-original-title="Delete Gateway" title="">
+                                                            <i class="material-icons">close</i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                <tr id="row-01" class="collapse" style="background-color: #dddfd4;">
+                                                    <td></td>
+                                                    <td colspan="8" rowspan="3">                                                      
+                                                            <table>
+                                                                <thead>
+                                                                    <caption>This is caption</caption>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr><th>1</th><th>2</th><th>3</th></tr>
+                                                                <tr><td>abc</td><td>abc</td><td>abc</td></tr>
+                                                                </tbody> 
+                                                            </table>                                                            
+                                                    </td>
+                                                </tr><tr></tr><tr></tr>                                             
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                         </div>
-                    </div>      
+                    </div>
+
                 </div>
             </div>
             <% include footer %>
         </div>
     </div>
+  
+
+    <button class="hidden" id="showEditGateway" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#editGateway">Open Modal</button>
+    <div class="modal fade" id="editGateway" tabindex="-1" role="dialog" aria-labelledby="Modal-label">
+        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <ul class="nav nav-pills nav-pills-rose nav-stacked">
+                                    <li class="active">
+                                        <a href="#tab1" data-toggle="tab" onclick="hiddenTable();">Gateway</a>
+                                    </li>
+                                    <li>
+                                        <a href="#tab2" data-toggle="tab" onclick="displayPLCTable();">Create PLC</a>
+                                    </li>
+                                    <li>
+                                        <a href="#tab3" data-toggle="tab" onclick="displayTagTable();">Create Tag</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="tab1">
+                                        <fieldset class="form-group table-bordered">
+                                            <legend style="width: auto; margin-left: 30px;">&nbsp;Gateway Info&nbsp;[01]</legend>
+                                            <div class="row">
+                                                <div class="col-md-6" style="margin-left: 5%;">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Name *</label>
+                                                    <input name="name" type="text" class="form-control" required>
+                                                </div>
+                                                </div>
+                                                <div class="col-md-4 col-md-offset-1">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">Scan Time *</label>
+                                                        <input name="scan-time" type="number" class="form-control" min="500" max="1000*3600" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-11" style="margin-left: 5%;">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Adress *</label>
+                                                    <input name="address" type="text" class="form-control" required>
+                                                </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-5" style="margin-left: 5%;">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">Longtitude *</label>
+                                                        <input name="longitude" type="number" class="form-control" required min="0" max="360" step="any">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-5 col-md-offset-1">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">Latitude *</label>
+                                                        <input name="latitude" type="number" class="form-control" required min="0" max="360" step="any">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-11" style="margin-left: 5%;">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">Description</label>
+                                                        <textarea name="description" type="text" class="form-control" rows="4"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="text-center">
+                                                    <button type="button" rel="tooltip" class="btn btn-success btn-round" data-original-title=""
+                                                        title="Save" onclick="">
+                                                        <i class="material-icons">save</i>
+                                                        Save Change
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                    
+                                    <div class="tab-pane" id="tab2" >
+                                        <fieldset class="form-group table-bordered">
+                                            <legend style="width: auto; margin-left: 30px;">
+                                                <a data-toggle="collapse" href="#collapsePLC" class="collapsed" style="color: #333;">
+                                                    &nbsp;Adding PLC&nbsp;
+                                                    <b class="caret"></b>
+                                                </a>
+                                                <!-- <button><i class="material-icons">keyboard_arrow_right</i></button> -->
+                                            </legend>
+                                            <div class="collapse" id="collapsePLC">
+                                                <div class="row form-group" style="margin: 10px;">
+                                                    <p class="col-md-4 text-gray">Producer:</p>
+                                                    <div class="col-md-8" style="margin-left: -20px; margin-top: -20px;">
+                                                        <select class="selectpicker" data-style="select-with-transition" title="State" data-size="3">
+                                                            <option value="siemens" selected>Siemens</option>
+                                                            <option value="schneider">Schneider</option>
+                                                            <option value="mitsubishi">Mitsubishi</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="row form-group" style="margin: 10px;">
+                                                    <p class="col-md-4 text-gray">PLC Type:</p>
+                                                    <div class="col-md-8" style="margin-left: -20px; margin-top: -20px;">
+                                                        <select class="selectpicker" data-style="select-with-transition" title="State" data-size="3">
+                                                            <option value="S7-300" selected>S7-300</option>
+                                                            <option value="s7-1200">S7-1200</option>
+                                                            <option value="s7-1500">S7-1500</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="row form-group" style="margin: 10px;">
+                                                    <p class="col-md-4 text-gray">Protocol:</p>
+                                                    <div class="col-md-8" style="margin-left: -20px; margin-top: -20px;">
+                                                        <select class="selectpicker" data-style="select-with-transition" title="State" data-size="3">
+                                                            <option value="modbus">Modbus</option>
+                                                            <option value="opcua">OPC UA </option>
+                                                            <option value="s7con">S7 Connection</option>
+                                                            <option value="profibus">Profibus</option>
+                                                            <option value="profibus">Profinet</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="row" style="margin: 10px">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group label-floating">
+                                                            <label class="control-label">PLC Name *</label>
+                                                            <input name="name" type="text" class="form-control" required minlength="7" maxlength="15">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group label-floating">
+                                                            <label class="control-label">IP Adress *</label>
+                                                            <input name="name" type="text" class="form-control" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-11" style="margin-left: 5%;">
+                                                        <div class="form-group label-floating">
+                                                            <label class="control-label">Description</label>
+                                                            <textarea name="description" type="text" class="form-control" rows="4"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="text-center">
+                                                        <button type="button" rel="tooltip" class="btn btn-success btn-round" data-original-title=""
+                                                            title="Create New" onclick="">
+                                                            <i class="material-icons">add_circle</i>
+                                                            Create New
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                        
+                                    </div>
+                                    <div class="tab-pane" id="tab3">
+                                        <fieldset class="form-group table-bordered">
+                                            <legend style="width: auto; margin-left: 30px;">
+                                                <a data-toggle="collapse" href="#collapseTag" class="collapsed" style="color: #333;">
+                                                    &nbsp;Adding Tag&nbsp;
+                                                    <b class="caret"></b>
+                                                </a>
+                                            </legend>
+                                            <div class="collapse" id="collapseTag">
+                                                <div class="row">
+                                                    <label style="margin-left: 5%;" class="text-gray">Tag Preview: &nbsp;</label><i
+                                                        id="tag-preview">gateway_name/PLC_name/tag_name</i>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-7">
+                                                        <div class="row form-group">
+                                                            <p class="col-md-2 text-gray">Type:</p>
+                                                            <div class="col-md-5" style="margin-top: -20px; margin-left: -5px;">
+                                                                <select class="selectpicker" data-style="select-with-transition" title="State" data-size="2">
+                                                                    <option value="external" selected>External</option>
+                                                                    <option value="internal">Internal</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row form-group" style="margin-top: 10px;">
+                                                            <div class="col-md-12">
+                                                                <div class="row">
+                                                                    <p class="col-md-3 text-gray">PLC:</p>
+                                                                    <div class="col-md-4 col-md-pull-1" style="margin-top: -20px;">
+                                                                        <select name="select-plc" class="selectpicker" data-style="select-with-transition" title="State"
+                                                                            data-size="5" data-live-search="true">
+                                                                            <option value="plc1" selected>Honda</option>
+                                                                            <option value="plc2">Yamaha</option>
+                                                                            <option value="plc3">Vinfast</option>
+                                                                            <option value="plc4">Toshiba</option>
+                                                                            <option value="plc5">Runker</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="col-md-5" style="margin-top: -32px;">
+                                                                        <div class="form-group label-floating">
+                                                                            <label class="control-label">Name *</label>
+                                                                            <input name="name" type="text" class="form-control" minlength="4" required>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row form-group" style="margin-top: 0;">
+                                                            <div class="col-md-5">
+                                                                <div class="form-group label-floating">
+                                                                    <label class="control-label">Scale</label>
+                                                                    <input name="scale" type="number" class="form-control" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-5 col-md-offset-2">
+                                                                <div class="form-group label-floating">
+                                                                    <label class="control-label">Offset</label>
+                                                                    <input name="offset" type="number" class="form-control" required>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row form-group" style="margin-top: 0;">
+                                                            <div class="col-md-5">
+                                                                <div class="form-group label-floating">
+                                                                    <label class="control-label">Minimum</label>
+                                                                    <input name="minimum" type="number" class="form-control" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-5 col-md-offset-2">
+                                                                <div class="form-group label-floating">
+                                                                    <label class="control-label">Maximum</label>
+                                                                    <input name="maximum" type="number" class="form-control" required>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row form-group" style="margin-top: 10px;">
+                                                            <div class="col-md-12">
+                                                                <div class="row">
+                                                                    <p class="col-md-4 text-gray">Data Type:</p>
+                                                                    <div class="col-md-3 col-md-pull-1" style="margin-top: -20px;">
+                                                                        <select name="select-datatype" class="selectpicker" data-style="select-with-transition" title="State"
+                                                                            data-size="5" data-live-search="true">
+                                                                            <option value="int" selected>INT</option>
+                                                                            <option value="word">WORD</option>
+                                                                            <option value="dword">DWORD</option>
+                                                                            <option value="real">REAL</option>
+                                                                            <option value="bool">BOOL</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="col-md-5" style="margin-top: -32px;">
+                                                                        <div class="form-group label-floating">
+                                                                            <label class="control-label">Unit</label>
+                                                                            <input name="unit" type="text" class="form-control">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <div class="row form-group">
+                                                            <div class="col-md-10">
+                                                                <div class="checkbox">
+                                                                    <label>
+                                                                        <input type="checkbox" id="alarm-enable" name="alarm-checkbox"
+                                                                            onchange="showAlarmInput()"><span class="checkbox-material"></span> Alarm
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row form-group" style="height:50px; margin: -20px 20px 0 20px; opacity: 0.4;">
+                                                            <div class="form-group label-floating">
+                                                                <label class="control-label">HIHI *</label>
+                                                                <input name="alarm-hihi" type="number" class="form-control alarm-" disabled required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row form-group" style="height:50px; margin: 0 20px; opacity: 0.4;">
+                                                            <div class="form-group label-floating">
+                                                                <label class="control-label">HI *</label>
+                                                                <input name="alarm-hi" type="number" class="form-control alarm-" disabled required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row form-group" style="height:50px; margin: 0 20px; opacity: 0.4;">
+                                                            <div class="form-group label-floating">
+                                                                <label class="control-label">LOW *</label>
+                                                                <input name="alarm-low" type="number" class="form-control alarm-" disabled required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row form-group" style="height:50px; margin: 0 20px; opacity: 0.4;">
+                                                            <div class="form-group label-floating">
+                                                                <label class="control-label">LOWLOW *</label>
+                                                                <input name="alarm-lowlow" type="number" class="form-control alarm-" disabled required>
+                                                            </div>
+                                                        </div>
+                                        
+                                                        <div class="row form-group">
+                                                            <div class="col-md-10">
+                                                                <div class="checkbox">
+                                                                    <label>
+                                                                        <input type="checkbox" id="trend-enable" name="trend-checkbox"><span
+                                                                            class="checkbox-material"></span> History
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row form-group">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group label-floating">
+                                                            <label class="control-label">Memory Address *</label>
+                                                            <input name="m-address" type="text" class="form-control" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group label-floating">
+                                                            <label class="control-label">Deadband *</label>
+                                                            <input name="deadband" type="number" class="form-control" min="0" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row form-group">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group label-floating">
+                                                            <label class="control-label">Description</label>
+                                                            <textarea name="description" type="text" class="form-control" rows="4"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="text-center">
+                                                        <button type="button" rel="tooltip" class="btn btn-success btn-round" data-original-title=""
+                                                            title="Create New" onclick="">
+                                                            <i class="material-icons">add_circle</i>
+                                                            Create New
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row hidden" id="PLC-table">
+                            <fieldset class="form-group table-bordered">
+                                <legend style="width: auto; margin-left: 30px;">
+                                    <a data-toggle="collapse" href="#collapsePLC-table" class="collapsed" style="color: #333;">
+                                        &nbsp;PLCs Table&nbsp;
+                                        <b class="caret"></b>
+                                    </a>
+                                    <!-- <button><i class="material-icons">keyboard_arrow_right</i></button> -->
+                                </legend>
+                                <div class="collapse" id="collapsePLC-table">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="card" style="background-color: #f3f9f7; margin-top: 0;">
+                                                <div class="card-content">
+                                                    <div class="table-responsive">
+                                                        <table class="table" style="font-size: small;">
+                                                            <thead style="background-color: #a4a4a4; font-weight: 900!important;">
+                                                                <tr>
+                                                                    <th class="text-center">ID</th>
+                                                                    <th class="text-center">Name</th>
+                                                                    <th class="text-center">Producer</th>
+                                                                    <th class="text-center">Type</th>
+                                                                    <th class="text-center">Protocol</th>
+                                                                    <th class="text-center">Tag</th>
+                                                                    <th class="text-center">IP Adress</th>
+                                                                    <th class="text-center">Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="render-row">
+                                                                <tr>
+                                                                    <td class="text-center">01</td>
+                                                                    <td class="text-center">Sabeco</td>
+                                                                    <td class="text-center">Siemens</td>
+                                                                    <td class="text-center">S7-1200</td>
+                                                                    <td class="text-center">S7-Connection</td>
+                                                                    <td class="text-center">25</td>
+                                                                    <td class="text-center">192.168.100.1</td>
+                                                                    </td>
+                                                                    <td class="td-actions text-center">
+                                                                        <button type="button" rel="tooltip" class="btn btn-success"
+                                                                            data-original-title="Edit PLC" title="">
+                                                                            <i class="material-icons">edit</i>
+                                                                        </button>
+                                                                        <button type="button" rel="tooltip" class="btn btn-danger"
+                                                                            data-original-title="Delete PLC" title="">
+                                                                            <i class="material-icons">close</i>
+                                                                        </button>
+                                                                    </td>
+                                                                </tr>             
+                                                                
+                                                                <tr>
+                                                                    <td class="text-center">02</td>
+                                                                    <td class="text-center">Vinfast</td>
+                                                                    <td class="text-center">Siemens</td>
+                                                                    <td class="text-center">S7-300</td>
+                                                                    <td class="text-center">Modbus</td>
+                                                                    <td class="text-center">17</td>
+                                                                    <td class="text-center">192.168.100.2</td>
+                                                                    </td>
+                                                                    <td class="td-actions text-center">
+                                                                        <button type="button" rel="tooltip" class="btn btn-success"
+                                                                            data-original-title="" title="EDIT">
+                                                                            <i class="material-icons">edit</i>
+                                                                        </button>
+                                                                        <button type="button" rel="tooltip" class="btn btn-danger"
+                                                                            data-original-title="" title="DELETE">
+                                                                            <i class="material-icons">close</i>
+                                                                        </button>
+                                                                    </td>
+                                                                </tr>              
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                            
+                                    </div>
+                            </fieldset>
+                        </div>
+
+                        <div class="row hidden" id="Tag-table">
+                            <fieldset class="form-group table-bordered">
+                                <legend style="width: auto; margin-left: 30px;">
+                                    <a data-toggle="collapse" href="#collapseTag-table" class="collapsed" style="color: #333;">
+                                        &nbsp;Tags Table&nbsp;
+                                        <b class="caret"></b>
+                                    </a>
+                                    <!-- <button><i class="material-icons">keyboard_arrow_right</i></button> -->
+                                </legend>
+                                <div class="collapse" id="collapseTag-table">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="card" style="background-color: #f3f9f7; margin-top: 0;">
+                                                <div class="card-content">
+                                                    <div class="table-responsive">
+                                                        <table class="table" style="font-size: small;">
+                                                            <thead style="background-color: #a4a4a4; font-weight: 900!important;">
+                                                                <tr>
+                                                                    <th class="text-center">ID</th>
+                                                                    <th class="text-center">Name</th>
+                                                                    <th class="text-center">Type</th>
+                                                                    <th class="text-center">Unit</th>
+                                                                    <th class="text-center">Address</th>
+                                                                    <th class="text-center">Data Type</th>
+                                                                    <th class="text-center">History</th>
+                                                                    <th class="text-center">Alarm</th>
+                                                                    <th class="text-center">Action</th>
+                            
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="render-row">
+                                                                <tr>
+                                                                    <td class="text-center">01</td>
+                                                                    <td class="text-center">Pump_Control</td>
+                                                                    <td class="text-center">EXTERNAL</td>
+                                                                    <td class="text-center">---</td>
+                                                                    <td class="text-center">M1.0</td>
+                                                                    <td class="text-center">BOOL</td>
+                                                                    <td class="text-center">TRUE</td>
+                                                                    <td class="text-center">FALSE</td>
+                                                                    <td class="td-actions text-center">
+                                                                        <button type="button" rel="tooltip" class="btn btn-success"
+                                                                            data-original-title="" title="EDIT">
+                                                                            <i class="material-icons">edit</i>
+                                                                        </button>
+                                                                        <button type="button" rel="tooltip" class="btn btn-danger"
+                                                                            data-original-title="" title="DELETE">
+                                                                            <i class="material-icons">close</i>
+                                                                        </button>
+                                                                    </td>
+                                                                </tr>
+                            
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                            
+                                    </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <!-- <button type="button" id="save-btn" class="btn btn-success btn-round" onclick="console.log('save button is clicked.')">&nbsp;Save&nbsp;</button> -->
+                <button type="button" class="btn btn-danger btn-round" data-dismiss="modal" onclick="removeEditGateway()">Close</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
 </body>
 <% include scripts %>
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
         // demo.initDashboardPageCharts();
         demo.initVectorMap();
     });
 </script>
+<script type="text/javascript" src="/static/javascripts/gateway.js"></script>
 
 </html>
