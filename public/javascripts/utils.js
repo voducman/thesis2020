@@ -11,7 +11,8 @@ function showNotification(from, align, type, message){
         placement: {
             from: from,
             align: align
-        }
+        },
+        z_index: 2000,
     });
 };
 
@@ -32,3 +33,32 @@ function fortmatTime(time){
     // console.log("Current pathname is: ", route);
     $(`.${route}`).addClass("active");
 })();
+
+
+/** 
+ * @summary to look-up a beautiful text from rough text
+ * @example Message("s7") return: "ETHERNET S7" | Message("modbus") return "MODBUS TCP"
+ */
+
+ function Message(text){
+    const table = {
+        "s7": "ETHERNET S7",
+        "modbus": "MODBUS TCP",
+        "opcua": "OPC UA",
+        "siemens": "SIEMENS",
+        "schneider": "SCHNEIDER",
+        "mitsubishi": "MITSUBISHI",
+        "s7-300": "S7-300",
+        "s7-1200": "S7-1200",
+        "s7-1500": "S7-1500",
+
+        "1": "TRUE",
+        "true": "TRUE",
+        "0": "FALSE",
+        "false": "FALSE"
+
+    }
+
+    let result = table[text] || text;
+    return result;
+ }

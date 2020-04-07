@@ -705,7 +705,7 @@ demo = {
             $('#worldMap').vectorMap({
                 map: 'world_mill_en',
                 backgroundColor: "transparent",
-                zoomOnScroll: false,
+                zoomOnScroll: true,
                 regionStyle: {
                     initial: {
                         fill: '#e4e4e4',
