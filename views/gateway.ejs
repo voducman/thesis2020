@@ -11,6 +11,18 @@
         <div class="main-panel">
             <% include header %>
             <div class="content" style="padding-bottom: 0;">
+                <div class="col-md-3 col-md-offset-9 text-right" style="margin-bottom: -2%">
+                    <button type="button" rel="tooltip" class="btn btn-info btn-round" data-original-title=""
+                        title="Create New" onclick="addPopupCreateNew()">
+                        <i class="material-icons">note_add</i>
+                        Create New
+                    </button>
+                    <!-- <button type="button" rel="tooltip" class="btn btn-danger" data-original-title=""
+                        title="Save Gateway" onclick="putGatewaytoDatabase()">
+                        <i class="material-icons">save</i>
+                        Save
+                    </button> -->
+                </div>
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-10 col-md-offset-1">
@@ -22,18 +34,18 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-3 col-md-offset-9 text-right" style="margin-bottom: -2%">
-                            <button type="button" rel="tooltip" class="btn btn-success" data-original-title=""
+                        <!-- <div class="col-md-3 col-md-offset-9 text-right" style="margin-bottom: -2%">
+                            <button type="button" rel="tooltip" class="btn btn-success btn-round" data-original-title=""
                                 title="Create New" onclick="addPopupCreateNew()">
-                                <i class="material-icons">add</i>
-                                Add
+                                <i class="material-icons">note_add</i>
+                                Create New
                             </button>
                             <button type="button" rel="tooltip" class="btn btn-danger" data-original-title=""
                                 title="Save Gateway" onclick="putGatewaytoDatabase()">
                                 <i class="material-icons">save</i>
                                 Save
-                            </button>
-                        </div>
+                            </button> 
+                        </div> -->
                     </div>
                     <div class="row">
                         <div class="col-md-12">
@@ -79,8 +91,8 @@
         demo.initVectorMap();
     });
 </script>
-<script type="text/javascript" src="/static/javascripts/ipaddr.min.js"></script>
-<script type="text/javascript" src="/static/javascripts/gateway.js"></script>
-<script type="text/javascript" src="/static/javascripts/gateway_edit_gateway.js"></script>
-
+<!-- <script type="text/javascript" src="/static/javascripts/ipaddr.min.js"></script>
+<script type="text/javascript" src="/static/javascripts/gateway.nobundle.js"></script>
+<script type="text/javascript" src="/static/javascripts/gatewayEdit.nobundle.js"></script> -->
+<script type="text/javascript" src="/static/javascripts/gateway.bundle.js"></script>
 </html>

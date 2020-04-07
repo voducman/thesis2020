@@ -176,6 +176,7 @@ router.put("/gateway/save", utils.isLoggedIn, function(req, res){
     internal: JSON.parse(req.body.internal),
   }
 
+
   Gateway.findOneAndUpdate({email: email}, {"data": data}, function(err, doc){
       if (err){
         console.log(err);
@@ -204,6 +205,7 @@ router.get("/gateway/fetch", utils.isLoggedIn, function(req, res){
     }else{
       console.log("query success: ", doc);
       res.send(doc);
+      
     }
   })
 })
