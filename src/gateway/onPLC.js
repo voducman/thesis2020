@@ -1,4 +1,8 @@
 import {showNotification, Message, fortmatTime} from '../utils';
+import IPaddr  from 'ip-validator';
+import Gateway from './Gateway';
+import PLC     from './PLC';
+import Tag     from './Tag';
 
 window.changePLCList = function () {
     let producer = $('#plc-producer').val();
@@ -75,7 +79,7 @@ window.createNewPLC = function(id){
         error = true;
         $('#plc-name').parent().addClass('has-error');
     }
-    if (!ipaddr.isValid(IPaddrress.trim())){
+    if (!IPaddr.ipv4(IPaddrress.trim())){  
         error = true;
         $('#plc-address').parent().addClass('has-error');
     }
@@ -119,7 +123,7 @@ window.updatePLC = function(id, name){
     if (type.trim() == "" || type == undefined){
         error = true;
     }
-    if (!ipaddr.isValid(IPaddrress.trim())){
+    if (!IPaddr.ipv4(IPaddrress.trim())){
         error = true;
         $('#plc-address').parent().addClass('has-error');
     }

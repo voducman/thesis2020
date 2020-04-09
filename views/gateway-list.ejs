@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <% include metadata %>
+</head>
+
+<body>
+    <div class="wrapper" id="main-view">
+        <% include sidebar %>
+        <div class="main-panel">
+            <% include header %>
+            <div class="content" style="padding-bottom: 0;">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card" style="background-color: #f3f9f7;">                               
+                                <div class="card-content">
+                                    <div class="table-responsive">
+                                        <table class="table" style="font-size: small;">
+                                            <thead style="background-color: #3caea3; font-weight: 900!important;">
+                                                <tr>
+                                                    <th class="text-center">#</th>
+                                                    <th class="text-center">ID</th>
+                                                    <th class="text-center">Name</th>
+                                                    <th class="text-center">Latitude</th>
+                                                    <th class="text-center">Longitude</th>
+                                                    <th class="text-center">PLCNum</th>
+                                                    <th class="text-center">TagNum</th>
+                                                    <th class="text-center">Created Time</th>
+                                                    <th class="text-center">Last Modified</th>
+                                                    <th class="text-center">Status</th>
+                                                    <th class="text-center">Des/Pos</th>
+                                                
+                                                </tr>
+                                            </thead>
+                                            <tbody id="render-table">
+                                            
+                                            </tbody>
+                                        </table>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <ul class="pagination pagination-info" id="pagination">
+                                                    <p>Showing 1 to * of * entries</p>
+                                                </ul>
+                                            </div>
+                                            <div class="col-md-3 col-md-offset-6 text-right">
+                                                <ul class="pagination pagination-info">
+                                                    <li>
+                                                        <a href="javascript:void(0);" id="first"><<</a>
+                                                    </li>
+                                                    <li class="active">
+                                                        <a href="javascript:void(0);" id="back">1</a>
+                                                    </li>
+                                                    <li class="">
+                                                        <a href="javascript:void(0);" id="current">2</a>
+                                                    </li>
+                                                    <li class="">
+                                                        <a href="javascript:void(0);" id="next">3</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="javascript:void(0);" id="last">>></a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <% include footer %>
+        </div>
+    </div>
+
+</body>
+<% include scripts %>
+
+<script type="text/javascript" src="/static/javascripts/gatewayList.bundle.js"></script>
+
+</html>

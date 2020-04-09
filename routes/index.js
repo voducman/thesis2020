@@ -123,7 +123,7 @@ router.put("/profile/:command", utils.isLoggedIn, function(req, res){
     form.keepExtensions = true;
     form.parse(req, function(err, fields, files) {
       // change path to add database
-      const avatarLink = files.avatarImage.path.replace('public', 'static');
+      const avatarLink = files.avatarImage.path.replace('public', '/static');
       console.log('avatar link: ', avatarLink);
 
       updateDB = {
@@ -208,6 +208,24 @@ router.get("/gateway/fetch", utils.isLoggedIn, function(req, res){
       
     }
   })
+})
+
+router.get("/gateway/list", utils.isLoggedIn, function(req, res){
+  const sessionUser = req.user.local;
+
+  res.render("gateway-list", {title: "Advanced SCADA", user: sessionUser});
+})
+
+router.get("/gateway/plc", utils.isLoggedIn, function(req, res){
+  const sessionUser = req.user.local;
+
+  res.render("gateway-plc", {title: "Advanced SCADA", user: sessionUser});
+})
+
+router.get("/gateway/tag", utils.isLoggedIn, function(req, res){
+  const sessionUser = req.user.local;
+
+  res.render("gateway-tag", {title: "Advanced SCADA", user: sessionUser});
 })
 
 

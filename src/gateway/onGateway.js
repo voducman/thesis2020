@@ -1,4 +1,5 @@
 import {showNotification, fortmatTime, Message} from '../utils';
+import vectorMap          from './vectorMap';
 import Gateway            from './Gateway';
 import PLC                from './PLC';
 import Tag                from './Tag';
@@ -51,8 +52,10 @@ window.createGateway = function(){
 
     let gateway = new Gateway(id, name, long, lat, addrr, des, scanTime);
     data.external.push(gateway);
+    showNotification('top', 'right', 'success', "Adding Gateway is success");
     // Render a row of new gateway to table
     renderRow(gateway, data.external.length);
+    vectorMap.renderVectorMap();
 }
 
 window.updateGateway = function(id){
@@ -99,8 +102,10 @@ window.updateGateway = function(id){
     console.log("update gateway success in data")
     // Render a row of new gateway to table
     reRenderRow(`gateway-${id}`, gateway, index+1);
+    vectorMap.renderVectorMap();
     showNotification('top', 'right', 'success', "Update Gateway is success");
 }
+
 
 window.deleteGateway = function(id){
     console.log(data.external);
@@ -123,6 +128,7 @@ window.deleteGateway = function(id){
         data.external.forEach(function(gateway, index){
             renderRow(gateway, index+1);
         })
+        vectorMap.renderVectorMap();
 
         swal({
             title: 'Deleted!',
@@ -183,15 +189,27 @@ window.renderRow = function(gateway, index){
         <tr id="row-${index}" class="collapse" style="background-color: #dddfd4;">
             <td></td>
             <td colspan="7" rowspan="3">                                                      
-                    <table>
-                        <thead>
-                            <caption>This is caption</caption>
-                        </thead>
-                        <tbody>
-                            <tr><th>1</th><th>2</th><th>3</th></tr>
-                        <tr><td>abc</td><td>abc</td><td>abc</td></tr>
-                        </tbody> 
-                    </table>                                                            
+                <div class="row">
+                    <div class="col-md-4"><b>ID</b>:  ${gateway.id}</div>
+                    <div class="col-md-4"><b>Name</b>:  ${gateway.name}</div>
+                    <div class="col-md-4"><b>Scan Time</b>:  ${gateway.scanTime}</div>
+                </div>  
+                <div class="row">
+                    <div class="col-md-4"><b>Latitude</b>:  ${gateway.latitude}</div>
+                    <div class="col-md-4"><b>Longitude</b>:  ${gateway.longitude}</div>
+                    <div class="col-md-4"><b>Create Time</b>:  ${fortmatTime(gateway.createdTime)}</div>
+                </div>  
+                <div class="row">
+                    <div class="col-md-4"><b>Number PLC</b>:  ${gateway.PLCnum}</div>
+                    <div class="col-md-4"><b>Number Tag</b>:  ${gateway.Tagnum}</div>
+                    <div class="col-md-4"><b>Modified Time</b>:  ${fortmatTime(gateway.modified)}</div>
+                </div>  
+                <div class="row">
+                    <div class="col-md-12"><b>Position</b>:  ${gateway.position}</div>
+                </div> 
+                <div class="row">
+                    <div class="col-md-12"><b>Description</b>:  ${gateway.description}</div>
+                </div>                                                       
             </td>
         </tr>
         <tr></tr>

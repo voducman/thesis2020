@@ -29,7 +29,7 @@ window.addPopupCreateNew = function(){
                     <div class="row form-group">
                         <div class="col-md-11">
                         <div class="form-group label-floating is-empty">
-                            <label class="control-label">Adress * (Ex: <i>197 Ly Thuong Kiet, District 10, Ho Chi Minh City, Vietnam</i>)</label>
+                            <label class="control-label">Adress * (Ex: <i>District 10, HCMC, Vietnam</i>)</label>
                             <input name="address" type="text" class="form-control" required tabindex="3">
                         </div>
                         </div>

@@ -21,11 +21,11 @@ Gateway.prototype.updatePLCnTag = function(){
     this.PLCnum = this.PLCs.length;
 
     if (this.PLCs.length > 0){
-        this.Tagnum = this.PLCs.forEach(function(plc, index){
+        this.PLCs.forEach(function(plc, index){
             tagCount += plc.Tags.length;
         });
     }
-    
+    this.Tagnum = tagCount;
 }
 
 Gateway.prototype.getPLCByName = function(name){

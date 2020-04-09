@@ -689,21 +689,19 @@ demo = {
 
     initVectorMap: function(){
          var mapData = {
-                "AU": 760,
-                "BR": 550,
-                "CA": 120,
-                "DE": 1300,
-                "FR": 540,
-                "GB": 690,
-                "GE": 200,
-                "IN": 200,
-                "RO": 600,
-                "RU": 300,
-                "US": 2920,
+                'VN': 50,
+                'CN': 20,
+                'IQ': 25,
+                'JP': 15,
+                'KR': 30,
+                'IN': 25,
+                'MY': 10,
+                'KZ': 20,
+                'SA': 15
             };
 
             $('#worldMap').vectorMap({
-                map: 'world_mill_en',
+                map: 'asia_mill',
                 backgroundColor: "transparent",
                 zoomOnScroll: true,
                 regionStyle: {
@@ -723,6 +721,19 @@ demo = {
                         normalizeFunction: 'polynomial'
                     }]
                 },
+                markerStyle: {
+                    initial: {
+                      fill: '#F8E23B',
+                      stroke: '#383f47'
+                    }
+                  },
+                markers: [
+                    {latLng: [41.90, 12.45], name: 'Vatican City'},
+                    {latLng: [43.73, 7.41], name: 'Monaco'},
+                    {latLng: [-0.52, 166.93], name: 'Nauru'},
+                    {latLng: [-8.51, 179.21], name: 'Tuvalu'},
+                    {latLng: [43.93, 12.46], name: 'San Marino'},
+                  ]
             });
 	},
 

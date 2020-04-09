@@ -6,7 +6,7 @@ function Tag(name, scale, offset, min, max, des, unit, memAddrr, dataType, dband
     this.minimum = min;
     this.maximum = max;
     this.description = des;
-    this.unit = unit;
+    this.unit = unit; 
     this.memoryAdd = memAddrr;
     this.dataType = dataType;
     this.deadband = (!isNaN(dband))? dband:0;

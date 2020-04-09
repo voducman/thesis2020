@@ -4,14 +4,21 @@ require('./addPopupNewGW');
 require('./onGateway');
 require('./onPLC');
 require('./onTag');
+require('./save2DB')
 
-const Gateway = require('./Gateway');
-const PLC     = require('./PLC');
-const Tag     = require('./Tag');
+const Gateway   = require('./Gateway');
+const PLC       = require('./PLC');
+const Tag       = require('./Tag');
+const vectorMap = require('./vectorMap');
 const initDataFromDB = require('./initData');
 
 
 initDataFromDB();
+
+vectorMap.renderVectorMap();
+setTimeout(function(){
+    vectorMap.renderVectorMap();
+}, 1000)
 
 // Display PLC table in Edit Gateway popup
 window.displayPLCTable = function(){

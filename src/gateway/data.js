@@ -53,6 +53,18 @@ window.data = {
         console.log(this.external);
     },
 
+    getListGateway: function(){
+        let list = this.external.map((gateway) => {
+            gateway.updatePLCnTag();
+            return {
+                name: `GW: ${gateway.name} [PLC: ${gateway.PLCnum} | Tag: ${gateway.Tagnum}]`,
+                latLng: [gateway.latitude, gateway.longitude]      
+            }
+        })
+        console.log(list)
+        return list;
+    },
+
     isDuplicatePLC: function(id, newPLC){
         let result = false;
 

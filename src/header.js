@@ -1,7 +1,7 @@
 let sessionUser;
 
 $(document).ready(function(){
-    $.get("user/infor", function(data, status){
+    $.get("/user/infor", function(data, status){
 
             console.log(data);
             sessionUser = data;
@@ -28,7 +28,7 @@ $(document).ready(function(){
                 })
         })
     }).fail(function(){
-        addLockScreen2Page("username","static/assets/img/faces/avatar.jpg");
+        addLockScreen2Page("username","/static/assets/img/faces/avatar.jpg");
     })
 })
 
@@ -51,7 +51,7 @@ $("#lockscreen").click(function(){
 function addLockScreen2Page(username, avatarLink){
     $("body").append($.parseHTML(`
         <div class="wrapper wrapper-full-page hidden" id="lock-view">
-            <div class="full-page lock-page" filter-color="black" data-image="static/assets/img/lock.jpeg">
+            <div class="full-page lock-page" filter-color="black" data-image="/static/assets/img/lock.jpeg">
                 <!--   you can change the color of the filter page using: data-color="blue | green | orange | red | purple" -->
                 <div class="content">
                     <form method="POST" action="#">

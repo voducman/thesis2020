@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("// Get active class in sidebar\n(function(){\n    let route = location.pathname.replace('/','');\n    // console.log(\"Current pathname is: \", route);\n    $(`.${route}`).addClass(\"active\");\n})();\n\n\n//# sourceURL=webpack:///./src/sidebar.js?");
+eval("// Get active class in sidebar\n(function(){\n    let route = location.pathname.split('/');\n    route = route[route.length-1];\n    // console.log(\"Current pathname is: \", route);\n    $(`.${route}`).addClass(\"active\");\n})();\n\n\n//# sourceURL=webpack:///./src/sidebar.js?");
 
 /***/ })
 

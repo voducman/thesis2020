@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <% include metadata %>
+</head>
+
+<body>
+    <div class="wrapper" id="main-view">
+        <% include sidebar %>
+        <div class="main-panel">
+            <% include header %>
+            <div class="content" style="padding-bottom: 0;">
+               
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card" style="background-color: #f3f9f7;">                               
+                                <div class="card-content">
+                                    <div class="row">
+                                        <div class="col-lg-2 col-md-2 col-sm-1 col-md-offset-6 text-right">
+                                            <select class="selectpicker" id="gateway-filter" multiple data-style="btn btn-round" title="Select Gateway" data-size="7">
+                                                <option disabled>Choose Gateway</option>
+                                                <option value="-1">Select All</option>
+                                                
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-2 col-md-2 col-sm-1">
+                                            <select class="selectpicker" id="plc-filter" multiple data-style="btn btn-round" title="Select PLC" data-size="7">
+                                                <option disabled>Choose PLC</option>
+                                                <option value="-1">Select All</option>
+                                                
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-2 col-md-2 col-sm-1">
+                                            <select class="selectpicker" id="tag-filter" multiple data-style="btn btn-round" title="Select Type" data-size="7">
+                                                <option disabled>Choose Type</option>
+                                                <option value="-1">Select All</option>
+                                                <option value="INTERNAL">Internal</option>
+                                                <option value="EXTERNAL">External</option>
+                                            </select>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table class="table" style="font-size: small;">
+                                            <thead style="background-color: #3caea3; font-weight: 900!important;">
+                                                <tr>
+                                                    <th class="text-center">#</th>
+                                                    <th class="text-center">Name</th>
+                                                    <th class="text-center">Type</th>
+                                                    <th class="text-center">Scale</th>
+                                                    <th class="text-center">Offset</th>
+                                                    <th class="text-center">Min</th>
+                                                    <th class="text-center">Max</th>
+                                                    <th class="text-center">Unit</th>
+                                                    <th class="text-center">Memmory</th>
+                                                    <th class="text-center">Datatype</th>
+                                                    <th class="text-center">Deadband</th>
+                                                    <th class="text-center">Trend</th>
+                                                    <th class="text-center">Log</th>
+                                                    <th class="text-center">Alarm</th>
+                                                    <th class="text-center">Detail</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="render-table">
+                                            
+                                            </tbody>
+                                        </table>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <ul class="pagination pagination-info" id="pagination">
+                                                    <p>Showing 1 to * of * entries</p>
+                                                </ul>
+                                            </div>
+                                            <div class="col-md-3 col-md-offset-6 text-right">
+                                                <ul class="pagination pagination-info">
+                                                    <li>
+                                                        <a href="javascript:void(0);" id="first"><<</a>
+                                                    </li>
+                                                    <li class="active">
+                                                        <a href="javascript:void(0);" id="back">1</a>
+                                                    </li>
+                                                    <li class="">
+                                                        <a href="javascript:void(0);" id="current">2</a>
+                                                    </li>
+                                                    <li class="">
+                                                        <a href="javascript:void(0);" id="next">3</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="javascript:void(0);" id="last">>></a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <% include footer %>
+        </div>
+    </div>
+
+</body>
+<% include scripts %>
+
+<script>
+    let gwState = false, plcState = false, tagState = false;
+    $('#tag-filter').change(function(){
+        if ($(this).val().includes('-1')){
+            $('#tag-filter').selectpicker('selectAll');
+            tagState = true;
+        }else{
+            if (tagState){
+                $('#tag-filter').selectpicker('val', []);
+                tagState = false;
+            }
+            
+        }
+    })
+
+    $('#plc-filter').change(function(){
+        if ($(this).val().includes('-1')){
+            $('#plc-filter').selectpicker('selectAll');
+            plcState = true;
+        }else{
+            if (plcState){
+                $('#plc-filter').selectpicker('val', []);
+                plcState = false;
+            }
+        }
+    })
+
+    $('#gateway-filter').change(function(){
+        if ($(this).val().includes('-1')){
+            $('#gateway-filter').selectpicker('selectAll');
+            gwState = true;
+        }else{
+            if (gwState){
+                $('#gateway-filter').selectpicker('val', []);
+                gwState = false;
+            }
+        }
+    })
+
+
+</script>
+<script type="text/javascript" src="/static/javascripts/gatewayTag.bundle.js"></script>
+</html>

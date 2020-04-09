@@ -1,4 +1,4 @@
-<div class="sidebar" data-active-color="orange" data-background-color="black" data-image="static/assets/img/sidebar-6.jpg">
+<div class="sidebar" data-active-color="orange" data-background-color="black" data-image="/static/assets/img/sidebar-6.jpg">
     <!--
 Tip 1: You can change the color of active element of the sidebar using: data-active-color="purple | blue | green | orange | red | rose"
 Tip 2: you can also add an image using data-image tag
@@ -20,7 +20,7 @@ Tip 3: you can change the color of the sidebar with data-background-color="white
                 <% if (typeof user.avatarLink == "string") { %>
                     <img src="<%= user.avatarLink %>" />
                 <% }else{ %>
-                    <img src="static/images/default-avatar.png" />
+                    <img src="/static/images/default-avatar.png" />
                 <% }      %>
             </div>
             <div class="info">
@@ -32,14 +32,14 @@ Tip 3: you can change the color of the sidebar with data-background-color="white
                     <ul class="nav">
                         <li class="pull-left" style="margin-left: 45px;">
                             <a href="/?lang=vn">
-                                <img class="flag" src="static/assets/img/flags/VN.png" >&nbsp;&nbsp;
+                                <img class="flag" src="/static/assets/img/flags/VN.png" >&nbsp;&nbsp;
                                 Vietnamese
                             </a>
                         </li>
                         <li class="pull-left" style="margin-left: 45px;">
                             <!-- style="max-width: 170px; margin-left: 40px; text-align: left !important;" -->
                             <a href="?lang=en">
-                                <img class="flag" src="static/assets/img/flags/US.png">&nbsp;&nbsp;
+                                <img class="flag" src="/static/assets/img/flags/US.png">&nbsp;&nbsp;
                                 English
                             </a>
                            
@@ -50,19 +50,19 @@ Tip 3: you can change the color of the sidebar with data-background-color="white
         </div>
         <ul class="nav">
             <li class="dashboard" >
-                <a href="./dashboard">
+                <a href="/dashboard">
                     <i class="material-icons">dashboard</i>
                     <p>Dashboard</p>
                 </a>
             </li>
             <li class="profile">
-                <a href="./profile">
+                <a href="/profile">
                     <i class="material-icons">perm_identity</i>
                     <p>Profile</p>
                 </a>
             </li>
             <li class="gateway">
-                <a href="./gateway">
+                <a href="/gateway">
                     <i class="material-icons">router</i>
                     <p>Gateway</p>
                 </a>
@@ -77,19 +77,19 @@ Tip 3: you can change the color of the sidebar with data-background-color="white
                 <div class="collapse" id="manager">
                     <ul class="nav">
                         <li class="list">
-                            <a href="./gateway/list">
+                            <a href="/gateway/list">
                                 <i class="material-icons">router</i>
                                 <p>Gateway List</p>
                             </a>
                         </li>
                         <li class="plc">
-                            <a href="./gateway/plc">
+                            <a href="/gateway/plc">
                                 <i class="material-icons">kitchen</i>
                                 <p>PLC List</p>
                             </a>
                         </li>
                         <li class="tag">
-                            <a href="./gateway/tag">
+                            <a href="/gateway/tag">
                                 <i class="material-icons">style</i>
                                 <p>Tag List</p>
                             </a>
@@ -98,7 +98,7 @@ Tip 3: you can change the color of the sidebar with data-background-color="white
                 </div>
             </li>
             <li class="design">
-                <a href="./design">
+                <a href="/design">
                     <i class="material-icons">category</i>
                     <p>Design</p>
                 </a>
@@ -119,19 +119,19 @@ Tip 3: you can change the color of the sidebar with data-background-color="white
                             </a>
                         </li>
                         <li class="trend">
-                            <a href="/trend">
+                            <a href="./trend">
                                 <i class="material-icons">trending_up</i>
                                 <p>Trend</p>
                             </a>
                         </li>
                         <li class="log">
-                            <a href="/log">
+                            <a href="./log">
                                 <i class="material-icons">note</i>
                                 <p>Log</p>
                             </a>
                         </li>
                         <li class="notify">
-                            <a href="/notify">
+                            <a href="./notify">
                                 <i class="material-icons">notifications_active</i>
                                 <p>Notify</p>
                             </a>

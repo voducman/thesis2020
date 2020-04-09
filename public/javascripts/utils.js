@@ -24,7 +24,7 @@ function fortmatTime(time){
     let hour  = date.getHours();
     let min   = date.getMinutes();
     let second = date.getSeconds();
-    return `${hour}:${min}:${second} - ${date_}/${month}/${year}`;
+    return `${hour}:${min}:${second} ${date_}/${month}/${year}`;
 }
 
 
