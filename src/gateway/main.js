@@ -28,6 +28,7 @@ window.displayPLCTable = function(){
     $('#switch-PLC input')[0].checked = false;
     changeModePLC();
 
+
 }
 
 
@@ -38,7 +39,7 @@ window.displayTagTable = function(id){
     // Reset Switch (new & edit) to create new
     $('#switch-Tag input').prop('checked', false);
     changeModeTAG();
-
+    
     // Add PLC list from gateway to create new Tag page
     let gateway = data.getGatewayById(id);
     let plcList = gateway.getPLCList();
@@ -85,7 +86,7 @@ window.changeModePLC = function(){
 
 window.changeModeTAG = function(){
     let status = $('#switch-Tag input')[0].checked;
-
+    console.log('checked:', $('#switch-Tag input')[0].checked)
     if (status){
         // Tag in Edit mode
         $('#Tag-new').addClass('hidden');

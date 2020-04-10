@@ -4,6 +4,7 @@ import Gateway            from './Gateway';
 import PLC                from './PLC';
 import Tag                from './Tag';
 
+let numRow;
 // Add to Create new button to save new gateway
 window.createGateway = function(){
 
@@ -56,6 +57,8 @@ window.createGateway = function(){
     // Render a row of new gateway to table
     renderRow(gateway, data.external.length);
     vectorMap.renderVectorMap();
+    numRow = data.external.length;
+    $('#last-gateway').click();
 }
 
 window.updateGateway = function(id){
@@ -130,6 +133,9 @@ window.deleteGateway = function(id){
         })
         vectorMap.renderVectorMap();
 
+        numRow = data.external.length;
+        $('#last-gateway').click();
+
         swal({
             title: 'Deleted!',
             text: 'Your imaginary file has been deleted.',
@@ -155,13 +161,13 @@ window.deleteGateway = function(id){
 
 // Render a row of table Gateway
 window.renderRow = function(gateway, index){
-
+    numRow = index;
     gateway.updatePLCnTag();
-    const bgColor = (index% 2 == 0)? `style="background-color: #e7e497;"` : "";
-  
+    const isFirstRender = (index < 11) ? '' : 'display: none;';
+    const bgColor = (index % 2 == 0) ? 'background-color: #e7e497;' : '';
     // Index in range of [1...N]
     $('#render-row').append(`
-        <tr  ${bgColor} id="gateway-${gateway.id}">
+        <tr id="gateway-${gateway.id}" class="gateway-${index}" style="${bgColor} ${isFirstRender}">
             <td class="text-center">${(index<10)?"0"+index:index}</td>
             <td>${gateway.name}</td>
             <td>${fortmatTime(gateway.createdTime)}</td>
@@ -249,3 +255,155 @@ window.renderRow = function(gateway, index){
             </button>
     `)
   }
+
+
+  // Handle page navigation action
+
+$('#first-gateway').click(function(){
+    console.log(numRow)
+    for (let i = 1; i<= numRow; i++){
+        if (i <= 10) $(`.gateway-${i}`).show();
+        else         $(`.gateway-${i}`).hide();
+    }
+
+    if (numRow <= 20) {
+        $('#back-gateway').html('1');
+        $('#current-gateway').html('2');
+        $('#next-gateway').parent().hide();
+        $('#back-gateway').parent().addClass('active');
+        $('#current-gateway').parent().removeClass('active');
+    }else{
+        $('#back-gateway').html('1');
+        $('#current-gateway').html('2');
+        $('#next-gateway').parent().show();
+        $('#next-gateway').html('3');
+        $('#back-gateway').parent().addClass('active');
+        $('#current-gateway').parent().removeClass('active');
+        $('#next-gateway').parent().removeClass('active');
+    }
+    $('#pagination-gateway p').text(`Showing 1 to 10 of ${numRow} entries`);
+})
+
+$('#back-gateway').click(function(){    
+    if (numRow <= 20) {
+        for (let i = 1; i<= numRow; i++){
+            if (i <= 10) $(`.gateway-${i}`).show();
+            else         $(`.gateway-${i}`).hide();
+        }
+
+        $('#back-gateway').parent().show();
+        $('#current-gateway').parent().show();
+        $('#back-gateway').parent().addClass('active');
+        $('#current-gateway').parent().removeClass('active');
+        $('#pagination-gateway p').text(`Showing 1 to 10 of ${numRow} entries`);
+    }else{
+        let current = parseInt( $('#back-gateway').html());
+
+        for (let i = 1; i<= numRow; i++){
+            if (i <= current*10 && i > current*10-10) 
+                $(`.gateway-${i}`).show();
+            else         
+                $(`.gateway-${i}`).hide();
+        }
+
+        if (current > 1){ // Rotate pagination
+            $('#back-gateway').html(current-1);
+            $('#current-gateway').html(current);
+            $('#next-gateway').html(current+1);
+            $('#back-gateway').parent().removeClass('active');
+            $('#current-gateway').parent().addClass('active');
+            $('#next-gateway').parent().removeClass('active');
+            $('#pagination-gateway p').text(`Showing ${current*10-9} to ${current*10} of ${numRow} entries`);
+        }else{         // Don't rotate pagination
+            $('#back-gateway').parent().addClass('active');
+            $('#current-gateway').parent().removeClass('active');
+            $('#next-gateway').parent().removeClass('active');
+            $('#pagination-gateway p').text(`Showing 1 to 10 of ${numRow} entries`);
+        }
+        
+    }
+    
+})
+
+$('#current-gateway').click(function(){
+    let current = parseInt($('#current-gateway').html());
+    if (current == 2){
+        for (let i = 1; i<= numRow; i++){
+            if ( i > 10 && i <= 20) $(`.gateway-${i}`).show();
+            else         $(`.gateway-${i}`).hide();
+        }
+
+        $('#back-gateway').parent().removeClass('active');
+        $('#current-gateway').parent().addClass('active');
+        $('#next-gateway').parent().removeClass('active');
+        $('#pagination-gateway p').text(`Showing 11 to ${(numRow>20)? '20': numRow} of ${numRow} entries`);
+    }else if(current == Math.ceil(numRow/10)-1){
+        for (let i = 1; i<= numRow; i++){
+            if (i <= current*10 && i > current*10-10) $(`.gateway-${i}`).show();
+            else         $(`.gateway-${i}`).hide();
+        }
+
+        $('#back-gateway').parent().removeClass('active');
+        $('#current-gateway').parent().addClass('active');
+        $('#next-gateway').parent().removeClass('active');
+        $('#pagination-gateway p').text(`Showing ${current*10-9} to ${current*10} of ${numRow} entries`);
+    }
+})
+
+$('#next-gateway').click(function(){
+    let current = parseInt($('#next-gateway').html());
+
+    for (let i = 1; i <= numRow; i++) {
+        if (i <= current * 10 && i > current * 10 - 10) $(`.gateway-${i}`).show();
+        else $(`.gateway-${i}`).hide();
+    }
+
+    if (current == 3 && numRow <= 30) { // Don't rotate pagination
+        $('#back-gateway').parent().removeClass('active');
+        $('#current-gateway').parent().removeClass('active');
+        $('#next-gateway').parent().addClass('active');
+        $('#pagination-gateway p').text(`Showing ${current*10-9} to ${numRow} of ${numRow} entries`);
+    } else if (current >= 3 && current < Math.ceil(numRow/10)){         // Rotate pagination
+        $('#back-gateway').html(current - 1);
+        $('#current-gateway').html(current);
+        $('#next-gateway').html(current + 1);
+        $('#back-gateway').parent().removeClass('active');
+        $('#current-gateway').parent().addClass('active');
+        $('#next-gateway').parent().removeClass('active');
+        $('#pagination-gateway p').text(`Showing ${current*10-9} to ${current*10} of ${numRow} entries`);
+    }else{
+        $('#back-gateway').parent().removeClass('active');
+        $('#current-gateway').parent().removeClass('active');
+        $('#next-gateway').parent().addClass('active');
+        $('#pagination-gateway p').text(`Showing ${current*10-9} to ${numRow} of ${numRow} entries`);
+    }
+    
+})
+
+$('#last-gateway').click(function(){
+    for (let i = 1; i<= numRow; i++){
+        if (i > 10*Math.floor(numRow/10)) $(`.gateway-${i}`).show();
+        else         $(`.gateway-${i}`).hide();
+    }
+
+    if (numRow <= 20) {
+        $('#back-gateway').parent().show();
+        $('#back-gateway').html('1');
+        $('#current-gateway').parent().show();
+        $('#current-gateway').html('2');
+        $('#next-gateway').parent().hide();
+        $('#back-gateway').parent().removeClass('active');
+        $('#current-gateway').parent().addClass('active');
+    }else{
+        $('#back-gateway').parent().show();
+        $('#back-gateway').html(Math.ceil(numRow/10)-2);
+        $('#current-gateway').parent().show();
+        $('#current-gateway').html(Math.ceil(numRow/10)-1);
+        $('#next-gateway').parent().show();
+        $('#next-gateway').html(Math.ceil(numRow/10));
+        $('#back-gateway').parent().removeClass('active');
+        $('#current-gateway').parent().removeClass('active');
+        $('#next-gateway').parent().addClass('active');
+    }
+    $('#pagination-gateway p').text(`Showing ${10*Math.floor(numRow/10)+1} to ${numRow} of ${numRow} entries`);
+})

@@ -25,7 +25,7 @@ window.showEditGateway = function(id){
                                         <a href="#tab2" data-toggle="tab" onclick="displayPLCTable();">Create PLC</a>
                                     </li>
                                     <li>
-                                        <a href="#tab3" data-toggle="tab" onclick="displayTagTable(${id});">Create Tag</a>
+                                        <a href="#tab3" data-toggle="tab" onclick="displayTagTable('${id}');">Create Tag</a>
                                     </li>
                                 </ul>
                                 <div class="togglebutton text-center hidden" id="switch-PLC">
@@ -197,14 +197,14 @@ window.showEditGateway = function(id){
                                                         <p class="col-md-2 text-gray">Type:</p>
                                                         <div class="col-md-5" style="margin-top: -20px; margin-left: -5px;">
                                                             <select class="selectpicker" data-style="select-with-transition" title="State" data-size="2"
-                                                                    id="type-tag" onchange="changeTypeTag()">
+                                                                    id="type-plc" onchange="changeTypeTag()">
                                                                 <option value="external" selected>External</option>
                                                                 <option value="internal">Internal</option>
                                                             </select>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="row internal-tag form-group hidden">
+                                                <div class="row internal-plc form-group hidden">
                                                     <div class="row form-group" style="margin-top: -25px;">
                                                         <div class="col-md-5">
                                                             <div class="form-group label-floating">
@@ -249,7 +249,7 @@ window.showEditGateway = function(id){
                                                             </div>
                                                     </div>
                                                 </div>
-                                                <div class="row external-tag">
+                                                <div class="row external-plc">
                                                     <div class="col-md-7">
                                                         <div class="row form-group" style="margin-top: 10px;">
                                                             <div class="col-md-12">
@@ -383,7 +383,7 @@ window.showEditGateway = function(id){
                                                        
                                                     </div>
                                                 </div>
-                                                <div class="row form-group external-tag">
+                                                <div class="row form-group external-plc">
                                                     <div class="col-md-4">
                                                         <div class="radio">
                                                             <label>
@@ -472,6 +472,32 @@ window.showEditGateway = function(id){
                                                              
                                                             </tbody>
                                                         </table>
+                                                        <div class="row">
+                                                        <div class="col-md-4">
+                                                            <ul class="pagination pagination-info" id="pagination-plc">
+                                                                <p>Showing 1 to * of * entries</p>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="col-md-4 col-md-offset-4 text-right">
+                                                            <ul class="pagination pagination-info">
+                                                                <li>
+                                                                    <a href="javascript:void(0);" id="first-plc"><<</a>
+                                                                </li>
+                                                                <li class="active">
+                                                                    <a href="javascript:void(0);" id="back-plc">1</a>
+                                                                </li>
+                                                                <li class="">
+                                                                    <a href="javascript:void(0);" id="current-plc">2</a>
+                                                                </li>
+                                                                <li class="">
+                                                                    <a href="javascript:void(0);" id="next-plc">3</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="javascript:void(0);" id="last-plc">>></a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -515,6 +541,32 @@ window.showEditGateway = function(id){
                                                                 
                                                             </tbody>
                                                         </table>
+                                                        <div class="row">
+                                                        <div class="col-md-4">
+                                                            <ul class="pagination pagination-info" id="pagination-tag">
+                                                                <p>Showing 1 to * of * entries</p>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="col-md-4 col-md-offset-4 text-right">
+                                                            <ul class="pagination pagination-info">
+                                                                <li>
+                                                                    <a href="javascript:void(0);" id="first-tag"><<</a>
+                                                                </li>
+                                                                <li class="active">
+                                                                    <a href="javascript:void(0);" id="back-tag">1</a>
+                                                                </li>
+                                                                <li class="">
+                                                                    <a href="javascript:void(0);" id="current-tag">2</a>
+                                                                </li>
+                                                                <li class="">
+                                                                    <a href="javascript:void(0);" id="next-tag">3</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="javascript:void(0);" id="last-tag">>></a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -547,6 +599,7 @@ window.showEditGateway = function(id){
     renderPLCTable(id);
 
     disableFloatingLabel();
+    addEvent2Pagination();
 }
 
 window.removeEditGateway = function(){
@@ -573,5 +626,310 @@ window.disableFloatingLabel = function(){
         }else{
             $(this).parent().removeClass('is-empty');
         }
+    })
+}
+
+
+window.addEvent2Pagination = function() {
+    console.log('add success event')
+    // Handle page navigation action
+    $('#first-plc').click(function () {
+        console.log(numRowPLC)
+        for (let i = 1; i <= numRowPLC; i++) {
+            if (i <= 10) $(`.plc-${i}`).show();
+            else $(`.plc-${i}`).hide();
+        }
+
+        if (numRowPLC <= 20) {
+            $('#back-plc').html('1');
+            $('#current-plc').html('2');
+            $('#next-plc').parent().hide();
+            $('#back-plc').parent().addClass('active');
+            $('#current-plc').parent().removeClass('active');
+        } else {
+            $('#back-plc').html('1');
+            $('#current-plc').html('2');
+            $('#next-plc').parent().show();
+            $('#next-plc').html('3');
+            $('#back-plc').parent().addClass('active');
+            $('#current-plc').parent().removeClass('active');
+            $('#next-plc').parent().removeClass('active');
+        }
+        $('#pagination-plc p').text(`Showing 1 to 10 of ${numRowPLC} entries`);
+    })
+
+    $('#back-plc').click(function () {
+        if (numRowPLC <= 20) {
+            for (let i = 1; i <= numRowPLC; i++) {
+                if (i <= 10) $(`.plc-${i}`).show();
+                else $(`.plc-${i}`).hide();
+            }
+
+            $('#back-plc').parent().show();
+            $('#current-plc').parent().show();
+            $('#back-plc').parent().addClass('active');
+            $('#current-plc').parent().removeClass('active');
+            $('#pagination-plc p').text(`Showing 1 to 10 of ${numRowPLC} entries`);
+        } else {
+            let current = parseInt($('#back-plc').html());
+
+            for (let i = 1; i <= numRowPLC; i++) {
+                if (i <= current * 10 && i > current * 10 - 10)
+                    $(`.plc-${i}`).show();
+                else
+                    $(`.plc-${i}`).hide();
+            }
+
+            if (current > 1) { // Rotate pagination
+                $('#back-plc').html(current - 1);
+                $('#current-plc').html(current);
+                $('#next-plc').html(current + 1);
+                $('#back-plc').parent().removeClass('active');
+                $('#current-plc').parent().addClass('active');
+                $('#next-plc').parent().removeClass('active');
+                $('#pagination-plc p').text(`Showing ${current * 10 - 9} to ${current * 10} of ${numRowPLC} entries`);
+            } else {         // Don't rotate pagination
+                $('#back-plc').parent().addClass('active');
+                $('#current-plc').parent().removeClass('active');
+                $('#next-plc').parent().removeClass('active');
+                $('#pagination-plc p').text(`Showing 1 to 10 of ${numRowPLC} entries`);
+            }
+
+        }
+
+    })
+
+    $('#current-plc').click(function () {
+        let current = parseInt($('#current-plc').html());
+        if (current == 2) {
+            for (let i = 1; i <= numRowPLC; i++) {
+                if (i > 10 && i <= 20) $(`.plc-${i}`).show();
+                else $(`.plc-${i}`).hide();
+            }
+
+            $('#back-plc').parent().removeClass('active');
+            $('#current-plc').parent().addClass('active');
+            $('#next-plc').parent().removeClass('active');
+            $('#pagination-plc p').text(`Showing 11 to ${(numRowPLC > 20) ? '20' : numRowPLC} of ${numRowPLC} entries`);
+        } else if (current == Math.ceil(numRowPLC / 10) - 1) {
+            for (let i = 1; i <= numRowPLC; i++) {
+                if (i <= current * 10 && i > current * 10 - 10) $(`.plc-${i}`).show();
+                else $(`.plc-${i}`).hide();
+            }
+
+            $('#back-plc').parent().removeClass('active');
+            $('#current-plc').parent().addClass('active');
+            $('#next-plc').parent().removeClass('active');
+            $('#pagination-plc p').text(`Showing ${current * 10 - 9} to ${current * 10} of ${numRowPLC} entries`);
+        }
+    })
+
+    $('#next-plc').click(function () {
+        let current = parseInt($('#next-plc').html());
+
+        for (let i = 1; i <= numRowPLC; i++) {
+            if (i <= current * 10 && i > current * 10 - 10) $(`.plc-${i}`).show();
+            else $(`.plc-${i}`).hide();
+        }
+
+        if (current == 3 && numRowPLC <= 30) { // Don't rotate pagination
+            $('#back-plc').parent().removeClass('active');
+            $('#current-plc').parent().removeClass('active');
+            $('#next-plc').parent().addClass('active');
+            $('#pagination-plc p').text(`Showing ${current * 10 - 9} to ${numRowPLC} of ${numRowPLC} entries`);
+        } else if (current >= 3 && current < Math.ceil(numRowPLC / 10)) {         // Rotate pagination
+            $('#back-plc').html(current - 1);
+            $('#current-plc').html(current);
+            $('#next-plc').html(current + 1);
+            $('#back-plc').parent().removeClass('active');
+            $('#current-plc').parent().addClass('active');
+            $('#next-plc').parent().removeClass('active');
+            $('#pagination-plc p').text(`Showing ${current * 10 - 9} to ${current * 10} of ${numRowPLC} entries`);
+        } else {
+            $('#back-plc').parent().removeClass('active');
+            $('#current-plc').parent().removeClass('active');
+            $('#next-plc').parent().addClass('active');
+            $('#pagination-plc p').text(`Showing ${current * 10 - 9} to ${numRowPLC} of ${numRowPLC} entries`);
+        }
+
+    })
+
+    $('#last-plc').click(function () {
+        for (let i = 1; i <= numRowPLC; i++) {
+            if (i > 10 * Math.floor(numRowPLC / 10)) $(`.plc-${i}`).show();
+            else $(`.plc-${i}`).hide();
+        }
+
+        if (numRowPLC <= 20) {
+            $('#back-plc').parent().show();
+            $('#back-plc').html('1');
+            $('#current-plc').parent().show();
+            $('#current-plc').html('2');
+            $('#next-plc').parent().hide();
+            $('#back-plc').parent().removeClass('active');
+            $('#current-plc').parent().addClass('active');
+        } else {
+            $('#back-plc').parent().show();
+            $('#back-plc').html(Math.ceil(numRowPLC / 10) - 2);
+            $('#current-plc').parent().show();
+            $('#current-plc').html(Math.ceil(numRowPLC / 10) - 1);
+            $('#next-plc').parent().show();
+            $('#next-plc').html(Math.ceil(numRowPLC / 10));
+            $('#back-plc').parent().removeClass('active');
+            $('#current-plc').parent().removeClass('active');
+            $('#next-plc').parent().addClass('active');
+        }
+        $('#pagination-plc p').text(`Showing ${10 * Math.floor(numRowPLC / 10) + 1} to ${numRowPLC} of ${numRowPLC} entries`);
+    })
+
+
+    // Handle page navigation action
+    $('#first-tag').click(function () {
+        console.log(numRowTag)
+        for (let i = 1; i <= numRowTag; i++) {
+            if (i <= 10) $(`.tag-${i}`).show();
+            else $(`.tag-${i}`).hide();
+        }
+
+        if (numRowTag <= 20) {
+            $('#back-tag').html('1');
+            $('#current-tag').html('2');
+            $('#next-tag').parent().hide();
+            $('#back-tag').parent().addClass('active');
+            $('#current-tag').parent().removeClass('active');
+        } else {
+            $('#back-tag').html('1');
+            $('#current-tag').html('2');
+            $('#next-tag').parent().show();
+            $('#next-tag').html('3');
+            $('#back-tag').parent().addClass('active');
+            $('#current-tag').parent().removeClass('active');
+            $('#next-tag').parent().removeClass('active');
+        }
+        $('#pagination-tag p').text(`Showing 1 to 10 of ${numRowTag} entries`);
+    })
+
+    $('#back-tag').click(function () {
+        if (numRowTag <= 20) {
+            for (let i = 1; i <= numRowTag; i++) {
+                if (i <= 10) $(`.tag-${i}`).show();
+                else $(`.tag-${i}`).hide();
+            }
+
+            $('#back-tag').parent().show();
+            $('#current-tag').parent().show();
+            $('#back-tag').parent().addClass('active');
+            $('#current-tag').parent().removeClass('active');
+            $('#pagination-tag p').text(`Showing 1 to 10 of ${numRowTag} entries`);
+        } else {
+            let current = parseInt($('#back-tag').html());
+
+            for (let i = 1; i <= numRowTag; i++) {
+                if (i <= current * 10 && i > current * 10 - 10)
+                    $(`.tag-${i}`).show();
+                else
+                    $(`.tag-${i}`).hide();
+            }
+
+            if (current > 1) { // Rotate pagination
+                $('#back-tag').html(current - 1);
+                $('#current-tag').html(current);
+                $('#next-tag').html(current + 1);
+                $('#back-tag').parent().removeClass('active');
+                $('#current-tag').parent().addClass('active');
+                $('#next-tag').parent().removeClass('active');
+                $('#pagination-tag p').text(`Showing ${current * 10 - 9} to ${current * 10} of ${numRowTag} entries`);
+            } else {         // Don't rotate pagination
+                $('#back-tag').parent().addClass('active');
+                $('#current-tag').parent().removeClass('active');
+                $('#next-tag').parent().removeClass('active');
+                $('#pagination-tag p').text(`Showing 1 to 10 of ${numRowTag} entries`);
+            }
+
+        }
+
+    })
+
+    $('#current-tag').click(function () {
+        let current = parseInt($('#current-tag').html());
+        if (current == 2) {
+            for (let i = 1; i <= numRowTag; i++) {
+                if (i > 10 && i <= 20) $(`.tag-${i}`).show();
+                else $(`.tag-${i}`).hide();
+            }
+
+            $('#back-tag').parent().removeClass('active');
+            $('#current-tag').parent().addClass('active');
+            $('#next-tag').parent().removeClass('active');
+            $('#pagination-tag p').text(`Showing 11 to ${(numRowTag > 20) ? '20' : numRowTag} of ${numRowTag} entries`);
+        } else if (current == Math.ceil(numRowTag / 10) - 1) {
+            for (let i = 1; i <= numRowTag; i++) {
+                if (i <= current * 10 && i > current * 10 - 10) $(`.tag-${i}`).show();
+                else $(`.tag-${i}`).hide();
+            }
+
+            $('#back-tag').parent().removeClass('active');
+            $('#current-tag').parent().addClass('active');
+            $('#next-tag').parent().removeClass('active');
+            $('#pagination-tag p').text(`Showing ${current * 10 - 9} to ${current * 10} of ${numRowTag} entries`);
+        }
+    })
+
+    $('#next-tag').click(function () {
+        let current = parseInt($('#next-tag').html());
+
+        for (let i = 1; i <= numRowTag; i++) {
+            if (i <= current * 10 && i > current * 10 - 10) $(`.tag-${i}`).show();
+            else $(`.tag-${i}`).hide();
+        }
+
+        if (current == 3 && numRowTag <= 30) { // Don't rotate pagination
+            $('#back-tag').parent().removeClass('active');
+            $('#current-tag').parent().removeClass('active');
+            $('#next-tag').parent().addClass('active');
+            $('#pagination-tag p').text(`Showing ${current * 10 - 9} to ${numRowTag} of ${numRowTag} entries`);
+        } else if (current >= 3 && current < Math.ceil(numRowTag / 10)) {         // Rotate pagination
+            $('#back-tag').html(current - 1);
+            $('#current-tag').html(current);
+            $('#next-tag').html(current + 1);
+            $('#back-tag').parent().removeClass('active');
+            $('#current-tag').parent().addClass('active');
+            $('#next-tag').parent().removeClass('active');
+            $('#pagination-tag p').text(`Showing ${current * 10 - 9} to ${current * 10} of ${numRowTag} entries`);
+        } else {
+            $('#back-tag').parent().removeClass('active');
+            $('#current-tag').parent().removeClass('active');
+            $('#next-tag').parent().addClass('active');
+            $('#pagination-tag p').text(`Showing ${current * 10 - 9} to ${numRowTag} of ${numRowTag} entries`);
+        }
+
+    })
+
+    $('#last-tag').click(function () {
+        for (let i = 1; i <= numRowTag; i++) {
+            if (i > 10 * Math.floor(numRowTag / 10)) $(`.tag-${i}`).show();
+            else $(`.tag-${i}`).hide();
+        }
+
+        if (numRowTag <= 20) {
+            $('#back-tag').parent().show();
+            $('#back-tag').html('1');
+            $('#current-tag').parent().show();
+            $('#current-tag').html('2');
+            $('#next-tag').parent().hide();
+            $('#back-tag').parent().removeClass('active');
+            $('#current-tag').parent().addClass('active');
+        } else {
+            $('#back-tag').parent().show();
+            $('#back-tag').html(Math.ceil(numRowTag / 10) - 2);
+            $('#current-tag').parent().show();
+            $('#current-tag').html(Math.ceil(numRowTag / 10) - 1);
+            $('#next-tag').parent().show();
+            $('#next-tag').html(Math.ceil(numRowTag / 10));
+            $('#back-tag').parent().removeClass('active');
+            $('#current-tag').parent().removeClass('active');
+            $('#next-tag').parent().addClass('active');
+        }
+        $('#pagination-tag p').text(`Showing ${10 * Math.floor(numRowTag / 10) + 1} to ${numRowTag} of ${numRowTag} entries`);
     })
 }

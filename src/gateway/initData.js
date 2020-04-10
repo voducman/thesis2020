@@ -1,7 +1,7 @@
 const Gateway = require('./Gateway');
 const PLC     = require('./PLC');
 const Tag     = require('./Tag');
-
+const initPagigation = require('./pagigation');
 /**
  * @summary function will self-call when render page
  */
@@ -50,6 +50,8 @@ module.exports = function(){
         data.external.forEach(function(gatew, index){
             renderRow(gatew, index+1);
         })
+
+        initPagigation(data.external.length, 'gateway');
 
     }).fail(function(error){
         console.log('Fetch Fail: ', error);

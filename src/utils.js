@@ -48,11 +48,11 @@ function fortmatTime(time){
         "1": "TRUE",
         "true": "TRUE",
         "0": "FALSE",
-        "false": "FALSE"
+        "false": "FALSE",
 
     }
 
-    let result = table[text] || text;
+    let result = table[text] || text.toUpperCase();
     return result;
  }
 

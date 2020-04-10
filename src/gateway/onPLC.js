@@ -3,6 +3,9 @@ import IPaddr  from 'ip-validator';
 import Gateway from './Gateway';
 import PLC     from './PLC';
 import Tag     from './Tag';
+import initPagigation from './pagigation'
+
+window.numRowPLC = 0;
 
 window.changePLCList = function () {
     let producer = $('#plc-producer').val();
@@ -237,11 +240,11 @@ window.deleteCurrentPLC = function(id, name){
 // Render a row of table Gateway
 window.renderPLCRow = function (plc, index, id) {
 
-    const bgColor = (index % 2 == 0) ? `style="background-color: #e7e497;"` : "";
-
+    const isFirstRender = (index < 11) ? '' : 'display: none;';
+    const bgColor = (index % 2 == 0) ? 'background-color: #e7e497;' : '';
     // Index in range of [1...N]
     $('#render-plc').append(`
-        <tr ${bgColor} id="plc-${plc.name}">
+        <tr id="plc-${plc.name}" class="plc-${index}" style="${bgColor} ${isFirstRender}">
             <td class="text-center">${(index < 10) ? "0" + index : index}</td>
             <td class="text-center">${plc.name}</td>
             <td class="text-center">${Message(plc.producer)}</td>
@@ -273,5 +276,10 @@ window.renderPLCTable = function (id) {
     $('#render-plc').empty();
     data.getGatewayById(id).PLCs.forEach(function (plc, index) {
         renderPLCRow(plc, index + 1, id);
+        numRowPLC = index + 1;
     })
+
+    initPagigation(numRowPLC, 'plc');
 }
+
+

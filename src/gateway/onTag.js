@@ -2,6 +2,9 @@ import gateway from './Gateway';
 import PLC     from './PLC';
 import Tag     from './Tag';
 import {showNotification, Message, fortmatTime} from '../utils';
+import initPagigation from './pagigation';
+
+window.numRowTag = 0;
 
 window.showAlarmInput = function(){
     let checked = $('#alarm-enable')[0].checked;
@@ -375,9 +378,11 @@ window.updateTag = function(gwId, plcName){
 
 
 window.renderTagRow = function(tag, type, index, gwId, plcName){
-    const bgColor = (index% 2 == 0)? `style="background-color: #e7e497;"` : "";
+
+    const isFirstRender = (index < 11) ? '' : 'display: none;';
+    const bgColor = (index % 2 == 0) ? 'background-color: #e7e497;' : '';
     $('#render-tag').append(`
-        <tr ${bgColor} id="tag-${tag.name}">
+        <tr id="tag-${tag.name}"  class="tag-${index}" style="${bgColor} ${isFirstRender}">
             <td class="text-center">${(index<10)?"0"+index:index}</td>
             <td class="text-center">${tag.name}</td>
             <td class="text-center">${type}</td>
@@ -405,7 +410,7 @@ window.renderTagRow = function(tag, type, index, gwId, plcName){
    * @param {string} plcName: name of Plc include this Tag
    */
   window.renderTagTable = function(gwId){
-      let index = 0;
+    let index = 0;
     $('#render-tag').empty();
 
     // Render rows of external tag
@@ -421,4 +426,9 @@ window.renderTagRow = function(tag, type, index, gwId, plcName){
         index++;
         renderTagRow(tag, "INTERNAL", index, gwId, '---');
     })
+
+    numRowTag = index;
+    initPagigation(numRowTag, 'tag');
+    console.log('Init pagination here')
   }
+
