@@ -257,8 +257,7 @@ window.renderRow = function(gateway, index){
   }
 
 
-  // Handle page navigation action
-
+// Handle page navigation action
 $('#first-gateway').click(function(){
     console.log(numRow)
     for (let i = 1; i<= numRow; i++){

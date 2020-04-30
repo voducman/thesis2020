@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <% include metadata %>
+    <link rel="stylesheet" href="/static/css/design-drawing.css">
+</head>
+<body>
+    <div class="wrapper" id="main-view" style="background-color: #343435;">
+        <% include sidebar-design %>
+        <div class="main-painel" style="overflow:visible; position: absolute;">
+            <% include header-design %>
+            
+            <div class="content" style="margin-top: 0px; margin-top: 60px; position: absolute; left: 200px;">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12 pd-mg-0" style="width: 500px;">
+                            <ul class="nav nav-tabs" style="background-color: #343435;">
+                                <li class="active"><a data-toggle="tab" href="#page-1">Page 1</a></li>
+                                <li><a data-toggle="tab" href="#page-2">Page 2</a></li>
+                                <li><a data-toggle="tab" href="#alarm">Alarm</a></li>
+                                <li><a data-toggle="tab" href="#trend">Trend</a></li>
+                                <li><a data-toggle="tab" href="#log">Log</a></li>
+                                <li><a href="#"><i class="material-icons">add_circle_outline</i></a></li>
+                                
+                            </ul>
+                            
+                            <div class="tab-content">
+                                <div id="page-1" class="tab-pane fade in active">
+                                    <div class="col-md-12" style="width: 1280px; height: 720px; z-index: 0; background-color: #e4e4e4; position: absolute;">
+                                        
+                                    </div>
+                                </div>
+                                <div id="page-2" class="tab-pane fade">
+                                    <div class="col-md-12" 
+                                        style="width: 1280px; height: 720px; z-index: 0; background-color: #5d5d5e; position: absolute; ">
+                                        <div style="width: 80px; height: 80px; position: absolute; background-color: red; left: 0; top: 10px;">
+                                        </div>
+                                        <div
+                                            style="width: 80px; height: 100px; position: absolute; background-color: yellow; left: 80px; top: 0px;">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="alarm" class="tab-pane fade">
+                                    <h3>Alarm page</h3>
+                                    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                    </p>
+                                </div>
+                                <div id="trend" class="tab-pane fade">
+                                    <h3>Trend page</h3>
+                                    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                    </p>
+                                </div>
+                                <div id="log" class="tab-pane fade">
+                                    <h3>Log page</h3>
+                                    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<% include scripts-design %>
+<script type="text/javascript" src="/static/javascripts/svg.min.js"></script>
+<script type="text/javascript" src="/static/javascripts/svg.draw.min.js"></script>
+<script type="text/javascript" src="/static/javascripts/svg.select.min.js"></script>
+<script type="text/javascript" src="/static/javascripts/interact.min.js"></script>
+<script type="text/javascript" src="/static/javascripts/design.bundle.js"></script>
+<script type="text/javascript">
+    (function(){
+       $(document.body).tooltip({ selector: "[data-toggle=tooltip]" });
+    })()
+</script>
+</html>

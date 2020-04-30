@@ -10,6 +10,9 @@ const logger         = require('morgan');
 const session        = require('express-session');
 const flash          = require('connect-flash');
 const passport       = require('passport');
+const redis          = require('redis');
+const redisClient    = redis.createClient();
+const redisStore     = require('connect-redis')(session);
 /* support multi-languages ['en', 'vn'] */
 const i18n           = require("i18n-express"); 
 
@@ -18,10 +21,11 @@ const mongoose       = require('mongoose');
 const app            = express();
 
 
-const indexRouter = require('./routes/index');
-const adminRouter = require('./routes/admin');                 
-const usersRouter = require('./routes/user');
-const dataRouter  = require('./routes/data');
+const indexRouter   = require('./routes/index');
+const adminRouter   = require('./routes/admin');                 
+const usersRouter   = require('./routes/user');
+const dataRouter    = require('./routes/design');
+const gatewayRouter = require('./routes/gateway');
 
 
 // Connect to Database
@@ -43,10 +47,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 //app.use(bodyParser());           // get data from body of HTML form
 app.use(session({
+  name             : "_redisCache",
   secret           : process.env.SECRET || 'xxxxxxxx', 
-  cookie           : { maxAge: 900000 },     // maxAge = 15 minutes = 900000
-  resave           : true,                   // forces the session to be saved back to the store
-  saveUninitialized: false                   // dont save unmodified
+  cookie           : { maxAge: 86400*1000 },       // maxAge = 15 minutes = 900000
+  resave           : false,                   // forces the session to be saved back to the store
+  saveUninitialized: false,                   // dont save unmodified
+  store: new redisStore({ host: 'localhost', port: 6379, client: redisClient, ttl: 86400 })
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -65,10 +71,11 @@ app.use('/admin/static', express.static(path.join(__dirname, 'public')));
 app.use('/data/static',  express.static(path.join(__dirname, 'public')));
 app.use('/users/static', express.static(path.join(__dirname, 'public')));
 
-app.use('/',      indexRouter);
-app.use('/admin', adminRouter);
-app.use('/user',  usersRouter);
-app.use('/data',  dataRouter);
+app.use('/',        indexRouter);
+app.use('/admin',   adminRouter);
+app.use('/user',    usersRouter);
+app.use('/design',  dataRouter);
+app.use('/gateway', gatewayRouter);
 
 
 // catch 404 and forward to error handler

@@ -3,112 +3,359 @@
 
 <head>
     <% include metadata %>
+
+    <link rel="stylesheet" href="static/css/design.css">
+    <script src="/static/context-menu/context-menu.js"></script>
+    <link rel="stylesheet" href="static/context-menu/context-menu.css"> 
 </head>
 
 <body>
     <div class="wrapper" id="main-view">
-        <div class="" id="main-panel">
-            
-            <nav class="navbar navbar-transparent navbar-absolute main-navbar">
-                <div class="container-fluid">
-                    <div class="navbar-minimize">
-                        <button id="minimizeSidebar" class="btn btn-round btn-white btn-fill btn-just-icon">
-                            <i class="material-icons visible-on-sidebar-regular">more_vert</i>
-                            <i class="material-icons visible-on-sidebar-mini">view_list</i>
-                        </button>
-                    </div>
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" href="#"><script>document.write(location.pathname.replace('/','').toUpperCase())</script></a>
-                    </div>
-                    <div class="collapse navbar-collapse">
-                        <ul class="nav navbar-nav navbar-right">
-                            <li>
-                                <a href="/dashboard">
-                                    <i class="material-icons">dashboard</i>
-                                    <p class="hidden-lg hidden-md">dashboard</p>
-                                </a>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="material-icons">notifications</i>
-                                    <span class="notification">5</span>
-                                    <p class="hidden-lg hidden-md">
-                                        Notifications
-                                        <b class="caret"></b>
-                                    </p>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a href="#">Mike John responded to your email</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">You have 5 new tasks</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">You're now friend with Andrew</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Another Notification</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Another One</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="#" id="check-connection" class="dropdown-toggle" data-toggle="tooltip" title="connection status">
-                                    <i class="material-icons disconnected">swap_vertical_circle</i>
-                                <p class="hidden-lg hidden-md">connection status</p>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#pablo" class="dropdown-toggle" data-toggle="dropdown"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="material-icons">person</i>
-                                    <p class="hidden-lg hidden-md">Profile</p>
-                                </a>
-                                <ul class="dropdown-menu" style="text-align: center;">
-                                    <label class="dropdown-header"><%= user.email %></label>
-                                    <li>
-                                        <a href="/profile"><i class="material-icons" style="margin-top: -5px;">face</i>&nbsp;&nbsp;&nbsp;Profile</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" id="lockscreen"><i class="material-icons" style="margin-top: -5px;">lock</i>&nbsp;&nbsp;&nbsp;Lock&nbsp;&nbsp;&nbsp;</a>
-                                    </li>
-                                    <div class="divider"></div>
-                                    <li>
-                                        <a href="/logout"><i class="material-icons" style="margin-top: -5px;">logout</i>&nbsp;&nbsp;&nbsp;Logout</a>
-                                    </li>
-                                </ul>
-            
-                            </li>
-                            <li class="separator hidden-lg hidden-md"></li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-
-
-
-            <div class="content">
+        <% include sidebar %>
+        <div class="main-panel">
+            <% include header %>
+            <div class="content" style="padding-bottom: 0;">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-10 col-md-offset-1">
-                            
-
-
+                        <div class="col-md-3 col-md-offset-9 text-right" style="margin-bottom: -2%">
+                            <button type="button" rel="tooltip" class="btn btn-instagram btn-round"
+                                data-original-title="" title="Create New" id="create-design">
+                                <i class="material-icons">note_add</i>
+                                Create New
+                            </button>
                         </div>
-                    </div>        
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card" style="background-color: #e6e7e7;">
+                                <div class="card-content">
+                                    <div class="table-responsive">
+                                        <table class="table" style="font-size: small;">
+                                            <thead style="background-color: #d8d8d8;font-weight: 900!important;">
+                                                <tr>
+                                                    <th class="text-center">#</th>
+                                                    <th class="text-center">Name</th>
+                                                    <th class="text-center">Create Time</th>
+                                                    <th class="text-center">Last Modified</th>
+                                                    <th class="text-center">Complied</th>
+                                                    <th class="text-center">Description</th>
+                                                    <th class="text-center">Run</th>
+                                                    <th class="text-center">Design</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="render-table">
+
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <% include footer %>
             </div>
         </div>
-    </div>
+
+        <button type="button" id="showModal" class="btn btn-info btn-lg hidden" data-toggle="modal" data-target="#myModal">Open Modal</button>
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+          <div class="modal-dialog modal-sm">
+          
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title">New Project</h3>
+              </div>
+              <div class="modal-body">
+                <fieldset>
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" name="name" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <input type="text" name="description" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Select Resolution</label>
+                        <select class="form-control" id="revolution">
+                          <option value="hd" selected>HD Ready [1280 x 720]</option>
+                          <option value="fhd">FHD [1920 x 1080]</option>
+                          <option value="qhd">QHD [2560 x 1440]</option>
+                        </select>
+                      </div>
+                </fieldset>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-success btn-sm" id="save-design">Save</button>
+              </div>
+            </div>
+            
+          </div>
+        </div>
 </body>
 <% include scripts %>
-<!-- <script src="static/javascripts/design.js"></script> -->
+
+<script type="text/javascript" src="/static/javascripts/newDesign.bundle.js"></script>
+
 </html>
+
+
+<!-- 
+
+
+                                                <tr class="focus-table">
+                                                    <td class="text-center">02</td>
+                                                    <td class="text-center">Pump Control</td>
+                                                    <td class="text-center">8:25:13 15/02/2016</td>
+                                                    <td class="text-center">15:20:13 15/02/2017</td>
+                                                    <td class="td-actions text-center">
+                                                        <i class="material-icons complied">info</i>
+                                                    </td>
+                                                    <td class="td-actions text-center">
+                                                        <button type="button" rel="tooltip" class="btn btn-facebook"
+                                                            data-original-title="Description" title="">
+                                                            <i class="material-icons">description</i>
+                                                        </button>
+                                                    </td>
+                                                    <td class="td-actions text-center">
+                                                        <button type="button" rel="tooltip" class="btn btn-black"
+                                                            data-original-title="Unavailable" title="">
+                                                            <i class="material-icons">play_circle_filled</i>
+                                                        </button>
+                                                    </td>
+                                                    <td class="td-actions text-center">
+                                                        <button type="button" rel="tooltip" class="btn btn-google"
+                                                            data-original-title="Go to Design Page" title="">
+                                                            <i class="material-icons">launch</i>
+                                                        </button>
+                                                    </td>
+                                                   
+                                                </tr>
+                                                <tr class="focus-table">
+                                                    <td class="text-center">03</td>
+                                                    <td class="text-center">Pump Control</td>
+                                                    <td class="text-center">8:25:13 15/02/2016</td>
+                                                    <td class="text-center">15:20:13 15/02/2017</td>
+                                                    <td class="td-actions text-center">
+                                                       <i class="material-icons notcomplied">info</i>
+                                                    </td>
+                                                    <td class="td-actions text-center">
+                                                        <button type="button" rel="tooltip" class="btn btn-facebook"
+                                                            data-original-title="Description" title="">
+                                                            <i class="material-icons">description</i>
+                                                        </button>
+                                                    </td>
+                                                    <td class="td-actions text-center">
+                                                        <button type="button" rel="tooltip" class="btn btn-black"
+                                                            data-original-title="Unavailable" title="">
+                                                            <i class="material-icons">play_circle_filled</i>
+                                                        </button>
+                                                    </td>
+                                                    <td class="td-actions text-center">
+                                                        <button type="button" rel="tooltip" class="btn btn-google"
+                                                            data-original-title="Go to Design Page" title="">
+                                                            <i class="material-icons">launch</i>
+                                                        </button>
+                                                    </td>
+                                                  
+                                                </tr>
+                                                <tr class="focus-table">
+                                                    <td class="text-center">04</td>
+                                                    <td class="text-center">Pump Control</td>
+                                                    <td class="text-center">8:25:13 15/02/2016</td>
+                                                    <td class="text-center">15:20:13 15/02/2017</td>
+                                                    <td class="td-actions text-center">
+                                                        <i class="material-icons">info</i>
+                                                    </td>
+                                                    <td class="td-actions text-center">
+                                                        <button type="button" rel="tooltip" class="btn btn-facebook"
+                                                            data-original-title="Description" title="">
+                                                            <i class="material-icons">description</i>
+                                                        </button>
+                                                    </td>
+                                                    <td class="td-actions text-center">
+                                                        <button type="button" rel="tooltip" class="btn btn-success"
+                                                            data-original-title="Run the Design" title="">
+                                                            <i class="material-icons">play_circle_filled</i>
+                                                        </button>
+                                                    </td>
+                                                    <td class="td-actions text-center">
+                                                        <button type="button" rel="tooltip" class="btn btn-google"
+                                                            data-original-title="Go to Design Page" title="">
+                                                            <i class="material-icons">launch</i>
+                                                        </button>
+                                                    </td>
+                                                   
+                                                </tr>
+                                                <tr class="focus-table">
+                                                    <td class="text-center">05</td>
+                                                    <td class="text-center">Pump Control</td>
+                                                    <td class="text-center">8:25:13 15/02/2016</td>
+                                                    <td class="text-center">15:20:13 15/02/2017</td>
+                                                    <td class="td-actions text-center">
+                                                        <i class="material-icons">info</i>
+                                                    </td>
+                                                    <td class="td-actions text-center">
+                                                        <button type="button" rel="tooltip" class="btn btn-facebook"
+                                                            data-original-title="Description" title="">
+                                                            <i class="material-icons">description</i>
+                                                        </button>
+                                                    </td>
+                                                    <td class="td-actions text-center">
+                                                        <button type="button" rel="tooltip" class="btn btn-black"
+                                                            data-original-title="Unavailable" title="">
+                                                            <i class="material-icons">play_circle_filled</i>
+                                                        </button>
+                                                    </td>
+                                                   <td class="td-actions text-center">
+                                                        <button type="button" rel="tooltip" class="btn btn-google"
+                                                            data-original-title="Go to Design Page" title="">
+                                                            <i class="material-icons">launch</i>
+                                                        </button>
+                                                    </td>
+                                                   
+                                                </tr>
+                                                <tr class="focus-table">
+                                                    <td class="text-center">06</td>
+                                                    <td class="text-center">Pump Control</td>
+                                                    <td class="text-center">8:25:13 15/02/2016</td>
+                                                    <td class="text-center">15:20:13 15/02/2017</td>
+                                                    <td class="td-actions text-center">
+                                                        <i class="material-icons">info</i>
+                                                    </td>
+                                                    <td class="td-actions text-center">
+                                                        <button type="button" rel="tooltip" class="btn btn-facebook"
+                                                            data-original-title="Description" title="">
+                                                            <i class="material-icons">description</i>
+                                                        </button>
+                                                    </td>
+                                                    <td class="td-actions text-center">
+                                                        <button type="button" rel="tooltip" class="btn btn-black"
+                                                            data-original-title="Unavailable" title="">
+                                                            <i class="material-icons">play_circle_filled</i>
+                                                        </button>
+                                                    </td>
+                                                   <td class="td-actions text-center">
+                                                        <button type="button" rel="tooltip" class="btn btn-google"
+                                                            data-original-title="Go to Design Page" title="">
+                                                            <i class="material-icons">launch</i>
+                                                        </button>
+                                                    </td>
+                                                   
+                                                </tr>
+                                                <tr class="focus-table">
+                                                    <td class="text-center">07</td>
+                                                    <td class="text-center">Pump Control</td>
+                                                    <td class="text-center">8:25:13 15/02/2016</td>
+                                                    <td class="text-center">15:20:13 15/02/2017</td>
+                                                    <td class="td-actions text-center">
+                                                        <i class="material-icons">info</i>
+                                                    </td>
+                                                    <td class="td-actions text-center">
+                                                        <button type="button" rel="tooltip" class="btn btn-facebook"
+                                                            data-original-title="Description" title="">
+                                                            <i class="material-icons">description</i>
+                                                        </button>
+                                                    </td>
+                                                    <td class="td-actions text-center">
+                                                        <button type="button" rel="tooltip" class="btn btn-black"
+                                                            data-original-title="Unavailable" title="">
+                                                            <i class="material-icons">play_circle_filled</i>
+                                                        </button>
+                                                    </td>
+                                                   <td class="td-actions text-center">
+                                                        <button type="button" rel="tooltip" class="btn btn-google"
+                                                            data-original-title="Go to Design Page" title="">
+                                                            <i class="material-icons">launch</i>
+                                                        </button>
+                                                    </td>
+                                                  
+                                                </tr>
+                                                <tr class="focus-table">
+                                                    <td class="text-center">08</td>
+                                                    <td class="text-center">Pump Control</td>
+                                                    <td class="text-center">8:25:13 15/02/2016</td>
+                                                    <td class="text-center">15:20:13 15/02/2017</td>
+                                                    <td class="td-actions text-center">
+                                                        <i class="material-icons">info</i>
+                                                    </td>
+                                                    <td class="td-actions text-center">
+                                                        <button type="button" rel="tooltip" class="btn btn-facebook"
+                                                            data-original-title="Description" title="">
+                                                            <i class="material-icons">description</i>
+                                                        </button>
+                                                    </td>
+                                                    <td class="td-actions text-center">
+                                                        <button type="button" rel="tooltip" class="btn btn-black"
+                                                            data-original-title="Unavailable" title="">
+                                                            <i class="material-icons">play_circle_filled</i>
+                                                        </button>
+                                                    </td>
+                                                   <td class="td-actions text-center">
+                                                        <button type="button" rel="tooltip" class="btn btn-google"
+                                                            data-original-title="Go to Design Page" title="">
+                                                            <i class="material-icons">launch</i>
+                                                        </button>
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr class="focus-table">
+                                                    <td class="text-center">09</td>
+                                                    <td class="text-center">Pump Control</td>
+                                                    <td class="text-center">8:25:13 15/02/2016</td>
+                                                    <td class="text-center">15:20:13 15/02/2017</td>
+                                                    <td class="td-actions text-center">
+                                                        <i class="material-icons">info</i>
+                                                    </td>
+                                                    <td class="td-actions text-center">
+                                                        <button type="button" rel="tooltip" class="btn btn-facebook"
+                                                            data-original-title="Description" title="">
+                                                            <i class="material-icons">description</i>
+                                                        </button>
+                                                    </td>
+                                                    <td class="td-actions text-center">
+                                                        <button type="button" rel="tooltip" class="btn btn-black"
+                                                            data-original-title="Unavailable" title="">
+                                                            <i class="material-icons">play_circle_filled</i>
+                                                        </button>
+                                                    </td>
+                                                   <td class="td-actions text-center">
+                                                        <button type="button" rel="tooltip" class="btn btn-google"
+                                                            data-original-title="Go to Design Page" title="">
+                                                            <i class="material-icons">launch</i>
+                                                        </button>
+                                                    </td>
+                                                  
+                                                </tr>
+                                                <tr class="focus-table">
+                                                    <td class="text-center">10</td>
+                                                    <td class="text-center">Pump Control</td>
+                                                    <td class="text-center">8:25:13 15/02/2016</td>
+                                                    <td class="text-center">15:20:13 15/02/2017</td>
+                                                    <td class="td-actions text-center">
+                                                        <i class="material-icons">info</i>
+                                                    </td>
+                                                    <td class="td-actions text-center">
+                                                        <button type="button" rel="tooltip" class="btn btn-facebook"
+                                                            data-original-title="Description" title="">
+                                                            <i class="material-icons">description</i>
+                                                        </button>
+                                                    </td>
+                                                    <td class="td-actions text-center">
+                                                        <button type="button" rel="tooltip" class="btn btn-black"
+                                                            data-original-title="Unavailable" title="">
+                                                            <i class="material-icons">play_circle_filled</i>
+                                                        </button>
+                                                    </td>
+                                                   <td class="td-actions text-center">
+                                                        <button type="button" rel="tooltip" class="btn btn-google"
+                                                            data-original-title="Go to Design Page" title="">
+                                                            <i class="material-icons">launch</i>
+                                                        </button>
+                                                    </td>
+                                                  
+                                                </tr> -->

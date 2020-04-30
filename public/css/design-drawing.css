@@ -1,0 +1,23 @@
+.pd-mg-0{
+    padding: 0;
+    margin: 0;
+}
+
+.bg-gray{
+    background-color: #f7f7f7;
+    padding-bottom: 15px!important;
+}
+
+.text-header{
+    font-weight: 900;
+    color: #0979fa;
+    vertical-align: middle;
+    padding-bottom: 150px;
+}
+
+.btn-symbol{
+    width:  40px;
+    height: 40px;
+    margin: 5px;
+    padding: 0px;
+}

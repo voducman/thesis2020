@@ -13,6 +13,8 @@ module.exports = {
         gatewayList: './src/manager/list.js',
         gatewayPLC:  './src/manager/plc.js',
         gatewayTag:  './src/manager/tag.js',
+        newDesign:  './src/design/newDesign.js',
+        design:     './src/design/design.js'
     },
     output: {
         filename: './[name].bundle.js',

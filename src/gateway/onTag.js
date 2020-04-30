@@ -429,6 +429,6 @@ window.renderTagRow = function(tag, type, index, gwId, plcName){
 
     numRowTag = index;
     initPagigation(numRowTag, 'tag');
-    console.log('Init pagination here')
+    console.log('Init pagination here') 
   }
 

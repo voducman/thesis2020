@@ -131,10 +131,12 @@ router.put("/profile/:command", utils.isLoggedIn, function(req, res){
       }
 
       // Remove old avatar file in public folder
-      fs.unlink(req.user.local.avatarLink.replace('static', 'public'), function(error){
-        if (error) throw error;
-        console.log(req.user.local.avatarLink.replace('static', 'public'), ' was deleted');
-      });
+      if (req.user.local.avatarLink){
+        fs.unlink(req.user.local.avatarLink.replace('static', 'public'), function(error){
+          if (error) throw error;
+          console.log(req.user.local.avatarLink.replace('static', 'public'), ' was deleted');
+        });
+      }
 
       User.findOneAndUpdate({ "_id": req.user._id },
         { $set: updateDB },
@@ -155,83 +157,6 @@ router.put("/profile/:command", utils.isLoggedIn, function(req, res){
     res.status("500").end("command error");
   }
 
-})
-
-
-router.get("/gateway", utils.isLoggedIn, function(req, res){
-  let sessionUser = req.user.local;
-
-  res.render('gateway', {title: "Advanced SCADA", user: sessionUser});
-})
-
-
-router.put("/gateway/save", utils.isLoggedIn, function(req, res){
-  let email = req.user.local.email;
-  console.log(req.body);
-
-  let gateway = new Gateway();
-
-  let data  = {
-    external: JSON.parse(req.body.external),
-    internal: JSON.parse(req.body.internal),
-  }
-
-
-  Gateway.findOneAndUpdate({email: email}, {"data": data}, function(err, doc){
-      if (err){
-        console.log(err);
-        res.send("update-error");
-      }else{
-        console.log(doc);
-        if (doc == null){
-          gateway.save(function(error){
-            if (error) res.send("save-error");
-            else       res.send("save-success");
-          });
-        }else{
-          res.send("update-success");
-        }  
-      }
-  })
-})
-
-
-router.get("/gateway/fetch", utils.isLoggedIn, function(req, res){
-  let email = req.user.local.email;
-  Gateway.findOne({'email': email}, function(err, doc){
-    if (err){
-      console.log('error: ', err);
-      res.send(false);
-    }else{
-      console.log("query success: ", doc);
-      res.send(doc);
-      
-    }
-  })
-})
-
-router.get("/gateway/list", utils.isLoggedIn, function(req, res){
-  const sessionUser = req.user.local;
-
-  res.render("gateway-list", {title: "Advanced SCADA", user: sessionUser});
-})
-
-router.get("/gateway/plc", utils.isLoggedIn, function(req, res){
-  const sessionUser = req.user.local;
-
-  res.render("gateway-plc", {title: "Advanced SCADA", user: sessionUser});
-})
-
-router.get("/gateway/tag", utils.isLoggedIn, function(req, res){
-  const sessionUser = req.user.local;
-
-  res.render("gateway-tag", {title: "Advanced SCADA", user: sessionUser});
-})
-
-
-router.get("/design", utils.isLoggedIn, function(req, res){
-  let sessionUser = req.user.local;
-  res.render('design', {title: "Advanced SCADA", user: sessionUser});
 })
 
 

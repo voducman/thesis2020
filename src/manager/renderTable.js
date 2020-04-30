@@ -17,8 +17,9 @@ function renderGatewayTable(data){
                 <td class="text-center">${(index < 9) ? "0" + ++index : index+1}</td>
                 <td class="text-center">${gw.id}</td>
                 <td class="text-center">${gw.name}</td>
-                <td class="text-center">${gw.latitude}</td>
-                <td class="text-center">${gw.longitude}</td>
+                <td class="text-center">${gw.scanTime}</td>
+                <td class="text-center">${parseFloat(gw.latitude).toFixed(2)}</td>
+                <td class="text-center">${parseFloat(gw.longitude).toFixed(2)}</td>
                 <td class="text-center">${gw.PLCnum}</td>
                 <td class="text-center">${gw.Tagnum}</td>
                 <td class="text-center">${fortmatTime(gw.createdTime)}</td>
@@ -117,6 +118,7 @@ function renderTagTable(data){
 
                 tagArray.push({
                     name: tag.name,
+                    scanTime: gw.scanTime,
                     type: 'EXTERNAL',
                     scale: tag.scale,
                     offset: tag.offset,
@@ -143,6 +145,7 @@ function renderTagTable(data){
     data.internal.forEach((tag) => {
         tagArray.push({
             name: tag.name,
+            scanTime: '0',
             type: 'INTERNAL',
             scale: tag.scale,
             offset: tag.offset,
@@ -204,6 +207,7 @@ function renderTag(tagArray){
             <tr  style="${bgColor} ${isFirstRender}" id="tag-${index}">
                 <td class="text-center">${(index < 10) ? ("0" + index) : index}</td>
                 <td class="text-center">${tag.name}</td>
+                <td class="text-center">${tag.scanTime}</td>
                 <td class="text-center">${tag.type}</td>
                 <td class="text-center">${tag.scale}</td>
                 <td class="text-center">${tag.offset}</td>
@@ -226,7 +230,7 @@ function renderTag(tagArray){
             </tr>
             <tr id="row-${index}" class="collapse" style="background-color: #dddfd4;">
                 <td></td>
-                <td colspan="14" rowspan="2">                                                      
+                <td colspan="15" rowspan="2">                                                      
                     <div class="row">
                         <div class="col-md-3"><b>PLC Name</b>:  ${tag.plc}</div>
                         <div class="col-md-3"><b>Protocol</b>:  ${Message(tag.protocol)}</div>

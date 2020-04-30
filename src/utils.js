@@ -50,9 +50,12 @@ function fortmatTime(time){
         "0": "FALSE",
         "false": "FALSE",
 
+        "hd": "HD Ready [1280 x 720]",
+        'fhd': "FHD [1920 x 1080]",
+        "qhd": "QHD [2560 x 1440]"
     }
 
-    let result = table[text] || text.toUpperCase();
+    let result = table[text] || String(text).toUpperCase();
     return result;
  }
 

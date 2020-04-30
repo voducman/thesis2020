@@ -1,0 +1,21 @@
+.focus-table:hover{
+    background-color: #94978e;
+    border: #ffe8d6 2px solid;
+}
+
+.focus-table{
+    background-color: #e9e397; 
+    border: #cecbab 2px solid;
+}
+
+.icon-design{
+    color: #ed553b;
+}
+
+.icon-success{
+    color: #33b60b;
+}
+
+.btn-black{
+    background-color: black;
+}

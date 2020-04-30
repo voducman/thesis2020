@@ -36,7 +36,7 @@ $(document).ready(function(){
 $("#lockscreen").click(function(){
     $("#main-view").addClass("hidden");
     $("#lock-view").removeClass("hidden");
-    // $("#lockscreen").children(".material-icons").text("lock_open");
+    
     // Add background image to screen
     demo.checkFullPageBackgroundImage();
 
