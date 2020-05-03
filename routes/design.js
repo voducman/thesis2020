@@ -33,21 +33,25 @@ router.get("/fetch/drawing/:designId", Utils.isLoggedIn, function (req, res) {
 
   Design.findOne({'email': email})
   .then((designs) => {
-    if (designs == null){
+    console.log(designs.drawing)
+    let drawing = designs.getDrawingById(designID);
+    if (!drawing){
       // Create New 
-      designs.drawing = [{designId}];
+      designs.drawing.push({"designId": designID})
       designs.save();
       res.send(designs.drawing[0]);
     }else{
       // Update designs
-
-      res.send(designs.getDrawingById(designId));
+      
+      console.log("Drawing of " + designID + ": ", drawing);
+      res.send(drawing);
     }
 
   })
   .catch((err) => {
     res.status(500).end();
     console.log('Error at fetch/desingId = ', designID);
+    console.log(err)
   })
  
 })
@@ -155,7 +159,7 @@ router.get("/delete/:designID", Utils.isLoggedIn, function (req, res) {
 router.get("/drawing", Utils.isLoggedIn, function(req, res){
   let sessionUser = req.user.local;
 
-  res.render('design-drawing', {title: "Advanced SCADA", user: sessionUser});
+  res.render('drawing', {title: "Advanced SCADA", user: sessionUser});
 })
 
 // router.get("/run/:id", Utils.isLoggedIn, function(req, res){

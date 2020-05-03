@@ -16,6 +16,58 @@ function showNotification(from, align, type, message){
     });
 };
 
+
+function showFailNotification(message){
+
+    $.notify({
+        icon: "add_alert",
+        message: `<b>FAIL</b>: ${message}`
+
+    },{
+        type: 'warning',
+        timer: 2000,
+        placement: {
+            from: 'top',
+            align: 'right'
+        },
+        z_index: 2000,
+    });
+};
+
+function showErrorNotification(message){
+
+    $.notify({
+        icon: "add_alert",
+        message: `<b>ERROR</b>: ${message}`
+
+    },{
+        type: 'danger',
+        timer: 2000,
+        placement: {
+            from: 'top',
+            align: 'right'
+        },
+        z_index: 2000,
+    });
+};
+
+function showSuccessNotification(message){
+
+    $.notify({
+        icon: "add_alert",
+        message: `<b>SUCCESS</b>: ${message}`
+
+    },{
+        type: 'success',
+        timer: 2000,
+        placement: {
+            from: 'top',
+            align: 'right'
+        },
+        z_index: 2000,
+    });
+};
+
 function fortmatTime(time){
     let date = new Date(time);
     let year = date.getFullYear();
@@ -63,5 +115,8 @@ function fortmatTime(time){
  module.exports = {
     showNotification, 
     fortmatTime,
-    Message
+    Message,
+    showFailNotification,
+    showErrorNotification,
+    showSuccessNotification
  }

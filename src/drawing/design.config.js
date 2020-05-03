@@ -1,4 +1,8 @@
-interact('.resize-drag')
+import interact from 'interactjs';
+
+let shape = interact('.resizable');
+
+shape
   .resizable({
     // resize from all edges and corners
     edges: { left: true, right: true, bottom: true, top: true },
@@ -18,6 +22,8 @@ interact('.resize-drag')
 
     inertia: true
   })
+
+  /*
   .draggable({
     // enable inertial throwing
     inertia: true,
@@ -46,8 +52,10 @@ interact('.resize-drag')
       console.log("on end...")
     }
   })
+  */
   .on('resizemove', function (event) {
     var target = event.target
+    console.log(target)
     var x = (parseFloat(target.getAttribute('data-x')) || 0)
     var y = (parseFloat(target.getAttribute('data-y')) || 0)
 
@@ -71,13 +79,13 @@ interact('.resize-drag')
     target.style.webkitTransform = target.style.transform =
         'translate(' + x + 'px,' + y + 'px)'
 
-    target.setAttribute('data-x', x)
-    target.setAttribute('data-y', y)
+    //target.setAttribute('data-x', x)
+    //target.setAttribute('data-y', y)
     target.textContent = Math.round(event.rect.width) + '\u00D7' + Math.round(event.rect.height)
   })
 
 
-  function dragMoveListener(event) {
+  /* function dragMoveListener(event) {
     var target = event.target
     // keep the dragged position in the data-x/data-y attributes
     var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
@@ -94,4 +102,4 @@ interact('.resize-drag')
   }
 
   // this is used later in the resizing and gesture demos
-  window.dragMoveListener = dragMoveListener
+  window.dragMoveListener = dragMoveListener */

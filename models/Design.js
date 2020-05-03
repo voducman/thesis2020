@@ -16,8 +16,14 @@ userSchema.methods.isDuplicate = function(projectName){
     else return true;
 }
 
+userSchema.methods.getDesignById = function(designId){
+    let index = this.design.findIndex((design) => design.designId = designId);
+    if (index == -1) return false;
+    else return this.design[index];
+}
+
 userSchema.methods.getDrawingById = function(designId){
-    let index = this.design.findIndex((drawing) => drawing.designId = designId);
+    let index = this.drawing.findIndex((drawing) => drawing.designId = designId);
     if (index == -1) return false;
     else return this.drawing[index];
 }

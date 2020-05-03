@@ -7,9 +7,9 @@
 </head>
 <body>
     <div class="wrapper" id="main-view" style="background-color: #343435;">
-        <% include sidebar-design %>
+        <% include sidebar-drawing %>
         <div class="main-painel" style="overflow:visible; position: absolute;">
-            <% include header-design %>
+            <% include header-drawing %>
             
             <div class="content" style="margin-top: 0px; margin-top: 60px; position: absolute; left: 200px;">
                 <div class="container-fluid">
@@ -21,13 +21,13 @@
                                 <li><a data-toggle="tab" href="#alarm">Alarm</a></li>
                                 <li><a data-toggle="tab" href="#trend">Trend</a></li>
                                 <li><a data-toggle="tab" href="#log">Log</a></li>
-                                <li><a href="#"><i class="material-icons">add_circle_outline</i></a></li>
+                                <li><a href="#" id="design-add-page"><i class="material-icons">add_circle_outline</i></a></li>
                                 
                             </ul>
                             
                             <div class="tab-content">
                                 <div id="page-1" class="tab-pane fade in active">
-                                    <div class="col-md-12" style="width: 1280px; height: 720px; z-index: 0; background-color: #e4e4e4; position: absolute;">
+                                    <div class="col-md-12" style="width: 1280px; height: 720px; z-index: 0; background-color: #e4e4e4; position: absolute; padding:0">
                                         
                                     </div>
                                 </div>
@@ -65,12 +65,12 @@
     </div>
 </body>
 
-<% include scripts-design %>
-<script type="text/javascript" src="/static/javascripts/svg.min.js"></script>
+<% include scripts-drawing %>
+<!-- <script type="text/javascript" src="/static/javascripts/svg.min.js"></script>
 <script type="text/javascript" src="/static/javascripts/svg.draw.min.js"></script>
 <script type="text/javascript" src="/static/javascripts/svg.select.min.js"></script>
-<script type="text/javascript" src="/static/javascripts/interact.min.js"></script>
-<script type="text/javascript" src="/static/javascripts/design.bundle.js"></script>
+<script type="text/javascript" src="/static/javascripts/interact.min.js"></script> -->
+<script type="text/javascript" src="/static/javascripts/drawing.bundle.js"></script>
 <script type="text/javascript">
     (function(){
        $(document.body).tooltip({ selector: "[data-toggle=tooltip]" });
