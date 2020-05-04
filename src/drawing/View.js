@@ -3,7 +3,6 @@ import {SVG}    from '@svgdotjs/svg.js';
 import interact from 'interactjs';
 import '@svgdotjs/svg.draggable.js'
 
-
 class View extends BaseView{
     constructor(width, height){
         super();
