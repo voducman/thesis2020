@@ -14,15 +14,31 @@ const htmlSymbolUtil = {
     },
 
     // Generate html of pie chart
-    generatePieChartHtml: function(){
+    generatePieChartHtml: function(id){
         return `
         <div class="ct-chart pie-chart" id="${id}"></div>`.trim()
     },
 
-    // Generate html of gauge chart
-    generateGaugeChartHtml: function(){
+    // Generate html of radial gauge chart
+    generateRadialGaugeChartHtml: function(id){
         return `
-        <p>Gauge chart</p>`.trim()
+        <div class="ct-chart gauge-chart container-fluid" id="${id}"></div>`.trim()
+    },
+
+    // Generage htmlof speedometer
+    generateSpeedometerHtml: function(id){
+        return `
+        <div>
+        <canvas data-type="radial-gauge"id="${id}" ></canvas>
+        </div>`.trim()
+    },
+
+    // Generate html of linear gauge
+    generateLinearGaugeHtml: function(id){
+        return `
+        <div>
+            <canvas data-type="linear-gauge"id="${id}"></canvas>
+        </div>`.trim()
     },
 
     // Generate html of table

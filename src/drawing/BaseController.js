@@ -193,6 +193,12 @@ class BaseController extends PositionHandlerUtil {
         })
     }
 
+    setSpeedometerClickEvent(wb){
+        $('#symbol-speedometer').click(()=>{
+            this.drawSpeedometer(wb);
+        })
+    }
+
     setLinearGaugeClickEvent(wb) {
         $('#symbol-linear-gauge').click(()=>{
             this.drawLinearGaugeChart(wb);
@@ -252,6 +258,7 @@ class BaseController extends PositionHandlerUtil {
         this.setPieChartClickEvent(whiteBoard);
         this.setDonutChartClickEvent(whiteBoard);
         this.setRadialGaugeClickEvent(whiteBoard);
+        this.setSpeedometerClickEvent(whiteBoard);
         this.setLinearGaugeClickEvent(whiteBoard);
     }
 
