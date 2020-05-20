@@ -1,0 +1,62 @@
+<div id="addNewPage" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add new page</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" name="name" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>Icon</label><br>
+          <input type="text" name="icon" style="display: none;" value="av_timer">
+          <button class="btn btn-sm btn-info"><i class="material-icons">av_timer</i></button>
+          <button class="btn btn-sm"><i class="material-icons">camera</i></button>
+          <button class="btn btn-sm"><i class="material-icons">desktop_windows</i></button>
+          <button class="btn btn-sm"><i class="material-icons">device_hub</i></button>
+
+          <button class="btn btn-sm"><i class="material-icons">watch_later</i></button>
+          <button class="btn btn-sm"><i class="material-icons">visibility</i></button>
+          <button class="btn btn-sm"><i class="material-icons">settings_input_svideo</i></button>
+          <button class="btn btn-sm"><i class="material-icons">important_devices</i></button>
+
+          <button class="btn btn-sm"><i class="material-icons">dashboard</i></button>
+          <button class="btn btn-sm"><i class="material-icons">business</i></button>
+          <button class="btn btn-sm"><i class="material-icons">category</i></button>
+          <button class="btn btn-sm"><i class="material-icons">home_work</i></button>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" name="save" class="btn btn-success btn-sm">&nbsp;Save&nbsp;</button>
+        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // Set list event button icon here
+  $('#addNewPage .modal-body button').each(function(){
+    $(this).click(e => {
+      nodeName = e.target.nodeName.toLowerCase();
+      if ( nodeName == 'button'){
+        $('#addNewPage .modal-body input[name=icon]').val(e.target.childNodes[0].innerHTML);
+
+        // Clear previous clicked button
+        $('#addNewPage .modal-body button.btn-info').removeClass('btn-info');
+        e.target.classList.add("btn-info");
+      }else if (nodeName == 'i'){
+        $('#addNewPage .modal-body input[name=icon]').val(e.target.innerHTML);
+
+         // Clear previous clicked button
+         $('#addNewPage .modal-body button.btn-info').removeClass('btn-info');
+        e.target.parentElement.classList.add("btn-info");
+      }
+    })
+  })
+
+</script>

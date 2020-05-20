@@ -1,0 +1,155 @@
+.symbol-property .modal-body{
+    padding: 10px 10px 15px;
+}
+
+.symbol-property .nav-tabs{
+    background-color: inherit;
+    padding: 0;
+}
+
+.symbol-property .nav-tabs li{
+    min-width: 145px;
+    border-top:  1px solid rgb(29, 26, 26);
+    border-bottom: 1px solid rgb(29, 26, 26);
+    border-left:  1px solid rgb(29, 26, 26);
+    max-height: 30px!important;
+    line-height: 0.5;
+}
+
+.symbol-property .nav-tabs li:first-child{
+    border-top-left-radius: 3px;
+}
+
+.symbol-property .nav-tabs li:last-child{
+    border-right:  1px solid rgb(29, 26, 26);
+    border-top-right-radius: 3px;
+}
+
+.symbol-property .nav-tabs li a:hover{
+    color: rgb(3, 3, 3)!important;
+}
+
+.symbol-property .nav-tabs li.active a{
+    color: rgb(3, 3, 3)!important;
+    background-color: rgb(218, 216, 216);
+}
+
+.symbol-property .nav-tabs a{
+    color: #aaa!important;
+    padding: 0;
+    text-align: center;
+}
+
+.symbol-property .tab-content .tab-pane.active{
+    border:  1px solid rgb(29, 26, 26);
+}
+
+/* Modal content */
+.symbol-property fieldset{
+    border: 1px solid #888;
+    border-radius: 3px;
+    margin: 10px;
+    padding: 10px;
+}
+
+.symbol-property fieldset legend{
+    font-size: 13px;
+    font-weight: 700;
+    color: gray;
+    width: auto; 
+    padding: 0 5px;
+    margin: 0 0 0 20px;
+}
+
+.symbol-property .col-sm-4{
+    padding-right: 0px;
+    padding-left: 6px;
+}
+
+.symbol-property .col-sm-4:last-child{
+    padding-right: 15px;
+}
+
+.symbol-property .col-sm-4:first-child{
+    padding-left: 15px;
+}
+
+.symbol-property fieldset input[type=number]{
+    width: 70px;
+    height: 20px;
+}
+
+.symbol-property fieldset input[type=number].mini{
+    width: 50px;
+    height: 20px;
+}
+
+.symbol-property input[type=number]{
+    width: 100px;
+    height: 20px;
+}
+
+.symbol-property .row > .col-sm-6:first-child{
+    padding-right: 8px;
+    padding-left: 15px;
+}
+
+.symbol-property .row > .col-sm-6:last-child{
+    padding-right: 15px;
+    padding-left: 8px;
+}
+
+.symbol-property .row > .col-sm-6:only-child{
+    padding-right: 8px;
+    padding-left: 15px;
+}
+
+/* Util Component*/
+.symbol-property .btn-color-1{
+    width: 30px;
+    height: 15px;
+    background-color: khaki;
+}
+
+.symbol-property .btn-color-2{
+    width: 30px;
+    height: 15px;
+    background-color: indianred;
+}
+
+.symbol-property .btn-color-1:disabled, .symbol-property .btn-color-2:disabled{
+    background-color: grey;
+}
+
+input.checkbox-custom{
+    float: left;
+}
+
+span.checkbox-custom{
+    padding-left: 15px!important; 
+    float: left;
+}
+
+.symbol-property select.line-style{
+    width: 70px;
+    height: 20px;
+    margin-left: -3px;
+    font-size: 12px;
+}
+
+.symbol-property select.line-style.md{
+    width: 116px;
+    height: 20px;
+    margin-left: -3px;
+    font-size: 12px;
+}
+
+#symbolGraphView img{
+    width: 198px;
+    height: 149px;
+    margin-left: 56px; 
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+

@@ -1,0 +1,226 @@
+<div id="symbolTextblock" class="modal fade symbol-property" role="dialog">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Textblock Property</h4>
+        </div>
+        <div class="modal-body">
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#appearance-textblock">Appearance</a></li>
+                <li><a data-toggle="tab" href="#movement-textblock">Movement</a></li>
+                <li><a data-toggle="tab" href="#animation-textblock">Animation</a></li>
+                <li><a data-toggle="tab" href="#access-textblock">Access</a></li>
+              </ul>
+              
+              <div class="tab-content">
+                <div id="appearance-textblock" class="tab-pane fade in active">
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <fieldset>
+                        <legend>Position</legend>
+                        <code>X:</code><input type="number" class="mini" name="pos-x1" value="1" min="0"><br>
+                        <code>Y:</code><input type="number" class="mini" name="pos-y1" value="1" min="0"><br>
+                      </fieldset>
+                    </div>
+                    <div class="col-sm-4">
+                      <fieldset>
+                        <legend>Order</legend>
+                        <code>Z-index:</code><input type="number" name="z-index" value="1" min="1" max="10">
+                      </fieldset>    
+                      <fieldset>
+                        <legend>Rotation</legend>
+                        <code>Degree:</code><input type="number" name="width" value="0" min="-360" max="360">
+                      </fieldset>
+                    </div>
+                    <div class="col-sm-5">
+                      <fieldset>
+                        <legend>Font property</legend>
+                        <code>Font size:&nbsp;&nbsp;</code><input type="number" name="font-size" value="0" min="0"><br>
+                        <code>Font weight:</code>
+                        <select class="line-style" name="font-weight">
+                            <option value="normal" selected>Normal</option>
+                            <option value="100">100</option>
+                            <option value="100">200</option>
+                            <option value="100">300</option>
+                            <option value="100">400</option>
+                            <option value="100">500</option>
+                            <option value="100">600</option>
+                            <option value="100">700</option>
+                            <option value="100">800</option>
+                            <option value="100">900</option>
+                            <option value="bold">Bold</option>
+                          </select><br>
+                        <code>Font:&nbsp;</code>
+                        <select class="line-style md" name="font-family">
+                            <option value="normal" selected>Normal</option>
+                            <option value="'Times New Roman', Times, serif">Times New Roman</option>
+                            <option value="Arial, Helvetica, sans-serif">Arial</option>
+                            <option value="'Courier New', Courier, monospace">Courier New</option>
+                            <option value="Cambria, 'Times New Roman', Times, serif">Cambria</option>
+                            <option value="'Lucida Console', Monaco, monospace">Lucida Console</option>
+                            <option value="Georgia, serif">Georgia</option>
+                            <option value="'Palatino Linotype', 'Book Antiqua', Palatino, serif">Palatino Linotype</option>
+                            <option value="'Arial Black', Gadget, sans-serif">Arial Black</option>
+                            <option value="'Comic Sans MS', cursive, sans-serif">Comic Sans MS</option>
+                            <option value="Impact, Charcoal, sans-serif">Impact</option>
+                            <option value="'Lucida Sans Unicode', 'Lucida Grande', sans-serif">Lucida Sans Unicode</option>
+                            <option value="Tahoma, Geneva, sans-serif">Tahoma</option>
+                            <option value="'Trebuchet MS', Helvetica, sans-serif">Trebuchet MS</option>
+                            <option value="Verdana, Geneva, sans-serif">Verdana</option>
+                          </select><br>
+                        <code>Style:</code>
+                        <select class="line-style md" name="font-style">
+                            <option value="normal" selected>Normal</option>
+                            <option value="italic">Italic</option>
+                            <option value="oblique">Oblique</option>
+                          </select><br>
+                        <code>Color:</code><button class="btn-color-1"></button><br>               
+                      </fieldset>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <fieldset>
+                        <legend>Draggable</legend>
+                        <input type="checkbox" name="has-draggable-design" class="checkbox-custom" checked><span class="checkbox-custom">Draggable when Design</span><br>
+                        <input type="checkbox" name="has-draggable-run" class="checkbox-custom"><span class="checkbox-custom">Draggable when Run</span><br>
+                      </fieldset>
+                    </div>
+                    <div class="col-md-6">
+                      <fieldset>
+                        <legend>Text value</legend>
+                        <textarea style="width: 232px;"></textarea>
+                      </fieldset>
+                    </div>
+                  </div>
+                </div>
+                <div id="movement-textblock" class="tab-pane fade">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <fieldset>
+                        <legend>Movement expression</legend>
+                          <textarea style="width: 456px;"></textarea>
+                          <button style="float: right;">Browse</button>
+                          <br>
+                      </fieldset>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <label style="padding: 15px; font-weight: bold;">Range:</label>
+                      <code>min: </code><input type="number" name="min" value="0">
+                      <code style="margin-left: 40px;">max: </code><input type="number" name="max" value="100">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <fieldset>
+                        <legend>Offset horizontal</legend>
+                        <code>Offset X: </code><input type="number" name="offset-x" value="0">
+                      </fieldset>
+                    </div>
+                    <div class="col-sm-6">
+                      <fieldset>
+                        <legend>Offset vertical</legend>
+                        <code>Offset Y: </code><input type="number" name="offset-y" value="0">
+                      </fieldset>
+                    </div>
+                  </div>
+                </div>
+                <div id="animation-textblock" class="tab-pane fade">
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <fieldset>
+                        <legend>ON color when</legend>
+                          <textarea style="width: 160px;"></textarea>
+                          <button class="" style="float: right;">Browse</button>
+                          <br>
+                          <code>ON color:</code><button class="btn-color-1"></button>&nbsp;&nbsp;
+                          <code>OFF color:</code><button class="btn-color-2"></button>
+                      </fieldset>
+                    </div>
+                    <div class="col-sm-6">
+                      <fieldset>
+                        <legend>Hidden when</legend>
+                          <textarea style="width: 160px;"></textarea>
+                          <button class="" style="float: right;">Browse</button>
+                          <br><br>
+                      </fieldset>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <fieldset>
+                        <legend>Flash when</legend>
+                        <textarea style="width: 160px;"></textarea>
+                        <button style="float: right;">Browse</button>
+                        <br>
+                        <code>Flash ON color:</code><button class="btn-color-1"></button>&nbsp;&nbsp;
+                      </fieldset>
+                    </div>
+                  </div>
+                </div>
+                <div id="access-textblock" class="tab-pane fade">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <fieldset>
+                        <legend>Description</legend>
+                          <textarea style="width: 536px;"></textarea>
+                          <br>
+                      </fieldset>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <fieldset>
+                        <legend>Tooltip</legend>
+                          <textarea style="width: 536px;"></textarea>
+                          <br>
+                      </fieldset>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <fieldset>
+                        <legend>Security</legend>
+                          <input type="checkbox" name="has-privilege" class="checkbox-custom" checked><span class="checkbox-custom">No privilege restrictions</span><br>
+                          <code>Privilege level: </code><input type="number" name="privilege-level" min="0" max="8" disabled>
+                      </fieldset>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" name="save" class="btn btn-success btn-sm">&nbsp;Apply&nbsp;</button>
+          <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+
+  <script>
+    $("#symbolTextblock").draggable({
+      handle: ".modal-header"
+    }); 
+
+    // Set event for has-fill checkbox
+    $('#symbolTextblock #appearance-textblock input[name=has-fill]').click(e => {
+      if (e.target.checked){
+        $('#symbolTextblock #appearance-textblock button[name=choose-fill-color]').prop('disabled', false);
+      }else{
+        $('#symbolTextblock #appearance-textblock button[name=choose-fill-color]').prop('disabled', true);
+      }
+    })
+
+    // Set event for has-privilege restrictions
+    $('#symbolTextblock #access-textblock input[name=has-privilege]').click(e => {
+      if (e.target.checked){
+        $('#symbolTextblock #access-textblock input[name=privilege-level]').prop('disabled', true);
+      }else{
+        $('#symbolTextblock #access-textblock input[name=privilege-level]').prop('disabled', false);
+      }
+    })
+  </script>

@@ -58,44 +58,7 @@
             </div>
         </div>
 
-        <button type="button" id="showModal" class="btn btn-info btn-lg hidden" data-toggle="modal" data-target="#myModal">Open Modal</button>
-        <!-- Modal -->
-        <div class="modal fade" id="myModal" role="dialog">
-          <div class="modal-dialog modal-sm">
-          
-            <!-- Modal content-->
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h3 class="modal-title">New Project</h3>
-              </div>
-              <div class="modal-body">
-                <fieldset>
-                    <div class="form-group">
-                        <label>Name</label>
-                        <input type="text" name="name" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Description</label>
-                        <input type="text" name="description" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Select Resolution</label>
-                        <select class="form-control" id="revolution">
-                          <option value="hd" selected>HD Ready [1280 x 720]</option>
-                          <option value="fhd">FHD [1920 x 1080]</option>
-                          <option value="qhd">QHD [2560 x 1440]</option>
-                        </select>
-                      </div>
-                </fieldset>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-success btn-sm" id="save-design">Save</button>
-              </div>
-            </div>
-            
-          </div>
-        </div>
+        <% include addNewDesign %>
 </body>
 <% include scripts %>
 

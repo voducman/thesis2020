@@ -1,36 +1,66 @@
+const Util        = require('../utils');
+const designUtil  = require('./designUtil');
+const ReceiveForm = require('../../models/form/CommonReceiveForm');
+const AddDesignForm  = require('../../models/form/AddDesignForm');
+
+
+
 // Design List data for create new Design action
 let designList = {
     data: [],
 
+    getData: function(){
+        return this.data;
+    },
+
+    setData: function(data){
+        this.data = data;
+    },
+
     initProjectFromServer: function(){
+        let receiveForm;
+
         return new Promise((resolve, reject) => {
-            $.get('/design/fetch/projects')
-                .then((result) => {
-                    if (result) this.data = result;
-                    resolve(true);
+
+            Util.sendAjaxToServer("/design/json/fetch/designList", "GET")
+                .then(function (receiveForm) {
+                   
+                    if (receiveForm.isSuccess()) {
+        
+                        designList.setData(receiveForm.getData());
+                        console.log("Data: ", designList.getData());
+                        return resolve(true);
+                    } else {
+
+                        this.data = [];
+                        return reject(false);
+                    }
                 })
-                .catch((err) => {
-                    console.log('Fetch Project list get error')
-                    reject(false);
+                .catch(function (error) {
+                    return reject(false);
                 })
+
         })
+
     },
 
     createNewProject: function(project){
         this.data.push(project);
     },
 
-    deleteProject: function(id){
+    deleteDesign: function(designId){
+
         return new Promise((resolve, reject) => {
-            $.get('/design/delete/' + id)
-                .then((result) => {
-                    if (result) this.data = result;
-                    resolve(true);
+            
+            Util.sendAjaxToServer("/design/json/delete/" + designId, "DELETE")
+                .then(function(receiveForm){
+                   
+                    if (receiveForm.isSuccess()){
+                        designList.setData(receiveForm.getData());
+                        designUtil.renderDesignTable(designList);
+                    }
                 })
-                .catch((err) => {
-                    console.log('Delete Project get error')
-                    reject(false);
-                })
+                .catch((e) => console.error(e));
         })
 
     }

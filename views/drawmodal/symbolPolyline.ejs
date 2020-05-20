@@ -1,0 +1,194 @@
+<div id="symbolPolyline" class="modal fade symbol-property" role="dialog">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Polyline Property</h4>
+        </div>
+        <div class="modal-body">
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#appearance-polyline">Appearance</a></li>
+                <li><a data-toggle="tab" href="#movement-polyline">Movement</a></li>
+                <li><a data-toggle="tab" href="#animation-polyline">Animation</a></li>
+                <li><a data-toggle="tab" href="#access-polyline">Access</a></li>
+              </ul>
+              
+              <div class="tab-content">
+                <div id="appearance-polyline" class="tab-pane fade in active">
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <fieldset>
+                        <legend>Rotation</legend>
+                        <code>Degree:</code><input type="number" name="width" value="0" min="-360" max="360">
+                      </fieldset>
+                      <fieldset>
+                        <legend>Order</legend>
+                        <code>Z-index:</code><input type="number" name="z-index" value="1" min="1" max="10">
+                      </fieldset>
+                    </div>
+                    <div class="col-sm-4">
+                      <fieldset>
+                        <legend>Line property</legend>
+                        <code>Width:</code><input type="number" name="width" value="1" min="0"><br>
+                        <code>Style:</code>
+                        <select class="line-style" name="line-style">
+                          <option value="solid">Solid</option>
+                          <option value="dash">Dash</option>
+                          <option value="dot">Dot</option>
+                        </select><br>
+                        <code>Color:</code><button class="btn-color-1"></button><br>
+                        <code>Cap:&nbsp;&nbsp;</code>
+                        <select class="line-style" name="line-lineCap">
+                          <option value="butt">Butt</option>
+                          <option value="round">Round</option>
+                          <option value="square">Square</option>
+                        </select><br>
+                      </fieldset>
+                    </div> 
+                    <div class="col-sm-4">
+                        <fieldset>
+                          <legend>Fill</legend>
+                          <input type="checkbox" name="has-fill" class="checkbox-custom"><span class="checkbox-custom">Filled</span><br>
+                          <code>Color:</code><button name="choose-fill-color" class="btn-color-1" disabled></button><br>
+                        </fieldset>
+                      </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <fieldset>
+                        <legend>Draggable</legend>
+                        <input type="checkbox" name="has-draggable-design" class="checkbox-custom" checked><span class="checkbox-custom">Draggable when Design</span><br>
+                        <input type="checkbox" name="has-draggable-run" class="checkbox-custom"><span class="checkbox-custom">Draggable when Run</span><br>
+                      </fieldset>
+                    </div>
+                  </div>
+                </div>
+                <div id="movement-polyline" class="tab-pane fade">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <fieldset>
+                        <legend>Movement expression</legend>
+                          <textarea style="width: 456px;"></textarea>
+                          <button style="float: right;">Browse</button>
+                          <br>
+                      </fieldset>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <label style="padding: 15px; font-weight: bold;">Range:</label>
+                      <code>min: </code><input type="number" name="min" value="0">
+                      <code style="margin-left: 40px;">max: </code><input type="number" name="max" value="100">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <fieldset>
+                        <legend>Offset horizontal</legend>
+                        <code>Offset X: </code><input type="number" name="offset-x" value="0">
+                      </fieldset>
+                    </div>
+                    <div class="col-sm-6">
+                      <fieldset>
+                        <legend>Offset vertical</legend>
+                        <code>Offset Y: </code><input type="number" name="offset-y" value="0">
+                      </fieldset>
+                    </div>
+                  </div>
+                </div>
+                <div id="animation-polyline" class="tab-pane fade">
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <fieldset>
+                        <legend>ON color when</legend>
+                          <textarea style="width: 160px;"></textarea>
+                          <button class="" style="float: right;">Browse</button>
+                          <br>
+                          <code>ON color:</code><button class="btn-color-1"></button>&nbsp;&nbsp;
+                          <code>OFF color:</code><button class="btn-color-2"></button>
+                      </fieldset>
+                    </div>
+                    <div class="col-sm-6">
+                      <fieldset>
+                        <legend>Hidden when</legend>
+                          <textarea style="width: 160px;"></textarea>
+                          <button style="float: right;">Browse</button>
+                          <br><br>
+                      </fieldset>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <fieldset>
+                        <legend>Flash when</legend>
+                        <textarea style="width: 160px;"></textarea>
+                        <button style="float: right;">Browse</button>
+                        <br>
+                        <code>Flash ON color:</code><button class="btn-color-1"></button>&nbsp;&nbsp;
+                      </fieldset>
+                    </div>
+                  </div>
+                </div>
+                <div id="access-polyline" class="tab-pane fade">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <fieldset>
+                        <legend>Description</legend>
+                          <textarea style="width: 536px;"></textarea>
+                          <br>
+                      </fieldset>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <fieldset>
+                        <legend>Tooltip</legend>
+                          <textarea style="width: 536px;"></textarea>
+                          <br>
+                      </fieldset>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <fieldset>
+                        <legend>Security</legend>
+                          <input type="checkbox" name="has-privilege" class="checkbox-custom" checked><span class="checkbox-custom">No privilege restrictions</span><br>
+                          <code>Privilege level: </code><input type="number" name="privilege-level" min="0" max="8" disabled>
+                      </fieldset>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" name="save" class="btn btn-success btn-sm">&nbsp;Apply&nbsp;</button>
+          <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+
+  <script>
+    $("#symbolPolyline").draggable({
+      handle: ".modal-header"
+    }); 
+
+    // Set event for has-fill checkbox
+    $('#symbolPolyline #appearance-polyline input[name=has-fill]').click(e => {
+      if (e.target.checked){
+        $('#symbolPolyline #appearance-polyline button[name=choose-fill-color]').prop('disabled', false);
+      }else{
+        $('#symbolPolyline #appearance-polyline button[name=choose-fill-color]').prop('disabled', true);
+      }
+    })
+
+    // Set event for has-privilege restrictions
+    $('#symbolPolyline #access-polyline input[name=has-privilege]').click(e => {
+      if (e.target.checked){
+        $('#symbolPolyline #access-polyline input[name=privilege-level]').prop('disabled', true);
+      }else{
+        $('#symbolPolyline #access-polyline input[name=privilege-level]').prop('disabled', false);
+      }
+    })
+  </script>

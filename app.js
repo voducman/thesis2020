@@ -26,6 +26,7 @@ const adminRouter   = require('./routes/admin');
 const usersRouter   = require('./routes/user');
 const dataRouter    = require('./routes/design');
 const gatewayRouter = require('./routes/gateway');
+const drawingRouter = require('./routes/drawing');
 
 
 // Connect to Database
@@ -38,7 +39,14 @@ require('./config/passport')(passport);
 
 
 // View engine setup
-app.set('views', [path.join(__dirname, 'views'), path.join(__dirname, 'views/PageComponent'), path.join(__dirname, 'views/PageError'), path.join(__dirname, 'views/Authentication')]);
+app.set('views', [
+  path.join(__dirname, 'views'), 
+  path.join(__dirname, 'views/pagecomponent'), 
+  path.join(__dirname, 'views/pageerror'), 
+  path.join(__dirname, 'views/authentication'),
+  path.join(__dirname, 'views/drawmodal'),
+  path.join(__dirname, 'views/designmodal')
+]);
 app.set('view engine', 'ejs');
 
 app.use(logger('dev'));            // use to display all request on console
@@ -49,7 +57,7 @@ app.use(cookieParser());
 app.use(session({
   name             : "_redisCache",
   secret           : process.env.SECRET || 'xxxxxxxx', 
-  cookie           : { maxAge: 86400*1000 },       // maxAge = 15 minutes = 900000
+  cookie           : { maxAge: 86400*1000 },  // maxAge = 15 minutes = 900000
   resave           : false,                   // forces the session to be saved back to the store
   saveUninitialized: false,                   // dont save unmodified
   store: new redisStore({ host: 'localhost', port: 6379, client: redisClient, ttl: 86400 })
@@ -76,7 +84,7 @@ app.use('/admin',   adminRouter);
 app.use('/user',    usersRouter);
 app.use('/design',  dataRouter);
 app.use('/gateway', gatewayRouter);
-
+app.use('/drawing', drawingRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

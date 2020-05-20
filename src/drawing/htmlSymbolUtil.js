@@ -41,6 +41,74 @@ const htmlSymbolUtil = {
         </div>`.trim()
     },
 
+    // Generate html of display value
+    generateDisplayValueHtml: function(id){
+        return `
+        <div id="${id}"></div>`.trim()
+    },
+
+    // Generate html of button
+    generateButtonHtml: function(id){     
+        return `
+        <div id="${id}"></div>`.trim()
+    },
+
+    // Generate html of switch
+    generateSwitchHtml: function(id){    
+        return `
+        <div class="togglebutton text-center" id="${id}"></div>`.trim()
+    },
+
+     // Generate html of input
+     generateInputHtml: function(id){
+         return `
+         <div id="${id}"></div>`.trim()
+     },
+
+     // Generate html of slider
+     generateSliderHtml: function(id){
+        return `
+        <div id="${id}"></div>`.trim()
+    },
+
+     // Generate html of progress bar
+     generateProgressBar: function(id){
+        return `
+        <div class="progress" id="${id}" style="height: 15px; border-radius: 15px"></div>`.trim()
+    },
+
+    // Generate html of checkbox
+    generateCheckbox: function(id){
+        return `
+        <div id="${id}"></div>`.trim()
+    },
+
+    // Generate html of digital clock
+    generateDigitalClock: function(id){
+        return `
+        <div id="${id}-children" class="dark digital-clock">
+            <div class="display">
+                <div class="weekdays"></div>
+                <div class="ampm"></div>
+                <div class="alarm"></div>
+                <div class="digits"></div>
+            </div>
+        </div>
+        `.trim()
+    },
+
+    // Generate html of calendar
+    generateCalendar: function(id){
+        return `
+        <div class="calendar" id="${id}-children"></div>`.trim()
+    },
+
+     // Generate html of camera viewer
+     generateCamera: function(id){
+        return `
+        <div class="camera" ></div>`.trim()
+    },
+
     // Generate html of table
     generateTableHtml: function(){
         return `

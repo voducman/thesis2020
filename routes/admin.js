@@ -1,7 +1,7 @@
-const express = require("express");
-const router = express.Router();
-
+const express  = require("express");
+const router   = express.Router();
 const passport = require("passport");
+const ResponseForm = require('../models/form/CommonResponseForm');
 
 
 router.get("/", isLoggedIn, function(req, res){

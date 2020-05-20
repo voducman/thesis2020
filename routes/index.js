@@ -10,6 +10,8 @@ const fs         = require('fs');
 
 const passport = require("passport");
 const utils    = require('../controller/Utils');
+const BaseDAO  = require('../models/dao/BaseDAO');
+const ResponseForm = require('../models/form/CommonResponseForm');
 
 router.get("/", utils.isLoggedIn, function(req, res){
   res.redirect('/dashboard');
@@ -158,6 +160,8 @@ router.put("/profile/:command", utils.isLoggedIn, function(req, res){
   }
 
 })
+
+
 
 
 module.exports = router;

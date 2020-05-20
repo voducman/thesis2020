@@ -4,6 +4,7 @@
 <head>
     <% include metadata %>
     <link rel="stylesheet" href="/static/css/design-drawing.css">
+    <link rel="stylesheet" href="/static/css/drawing-modal.css">
 </head>
 <body>
     <div class="wrapper" id="main-view" style="background-color: #343435;">
@@ -14,24 +15,20 @@
             <div class="content" style="margin-top: 0px; margin-top: 60px; position: absolute; left: 200px;">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-12 pd-mg-0" style="width: 500px;">
-                            <ul class="nav nav-tabs" style="background-color: #343435;">
-                                <li class="active"><a data-toggle="tab" href="#page-1">Page 1</a></li>
-                                <li><a data-toggle="tab" href="#page-2">Page 2</a></li>
-                                <li><a data-toggle="tab" href="#alarm">Alarm</a></li>
-                                <li><a data-toggle="tab" href="#trend">Trend</a></li>
-                                <li><a data-toggle="tab" href="#log">Log</a></li>
-                                <li><a href="#" id="design-add-page"><i class="material-icons">add_circle_outline</i></a></li>
+                        <div class="col-md-12 pd-mg-0" style="width: <%= resolution.width %>px;">
+                            <ul class="nav nav-tabs" id="tab-management" style="background-color: #343435;">
+                                <!-- <li class="active"><a data-toggle="tab" href="#page-1"><i class="material-icons">av_timer</i>Page 1</a></li>-->
+                                <li><a href="#" id="design-add-page"><i class="material-icons">add_circle_outline</i>New</a></li>
                                 
                             </ul>
                             
-                            <div class="tab-content">
-                                <div id="page-1" class="tab-pane fade in active">
-                                    <div class="col-md-12" style="width: 1280px; height: 720px; z-index: 0; background-color: #e4e4e4; position: absolute; padding:0">
+                            <div class="tab-content" id="whiteboard-management" data-width="<%= resolution.width %>" data-height="<%= resolution.height %>">
+                                <!-- <div id="page-1" class="tab-pane fade in active drawing-page">
+                                    <div class="col-md-12" style="width: 0px; height: 0px; z-index: 0; background-color: #e4e4e4; position: absolute; padding:0">
                                         
                                     </div>
-                                </div>
-                                <div id="page-2" class="tab-pane fade">
+                                </div> -->
+                                <!-- <div id="page-2" class="tab-pane fade">
                                     <div class="col-md-12" 
                                         style="width: 1280px; height: 720px; z-index: 0; background-color: #5d5d5e; position: absolute; ">
                                         <div style="width: 80px; height: 80px; position: absolute; background-color: red; left: 0; top: 10px;">
@@ -40,22 +37,8 @@
                                             style="width: 80px; height: 100px; position: absolute; background-color: yellow; left: 80px; top: 0px;">
                                         </div>
                                     </div>
-                                </div>
-                                <div id="alarm" class="tab-pane fade">
-                                    <h3>Alarm page</h3>
-                                    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                    </p>
-                                </div>
-                                <div id="trend" class="tab-pane fade">
-                                    <h3>Trend page</h3>
-                                    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                    </p>
-                                </div>
-                                <div id="log" class="tab-pane fade">
-                                    <h3>Log page</h3>
-                                    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                    </p>
-                                </div>
+                                </div> -->
+                          
                             </div>
                         </div>
                     </div>
@@ -63,17 +46,26 @@
             </div>
         </div>
     </div>
+    <% include scripts-drawing %>
+    <% include setupAlign %>
+    <% include setupPageInfo %>
+    <% include addNewPage %>
+    <% include symbolLine %>
+    <% include symbolPolyline %>
+    <% include symbolEllipse %>
+    <% include symbolCircle %>
+    <% include symbolRectangle %>
+    <% include symbolPolygon %>
+    <% include symbolTextblock %>
+    <% include symbolPencil %>
+    <% include symbolGraphView %>
 </body>
 
-<% include scripts-drawing %>
-<!-- <script type="text/javascript" src="/static/javascripts/svg.min.js"></script>
-<script type="text/javascript" src="/static/javascripts/svg.draw.min.js"></script>
-<script type="text/javascript" src="/static/javascripts/svg.select.min.js"></script>
-<script type="text/javascript" src="/static/javascripts/interact.min.js"></script> -->
 <script type="text/javascript" src="/static/javascripts/drawing.bundle.js"></script>
 <script type="text/javascript">
     (function(){
        $(document.body).tooltip({ selector: "[data-toggle=tooltip]" });
+       $('#symbolGraphView').modal('show');
     })()
 </script>
 </html>

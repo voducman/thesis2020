@@ -20,6 +20,14 @@ module.exports = {
         filename: './[name].bundle.js',
         path: path.resolve(__dirname, 'public/javascripts'),
     },
-    mode: 'development'
+    mode: 'development',
+    module: {
+        rules: [
+          {
+            test: /\.css$/i,
+            use: ['style-loader', 'css-loader'],
+          },
+        ],
+      },
 
 }

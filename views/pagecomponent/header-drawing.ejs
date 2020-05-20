@@ -6,50 +6,46 @@
                     <i class="material-icons notcomplied">home</i>
                 </button>
             </li>
-            <li style="margin-top: 4px; padding: 0 10px; z-index: 1" data-toggle="tooltip" title="Save" data-placement="bottom">
-                <a id="design-save" class="btn btn-sm btn-instagram" href="#"><i class="material-icons notcomplied">save</i></a>
+            <li style="margin-top: 4px; padding: 0 10px; z-index: 1">
+                <a id="design-save" class="btn btn-sm btn-instagram" href="#"><i class="material-icons notcomplied">save</i> Save</a>
             </li>
            
-            <li style="margin-top: 4px; padding: 0 10px; z-index: 1"  data-toggle="tooltip" title="Run" data-placement="bottom">
-                <a id="design-run" class="btn btn-sm btn-success" href="#" role="button"><i class="material-icons notcomplied">play_circle_filled</i></a>
+            <li style="margin-top: 4px; padding: 0 10px; z-index: 1">
+                <a id="design-run" class="btn btn-sm btn-success" href="#" role="button"><i class="material-icons notcomplied">play_circle_filled</i> Run</a>
             </li>
-            <li style="margin-top: 4px; padding: 0 10px; z-index: 1"  data-toggle="tooltip" title="Stop" data-placement="bottom">
-                <a id="design-stop" class="btn btn-sm btn-danger" href="#" role="button"><i class="material-icons notcomplied">stop</i></a>
+            <li style="margin-top: 4px; padding: 0 10px; z-index: 1">
+                <a id="design-stop" class="btn btn-sm btn-danger" href="#" role="button"><i class="material-icons notcomplied">stop</i> Stop</a>
             </li>
             <li style="margin-top: 4px; padding: 0 10px; z-index: 1;">
                 <a href="#edit-design" id="design-config" class="btn btn-sm btn-default dropdown-toggle" role="button"
-                    data-toggle="dropdown" title="Customize" data-placement="right" aria-haspopup="true" aria-expanded="false"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                     rel="tooltip">
-                    <i class="material-icons notcomplied">phonelink_setup</i>
+                    <i class="material-icons notcomplied">phonelink_setup</i> Setup
                 </a>
                 <ul class="dropdown-menu" style="text-align: left;">
                     <li>
-                        <a href="#"><i class="material-icons"
-                            style="margin-top: -5px;">screen_rotation</i>&nbsp;&nbsp;&nbsp;Rotate</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="material-icons"
-                            style="margin-top: -5px;">format_align_center</i>&nbsp;&nbsp;&nbsp;Align</a>
+                        <a href="#" data-toggle="modal" data-target="#setupAlign"><i class="material-icons"
+                            style="margin-top: -5px;">format_align_center</i>&nbsp;&nbsp;&nbsp;Align Object</a>
                     </li> 
                     <li>
-                        <a href="#"><i class="material-icons"
-                            style="margin-top: -5px;">color_lens</i>&nbsp;&nbsp;&nbsp;Backgound</a>
-                    </li>        
+                        <a href="#" data-toggle="modal" data-target="#setupPageInfo"><i class="material-icons"
+                            style="margin-top: -5px;">settings</i>&nbsp;&nbsp;&nbsp;Page Manager</a>
+                    </li>      
                 </ul>
 
             </li>
         </ul>
         <ul class="nav navbar-nav" style="position: absolute;padding-left: 50%;">
-            <li style="margin-top: 4px; padding: 0 10px; z-index: 1;" data-toggle="tooltip" title="Undo" data-placement="bottom">
-                <a id="design-undo" class="btn btn-sm btn-info btn-round" href="#" role="button"><i class="material-icons notcomplied">history</i></a>
+            <li style="margin-top: 4px; padding: 0 10px; z-index: 1;">
+                <a id="design-undo" class="btn btn-sm btn-info btn-round" href="#" role="button"><i class="material-icons notcomplied">history</i> Undo</a>
             </li>
-            <li style="margin-top: 4px; padding: 0 10px; z-index: 1;" data-toggle="tooltip" title="Redo" data-placement="bottom">
-                <a id="design-redo" class="btn btn-sm btn-info btn-round" href="#" role="button"><i class="material-icons notcomplied">update</i></a>
+            <li style="margin-top: 4px; padding: 0 10px; z-index: 1;">
+                <a id="design-redo" class="btn btn-sm btn-info btn-round" href="#" role="button"><i class="material-icons notcomplied">update</i> Redo</a>
             </li> 
         </ul>
-        <ul class="nav navbar-nav" style="position: absolute;padding-left: 80%;">
-            <li style="margin-top: 4px; padding: 0 10px; z-index: 1;" data-toggle="tooltip" title="Complile" data-placement="bottom">
-                <a id="design-compile" class="btn btn-sm btn-google" href="#" role="button"><i class="material-icons notcomplied">publish</i></a>
+        <ul class="nav navbar-nav" style="position: absolute;padding-left: 75%;">
+            <li style="margin-top: 4px; padding: 0 10px; z-index: 1;">
+                <a id="design-compile" class="btn btn-sm btn-google" href="#" role="button"><i class="material-icons notcomplied">publish</i> Compile</a>
             </li>
         </ul>
         <ul class="nav navbar-nav navbar-right" style="margin-bottom: 0; padding-bottom: 0;">

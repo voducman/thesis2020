@@ -1,76 +1,77 @@
 class BaseView {
-    getDesignId(){
-        return location.hash.replace('#','');
+    static getDesignId(){
+        let pathArr = location.pathname.split('/');
+        return pathArr[pathArr.length - 1];
     }
 
-    disableToolbox(){
+    static disableToolbox(){
         $('.btn-symbol').each(function(){
             $(this).addClass('disabled');
         })
 
     }
 
-    enableToolbox(){
+    static enableToolbox(){
         $('.btn-symbol').each(function(){
             $(this).removeClass('disabled');
         })
     }
 
-    disableToolboxBasic(){
+    static disableToolboxBasic(){
         $('.btn-basic').each(function(){
             $(this).addClass('disabled');
         })
     }
 
-    enableToolboxBasic(){
+    static enableToolboxBasic(){
         $('.btn-basic').each(function(){
             $(this).removeClass('disabled');
         })
     }
 
-    disableToolboxElements(){
+    static disableToolboxElements(){
         $('.btn-element').each(function(){
             $(this).addClass('disabled');
         })
     }
 
-    enableToolboxElements(){
+    static enableToolboxElements(){
         $('.btn-element').each(function(){
             $(this).removeClass('disabled');
         })
     }
 
-    disableToolboxGraph(){
+    static disableToolboxGraph(){
         $('.btn-graph').each(function(){
             $(this).addClass('disabled');
         })
     }
 
-    enableToolboxGraph(){
+    static enableToolboxGraph(){
         $('.btn-graph').each(function(){
             $(this).removeClass('disabled');
         })
     }
 
-    disableToolboxAdvanced(){
+    static disableToolboxAdvanced(){
         $('.btn-advance').each(function(){
             $(this).addClass('disabled');
         })
     }
 
-    enableToolboxAdvanced(){
+    static enableToolboxAdvanced(){
         $('.btn-advance').each(function(){
             $(this).removeClass('disabled');
         })
     }
 
-    disableButtonByName(name){
+    static disableButtonByName(name){
         if (!name) return false;
         let eleName = `#symbol-${name}`;
         $(eleName).addClass('disabled');
     }
     
-    enableButtonByName(name){
+    static enableButtonByName(name){
         if (!name) return false;
         let eleName = `#symbol-${name}`;
         $(eleName).removeClass('disabled');

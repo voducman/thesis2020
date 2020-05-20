@@ -6,9 +6,9 @@ const util       = require('util');
 const User       = require('../models/User');
 const Gateway    = require('../models/Gateway');
 const fs         = require('fs');
-
-const passport = require("passport");
-const utils    = require('../controller/Utils');
+const passport   = require("passport");
+const utils      = require('../controller/Utils');
+const ResponseForm = require('../models/form/CommonResponseForm');
 
 router.get("/", utils.isLoggedIn, function(req, res){
     let sessionUser = req.user.local;

@@ -1,0 +1,120 @@
+<div id="setupPageInfo" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Page Management</h4>
+        </div>
+        <div class="modal-body">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>No.</th>
+                <th>Page Name</th>
+                <th class="text-center">Action</th>
+              </tr>
+            </thead>
+            <tbody class="table-body">
+              <tr>
+                <td>1</td>
+                <td><input type="text" value="honda"></td>
+                <td class="td-actions text-center"><a rel="tooltip" class="btn btn-danger btn-xs"><i class="material-icons">close</i></a></td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td><input type="text" value="honda"></td>
+                <td class="td-actions text-center"><a rel="tooltip" class="btn btn-danger btn-xs"><i class="material-icons">close</i></a></td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td><input type="text" value="honda"></td>
+                <td class="td-actions text-center"><a rel="tooltip" class="btn btn-danger btn-xs"><i class="material-icons">close</i></a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success btn-sm">Apply</button>
+          <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+
+  <style>
+    #setupPageInfo input[type=text]{
+      border-radius: 5px;
+      width: 150px;
+      box-shadow: none;
+      border: none;
+    }
+
+    #setupPageInfo table{
+      font-size: smaller;
+    }
+  </style>
+
+ <script>
+   let listDeletedPage = [];
+
+   function deleteRow(pageId){
+      listDeletedPage.push(pageId);
+      $(`#delete-${pageId}`).hide();
+   }
+
+   function deletePageById(pageId) {
+      $(`#tab-management li a[href='#${pageId}']`).parent().remove();
+      $(`#${pageId}`).remove();
+    }
+
+    function updatePageName(pageId, pageName) {
+        
+        $(`#tab-management li a[href='#${pageId}']`).children('span').text(pageName);
+    }
+
+   $('#setupPageInfo').on('show.bs.modal', e => {
+     let tableBody = "", index = 0;
+     listDeletedPage.length = 0;
+
+      // Get list page and add to table
+      $('#tab-management li').each(function(){
+        let pageName = $(this).find('span').text();
+        console.log(pageName);
+        if (pageName.length == 0){
+          return;
+        }
+
+        index++;
+        let pageId = $(this).children()[0].getAttribute('href').replace("#","");
+        console.log(pageId);
+        tableBody += `
+            <tr id="delete-${pageId}">
+              <td>${index}</td>
+              <td><input type="text" value="${pageName}" onchange=""></td>
+              <td class="td-actions text-center"><a onclick="deleteRow('${pageId}')" class="btn btn-danger btn-xs"><i class="material-icons">close</i></a></td>
+            </tr>`;
+      })
+
+      $('#setupPageInfo .table-body').empty();
+      $('#setupPageInfo .table-body').append(tableBody);
+   })
+
+   $('#setupPageInfo .modal-footer .btn-success').click(e => {
+     
+      // Update page name
+     $('#setupPageInfo .table-body tr').each(function () {
+       let pageId = $(this).attr('id').replace('delete-', '');
+       let newPageName = $(this).find('input').val();
+       if (newPageName.length == 0) {
+         return;
+       }
+
+       updatePageName(pageId, newPageName);
+     })
+
+     listDeletedPage.forEach(pageId => {
+       deletePageById(pageId);
+     })
+    })
+ </script>
