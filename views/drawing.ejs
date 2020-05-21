@@ -49,6 +49,7 @@
     <% include scripts-drawing %>
     <% include setupAlign %>
     <% include setupPageInfo %>
+    <!-- Basic components -->
     <% include addNewPage %>
     <% include symbolLine %>
     <% include symbolPolyline %>
@@ -59,13 +60,19 @@
     <% include symbolTextblock %>
     <% include symbolPencil %>
     <% include symbolGraphView %>
+
+    <!-- Elements components -->
+    <% include symbolDisplayValue %>
+    <% include symbolButton %>
+    <% include symbolSwitch %>
+    <% include symbolInput %>
 </body>
 
 <script type="text/javascript" src="/static/javascripts/drawing.bundle.js"></script>
 <script type="text/javascript">
     (function(){
        $(document.body).tooltip({ selector: "[data-toggle=tooltip]" });
-       $('#symbolGraphView').modal('show');
+       $('#symbolInput').modal('show');
     })()
 </script>
 </html>

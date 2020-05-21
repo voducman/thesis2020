@@ -24,35 +24,45 @@ const elementsUtil = (function(){
         },
 
         renderDisplayValue: function(id){
-            $(`#${id}`).append('<p style="margin: 0">##.##</p>');
+            $(`#${id}`).append('<div><p style="margin: 0">##.##</p></div>');
         },
 
-        renderButton: function(id){
-            $(`#${id}`).append('<button type="button" class="btn btn-info btn-sm">Button</button>');
-            const width = getWidthTotal(`#${id} button`);
-            const height = getHeightTotal(`#${id}`);
-    
-            $(`#${id}`).parent().attr('width', width);
-            $(`#${id}`).parent().attr('height', height);
+        renderButton: function(id, width, height){
+            $(`#${id}`).append(`<div>
+                                <button type="button" class="btn btn-sm" style="width: ${width}px; 
+                                    height: ${height}px; font-size: 15px; color: red; font-weight: 500; margin: 0;">
+                                    Button
+                                </button>
+                                </div>`);
+
         },
 
         renderSwitch: function(id){
-            $(`#${id}`).append(` <label  data-size="lg">
-                NEW
-                    <input type="checkbox" checked data-size="lg" >
-                    <span class="toggle"></span>
-                EDIT 
-            </label>`);
+            $(`#${id}`).append(` 
+            <div class="togglebutton text-center">
+                <label  data-size="lg">
+                        <span class="before-text">OFF</span>
+                        <input type="checkbox" checked>
+                        <span class="toggle"></span>
+                        <span class="after-text">ON</span>
+                        <style>
+                            #${id} input[type=checkbox] + span.toggle{
+                                background-color: gray!important;
+                            }
+                            #${id} input[type=checkbox]:checked + span.toggle{
+                                background-color: red!important;
+                            } 
+                        </style>
+                </label>
+            </div>`);
 
         },
 
-        renderInput: function(id){
-            $(`#${id}`).append(`<input type="text" name="adfaf" placeholder="type here..."/>`);  
-            const width = $(`#${id}`).parent().width();
-            const height = $(`#${id}`).parent().height();
-            $(`#${id} input`).width(width - 4);
-            $(`#${id} input`).height(height - 6);
-
+        renderInput: function(id, width, height){
+            $(`#${id}`).append(`
+                <div>
+                    <input type="text" placeholder="&nbsp;type here..." style="box-sizing: border-box;"/>
+                </div>`); 
         },
 
         renderSlider: function(id, orientation){

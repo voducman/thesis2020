@@ -3,7 +3,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Rectangle Property</h4>
+          <h4 class="modal-title">Rectangle Properties</h4>
         </div>
         <div class="modal-body">
             <ul class="nav nav-tabs">
@@ -19,10 +19,13 @@
                     <div class="col-sm-4">
                       <fieldset>
                         <legend>Position</legend>
-                        <code>X1:</code><input type="number" name="pos-x1" value="1" min="0"><br>
-                        <code>Y1:</code><input type="number" name="pos-y1" value="1" min="0"><br>
-                        <code>X2:</code><input type="number" name="pos-x2" value="1" min="0"><br>
-                        <code>Y2:</code><input type="number" name="pos-y2" value="1" min="0"><br>
+                        <code>X:</code><input type="number" name="pos-x1" value="1" min="0"><br>
+                        <code>Y:</code><input type="number" name="pos-y1" value="1" min="0"><br>
+                      </fieldset>
+                      <fieldset>
+                        <legend>Fill</legend>
+                        <input type="checkbox" name="has-fill" class="checkbox-custom"><span class="checkbox-custom">Filled</span><br>
+                        <code>Color:</code><button name="choose-fill-color" class="btn-color-1" disabled></button>
                       </fieldset>
                     </div>
                     <div class="col-sm-4">
@@ -65,9 +68,10 @@
                     </div>
                     <div class="col-md-6">
                       <fieldset>
-                        <legend>Fill</legend>
-                        <input type="checkbox" name="has-fill" class="checkbox-custom"><span class="checkbox-custom">Filled</span><br>
-                        <code>Color:</code><button name="choose-fill-color" class="btn-color-1" disabled></button><br>
+                        <legend>Size</legend>
+                        <code>Width:&nbsp;</code><input class="lg" type="number" name="width" value="1" min="0"><br>
+                        <code>Height:</code><input class="lg" type="number" name="height" value="1" min="0"><br>
+                        <code>Radius:</code><input class="lg" type="number" name="radius" value="0" min="0"><br>
                       </fieldset>
                     </div>
                   </div>

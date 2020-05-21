@@ -41,30 +41,6 @@ const htmlSymbolUtil = {
         </div>`.trim()
     },
 
-    // Generate html of display value
-    generateDisplayValueHtml: function(id){
-        return `
-        <div id="${id}"></div>`.trim()
-    },
-
-    // Generate html of button
-    generateButtonHtml: function(id){     
-        return `
-        <div id="${id}"></div>`.trim()
-    },
-
-    // Generate html of switch
-    generateSwitchHtml: function(id){    
-        return `
-        <div class="togglebutton text-center" id="${id}"></div>`.trim()
-    },
-
-     // Generate html of input
-     generateInputHtml: function(id){
-         return `
-         <div id="${id}"></div>`.trim()
-     },
-
      // Generate html of slider
      generateSliderHtml: function(id){
         return `

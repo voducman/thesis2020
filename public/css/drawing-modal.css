@@ -79,6 +79,11 @@
     height: 20px;
 }
 
+.symbol-property fieldset input[type=number].lg{
+    width: 120px;
+    height: 20px;
+}
+
 .symbol-property fieldset input[type=number].mini{
     width: 50px;
     height: 20px;
@@ -86,6 +91,16 @@
 
 .symbol-property input[type=number]{
     width: 100px;
+    height: 20px;
+}
+
+.symbol-property fieldset input[type=text]{
+    width: 100px;
+    height: 20px;
+}
+
+.symbol-property fieldset input[type=text].mini{
+    width: 50px;
     height: 20px;
 }
 
@@ -113,6 +128,18 @@
 
 .symbol-property .btn-color-2{
     width: 30px;
+    height: 15px;
+    background-color: indianred;
+}
+
+.symbol-property .btn-color-1.lg{
+    width: 85px;
+    height: 15px;
+    background-color: khaki;
+}
+
+.symbol-property .btn-color-2.lg{
+    width: 85px;
     height: 15px;
     background-color: indianred;
 }

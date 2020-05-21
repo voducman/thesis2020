@@ -1,57 +1,50 @@
-<div id="symbolPolygon" class="modal fade symbol-property" role="dialog">
+<div id="symbolSwitch" class="modal fade symbol-property" role="dialog">
     <div class="modal-dialog modal-md">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Polygon Properties</h4>
+          <button type="switch" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Switch Properties</h4>
         </div>
         <div class="modal-body">
             <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#appearance-polygon">Appearance</a></li>
-                <li><a data-toggle="tab" href="#movement-polygon">Movement</a></li>
-                <li><a data-toggle="tab" href="#animation-polygon">Animation</a></li>
-                <li><a data-toggle="tab" href="#access-polygon">Access</a></li>
+                <li class="active"><a data-toggle="tab" href="#appearance-switch">Appearance</a></li>
+                <li><a data-toggle="tab" href="#movement-switch">Movement</a></li>
+                <li><a data-toggle="tab" href="#animation-switch">Animation</a></li>
+                <li><a data-toggle="tab" href="#access-switch">Access</a></li>
               </ul>
               
               <div class="tab-content">
-                <div id="appearance-polygon" class="tab-pane fade in active">
+                <div id="appearance-switch" class="tab-pane fade in active">
                   <div class="row">
-                    <div class="col-sm-4">
+                    <div class="col-sm-3">
                       <fieldset>
-                        <legend>Rotation</legend>
-                        <code>Degree:</code><input type="number" name="width" value="0" min="-360" max="360">
-                      </fieldset>
-                      <fieldset>
-                        <legend>Order</legend>
-                        <code>Z-index:</code><input type="number" name="z-index" value="1" min="1" max="10">
+                        <legend>Position</legend>
+                        <code>X:</code><input type="number" class="mini" name="pos-x1" value="1" min="0"><br>
+                        <code>Y:</code><input type="number" class="mini" name="pos-y1" value="1" min="0"><br>
                       </fieldset>
                     </div>
                     <div class="col-sm-4">
                       <fieldset>
-                        <legend>Line property</legend>
-                        <code>Width:</code><input type="number" name="width" value="1" min="0"><br>
-                        <code>Style:</code>
-                        <select class="line-style" name="line-style">
-                          <option value="solid">Solid</option>
-                          <option value="dash">Dash</option>
-                          <option value="dot">Dot</option>
-                        </select><br>
-                        <code>Color:</code><button class="btn-color-1"></button><br>
-                        <code>Cap:&nbsp;&nbsp;</code>
-                        <select class="line-style" name="line-lineCap">
-                          <option value="butt">Butt</option>
-                          <option value="round">Round</option>
-                          <option value="square">Square</option>
-                        </select><br>
+                        <legend>Order</legend>
+                        <code>Z-index:</code><input type="number" name="z-index" value="1" min="1" max="10">
+                      </fieldset>    
+                      <fieldset>
+                        <legend>Rotation</legend>
+                        <code>Degree:</code><input type="number" name="width" value="0" min="-360" max="360">
                       </fieldset>
-                    </div> 
-                    <div class="col-sm-4">
-                        <fieldset>
-                          <legend>Fill</legend>
-                          <input type="checkbox" name="has-fill" class="checkbox-custom"><span class="checkbox-custom">Filled</span><br>
-                          <code>Color:</code><button name="choose-fill-color" class="btn-color-1" disabled></button><br>
-                        </fieldset>
-                      </div>
+                    </div>
+                    <div class="col-sm-5">
+                      <fieldset>
+                        <legend>Label</legend>
+                            <code>Before:</code><input type="text" name="width" value="OFF"><br>
+                            <code>After:&nbsp;</code><input type="text" name="width" value="ON"><br>
+                      </fieldset>
+                      <fieldset>
+                        <legend>Color</legend>
+                            <code>When on:&nbsp;</code><button class="btn-color-1 lg"></button><br>
+                            <code>When off:</code><button class="btn-color-2 lg"></button>
+                      </fieldset>
+                    </div>
                   </div>
                   <div class="row">
                     <div class="col-md-6">
@@ -63,7 +56,7 @@
                     </div>
                   </div>
                 </div>
-                <div id="movement-polygon" class="tab-pane fade">
+                <div id="movement-switch" class="tab-pane fade">
                   <div class="row">
                     <div class="col-sm-12">
                       <fieldset>
@@ -96,40 +89,36 @@
                     </div>
                   </div>
                 </div>
-                <div id="animation-polygon" class="tab-pane fade">
+                <div id="animation-switch" class="tab-pane fade">
                   <div class="row">
-                    <div class="col-sm-6">
-                      <fieldset>
-                        <legend>ON color when</legend>
-                          <textarea style="width: 160px;"></textarea>
-                          <button class="" style="float: right;">Browse</button>
-                          <br>
-                          <code>ON color:</code><button class="btn-color-1"></button>&nbsp;&nbsp;
-                          <code>OFF color:</code><button class="btn-color-2"></button>
-                      </fieldset>
-                    </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-12">
                       <fieldset>
                         <legend>Hidden when</legend>
-                          <textarea style="width: 160px;"></textarea>
+                          <textarea style="width: 452px;"></textarea>
                           <button style="float: right;">Browse</button>
-                          <br><br>
                       </fieldset>
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-sm-6">
-                      <fieldset>
-                        <legend>Flash when</legend>
-                        <textarea style="width: 160px;"></textarea>
-                        <button style="float: right;">Browse</button>
-                        <br>
-                        <code>Flash ON color:</code><button class="btn-color-1"></button>&nbsp;&nbsp;
-                      </fieldset>
+                    <div class="col-sm-12">
+                        <fieldset>
+                            <legend>Run when change to ON</legend>
+                              <textarea style="width: 452px;" name="switch-on"></textarea>
+                              <button class="" style="float: right;">Browse</button>
+                        </fieldset>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                        <fieldset>
+                            <legend>Run when change to OFF</legend>
+                              <textarea style="width: 452px;" name="switch-off"></textarea>
+                              <button class="" style="float: right;">Browse</button>
+                        </fieldset>
                     </div>
                   </div>
                 </div>
-                <div id="access-polygon" class="tab-pane fade">
+                <div id="access-switch" class="tab-pane fade">
                   <div class="row">
                     <div class="col-sm-12">
                       <fieldset>
@@ -161,8 +150,8 @@
               </div>
         </div>
         <div class="modal-footer">
-          <button type="button" name="save" class="btn btn-success btn-sm">&nbsp;Apply&nbsp;</button>
-          <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancel</button>
+          <button type="switch" name="save" class="btn btn-success btn-sm">&nbsp;Apply&nbsp;</button>
+          <button type="switch" class="btn btn-danger btn-sm" data-dismiss="modal">Cancel</button>
         </div>
       </div>
   
@@ -170,25 +159,16 @@
   </div>
 
   <script>
-    $("#symbolPolygon").draggable({
+    $("#symbolSwitch").draggable({
       handle: ".modal-header"
     }); 
 
-    // Set event for has-fill checkbox
-    $('#symbolPolygon #appearance-polygon input[name=has-fill]').click(e => {
-      if (e.target.checked){
-        $('#symbolPolygon #appearance-polygon button[name=choose-fill-color]').prop('disabled', false);
-      }else{
-        $('#symbolPolygon #appearance-polygon button[name=choose-fill-color]').prop('disabled', true);
-      }
-    })
-
     // Set event for has-privilege restrictions
-    $('#symbolPolygon #access-polygon input[name=has-privilege]').click(e => {
+    $('#symbolSwitch #access-switch input[name=has-privilege]').click(e => {
       if (e.target.checked){
-        $('#symbolPolygon #access-polygon input[name=privilege-level]').prop('disabled', true);
+        $('#symbolSwitch #access-switch input[name=privilege-level]').prop('disabled', true);
       }else{
-        $('#symbolPolygon #access-polygon input[name=privilege-level]').prop('disabled', false);
+        $('#symbolSwitch #access-switch input[name=privilege-level]').prop('disabled', false);
       }
     })
   </script>
