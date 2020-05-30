@@ -81,19 +81,19 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/footer.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./frontend/footer.js");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./src/footer.js":
-/*!***********************!*\
-  !*** ./src/footer.js ***!
-  \***********************/
+/***/ "./frontend/footer.js":
+/*!****************************!*\
+  !*** ./frontend/footer.js ***!
+  \****************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("\n\n//# sourceURL=webpack:///./src/footer.js?");
+eval("\n\n//# sourceURL=webpack:///./frontend/footer.js?");
 
 /***/ })
 

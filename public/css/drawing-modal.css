@@ -99,6 +99,16 @@
     height: 20px;
 }
 
+.symbol-property fieldset input[type=text].color-picker{
+    width: 70px;
+    height: 20px;
+}
+
+.symbol-property fieldset input[type=text].label-list{
+    width: 230px;
+    height: 20px;
+}
+
 .symbol-property fieldset input[type=text].mini{
     width: 50px;
     height: 20px;
@@ -177,6 +187,62 @@ span.checkbox-custom{
     margin-left: 56px; 
     border: 1px solid black;
     border-radius: 5px;
+}
+
+/* select ON/OFF symbol in animtion tab/symbolSet modal */
+#symbol-set-select fieldset{
+    position: relative;
+}
+
+#symbol-set-select .col-sm-4 .nav-tabs{
+    max-height: 220px;
+    overflow-y: scroll;
+}
+
+#symbol-set-select .col-sm-4 .nav-tabs li{
+    border-radius: 3px!important;
+    border-right:  1px solid rgb(29, 26, 26);
+}
+
+#symbol-set-select .col-sm-8 > div{
+    height: 0!important;
+    width: 100%;
+    border-radius: 3px;
+}
+
+#symbol-set-select .col-sm-8 > div.active{
+    height: 320px!important;
+    width: 100%;
+    overflow-y: scroll;
+}
+
+#symbol-set-select .col-sm-8 > div img{
+    width: 0px;
+    height: 0px;
+}
+
+#symbol-set-select .col-sm-8 > div.active img{
+    width: 43px;
+    height: 43px;
+    border-radius: 3px;
+    background-color: none;
+    margin: 1px;
+    border: 1px solid black;
+    float: left;
+}
+
+#symbol-set-select .col-sm-8 > div img:hover{
+    background-color: chartreuse;
+}
+
+#symbol-set-select .col-sm-4 > img{
+    width: 90px;
+    height: 90px;
+    border:  1px solid rgb(29, 26, 26);
+    border-radius: 3px;
+    margin: auto;
+    margin-top: 10px;
+    display: block;
 }
 
 

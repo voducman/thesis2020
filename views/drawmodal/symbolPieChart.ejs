@@ -1,0 +1,174 @@
+<div id="symbolPieChart" class="modal fade symbol-property" role="dialog">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Pie Chart Properties</h4>
+        </div>
+        <div class="modal-body">
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#appearance-pie-chart">Appearance</a></li>
+                <li><a data-toggle="tab" href="#movement-pie-chart">Movement</a></li>
+                <li><a data-toggle="tab" href="#animation-pie-chart">Animation</a></li>
+                <li><a data-toggle="tab" href="#access-pie-chart">Access</a></li>
+              </ul>
+              
+              <div class="tab-content">
+                <div id="appearance-pie-chart" class="tab-pane fade in active">
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <fieldset>
+                        <legend>Position</legend>
+                        <code>X:</code><input type="number" class="mini" name="pos-x" value="1" min="0"><br>
+                        <code>Y:</code><input type="number" class="mini" name="pos-y" value="1" min="0"><br>
+                      </fieldset>
+                    </div>
+                    <div class="col-sm-4">
+                      <fieldset>
+                        <legend>Rotation</legend>
+                        <code>Degree:</code><input type="number" name="degree" value="0" min="-45" max="45">
+                      </fieldset>
+                      <fieldset>
+                        <legend>Order</legend>
+                        <code>Z-index:</code><input type="number" name="z-index" value="1" min="1" max="10">
+                      </fieldset>    
+                    </div>
+                    <div class="col-sm-5">
+                      <fieldset>
+                        <legend>Size property</legend>  
+                        <code>Radius:</code><input type="number" name="size-radius" value="100" min="10"><br>    
+                      </fieldset>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                        <fieldset>
+                          <legend>Label</legend>
+                          <input type="text" class="label-list" name="label" value="Pie 1, Pie 2, Pie 3, Pie 4, Pie 5">
+                        </fieldset>
+                      </div>
+                    <div class="col-md-6">
+                      <fieldset>
+                        <legend>Draggable</legend>
+                        <input type="checkbox" name="has-draggable-design" class="checkbox-custom" checked><span class="checkbox-custom">Draggable when Design</span><br>
+                        <input type="checkbox" name="has-draggable-run" class="checkbox-custom"><span class="checkbox-custom">Draggable when Run</span><br>
+                      </fieldset>
+                    </div>
+                  </div>
+                </div>
+                <div id="movement-pie-chart" class="tab-pane fade">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <fieldset>
+                        <legend>Movement expression</legend>
+                          <textarea name="move-exp" style="width: 456px;"></textarea>
+                          <button style="float: right;">Browse</button>
+                          <br>
+                      </fieldset>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <label style="padding: 15px; font-weight: bold;">Range:</label>
+                      <code>min: </code><input type="number" name="move-min" value="0">
+                      <code style="margin-left: 40px;">max: </code><input type="number" name="move-max" value="100">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <fieldset>
+                        <legend>Offset horizontal</legend>
+                        <code>Offset X: </code><input type="number" name="offset-x" value="0">
+                      </fieldset>
+                    </div>
+                    <div class="col-sm-6">
+                      <fieldset>
+                        <legend>Offset vertical</legend>
+                        <code>Offset Y: </code><input type="number" name="offset-y" value="0">
+                      </fieldset>
+                    </div>
+                  </div>
+                </div>
+                <div id="animation-pie-chart" class="tab-pane fade">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <fieldset>
+                                <legend>Hidden when</legend>
+                                <textarea name="hidden-exp" style="width: 452px;"></textarea>
+                                <button class="" style="float: right;">Browse</button>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <fieldset>
+                                <legend>Assign Tag</legend>
+                                <textarea name="assign-tag1" style="width: 452px;" rows="1"></textarea>
+                                <button  style="float: right;">Browse</button>
+                                <textarea name="assign-tag2" style="width: 452px;" rows="1"></textarea>
+                                <button  style="float: right;">Browse</button>
+                                <textarea name="assign-tag3" style="width: 452px;" rows="1"></textarea>
+                                <button  style="float: right;">Browse</button>
+                                <textarea name="assign-tag4" style="width: 452px;" rows="1"></textarea>
+                                <button  style="float: right;">Browse</button>
+                                <textarea name="assign-tag5" style="width: 452px;" rows="1"></textarea>
+                                <button  style="float: right;">Browse</button>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+                <div id="access-pie-chart" class="tab-pane fade">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <fieldset>
+                        <legend>Description</legend>
+                          <textarea name="description" style="width: 536px;"></textarea>
+                          <br>
+                      </fieldset>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <fieldset>
+                        <legend>Tooltip</legend>
+                          <textarea name="tooltip" style="width: 536px;"></textarea>
+                          <br>
+                      </fieldset>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <fieldset>
+                        <legend>Security</legend>
+                          <input type="checkbox" name="has-privilege" class="checkbox-custom" checked><span class="checkbox-custom">No privilege restrictions</span><br>
+                          <code>Privilege level: </code><input type="number" name="privilege-level" min="0" max="8" disabled>
+                      </fieldset>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </div>
+        <div class="modal-footer">
+          <input type="text" name="target-id" value="" style="display: none;">
+          <button type="button" name="save" class="btn btn-success btn-sm">&nbsp;Apply&nbsp;</button>
+          <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+
+  <script>
+    $("#symbolPieChart").draggable({
+      handle: ".modal-header"
+    }); 
+
+    // Set event for has-privilege restrictions
+    $('#symbolPieChart #access-pie-chart input[name=has-privilege]').click(e => {
+      if (e.target.checked){
+        $('#symbolPieChart #access-pie-chart input[name=privilege-level]').prop('disabled', true);
+      }else{
+        $('#symbolPieChart #access-pie-chart input[name=privilege-level]').prop('disabled', false);
+      }
+    })
+  </script>

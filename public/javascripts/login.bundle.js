@@ -81,19 +81,19 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/login.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./frontend/login.js");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./src/login.js":
-/*!**********************!*\
-  !*** ./src/login.js ***!
-  \**********************/
+/***/ "./frontend/login.js":
+/*!***************************!*\
+  !*** ./frontend/login.js ***!
+  \***************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("$('button[type=submit]').click(function(event){\r\n    let isEmailValid, isPasswordValid;\r\n\r\n    isEmailValid    =  isEmail($(\"input[name=email]\").val());\r\n    isPasswordValid = !$(\"input[name=password]\").parent().hasClass(\"has-error\") && $(\"input[name=password]\").val().trim().length >= 6;\r\n    \r\n    if (!isEmailValid){\r\n        $(\"input[name=email]\").parent().addClass(\"has-error\");\r\n        showNotification(\"top\", \"right\", \"danger\", \"<big>ERROR:</big>  Invalid <b>email</b>, please enter again.\");\r\n    }\r\n    if (!isPasswordValid){\r\n        $(\"input[name=password]\").parent().addClass(\"has-error\");\r\n        showNotification(\"top\", \"right\", \"danger\", \"<big>ERROR:</big>  Invalid <b>password</b>, please enter again. Minimum of 6 characters.\");\r\n    }\r\n    \r\n    if (isEmailValid && isPasswordValid){\r\n        console.log(\"form submit\")\r\n    }else{\r\n        event.preventDefault();\r\n    }\r\n   \r\n})\r\n\r\nfunction isEmail(email){\r\n    const regex = /^([a-zA-Z0-9_\\.\\-\\+])+\\@(([a-zA-Z0-9\\-])+\\.)+([a-zA-Z0-9]{2,4})+$/;\r\n    return regex.test(email);\r\n}\r\n\r\n\r\nfunction showNotification(from, align, type, message){\r\n\r\n    $.notify({\r\n        icon: \"add_alert\",\r\n        message: message\r\n\r\n    },{\r\n        type: type,\r\n        timer: 2000,\r\n        placement: {\r\n            from: from,\r\n            align: align\r\n        }\r\n    });\r\n}\n\n//# sourceURL=webpack:///./src/login.js?");
+eval("$('button[type=submit]').click(function(event){\r\n    let isEmailValid, isPasswordValid;\r\n\r\n    isEmailValid    =  isEmail($(\"input[name=email]\").val());\r\n    isPasswordValid = !$(\"input[name=password]\").parent().hasClass(\"has-error\") && $(\"input[name=password]\").val().trim().length >= 6;\r\n    \r\n    if (!isEmailValid){\r\n        $(\"input[name=email]\").parent().addClass(\"has-error\");\r\n        showNotification(\"top\", \"right\", \"danger\", \"<big>ERROR:</big>  Invalid <b>email</b>, please enter again.\");\r\n    }\r\n    if (!isPasswordValid){\r\n        $(\"input[name=password]\").parent().addClass(\"has-error\");\r\n        showNotification(\"top\", \"right\", \"danger\", \"<big>ERROR:</big>  Invalid <b>password</b>, please enter again. Minimum of 6 characters.\");\r\n    }\r\n    \r\n    if (isEmailValid && isPasswordValid){\r\n        console.log(\"form submit\")\r\n    }else{\r\n        event.preventDefault();\r\n    }\r\n   \r\n})\r\n\r\nfunction isEmail(email){\r\n    const regex = /^([a-zA-Z0-9_\\.\\-\\+])+\\@(([a-zA-Z0-9\\-])+\\.)+([a-zA-Z0-9]{2,4})+$/;\r\n    return regex.test(email);\r\n}\r\n\r\n\r\nfunction showNotification(from, align, type, message){\r\n\r\n    $.notify({\r\n        icon: \"add_alert\",\r\n        message: message\r\n\r\n    },{\r\n        type: type,\r\n        timer: 2000,\r\n        placement: {\r\n            from: from,\r\n            align: align\r\n        }\r\n    });\r\n}\n\n//# sourceURL=webpack:///./frontend/login.js?");
 
 /***/ })
 

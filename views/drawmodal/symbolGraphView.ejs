@@ -19,7 +19,7 @@
                     <div class="col-sm-5">
                         <fieldset>
                             <legend>Rotation</legend>
-                            <code>Degree:</code><input type="number" name="width" value="0" min="-360" max="360">
+                            <code>Degree:</code><input type="number" name="degree" value="0" min="-360" max="360">
                         </fieldset>
                         <fieldset>
                             <legend>Order</legend>
@@ -36,7 +36,7 @@
                     <div class="col-sm-7">
                         <fieldset>
                             <legend>Pick image up from your PC</legend>
-                            <input type="file" name="upload-image" id="graph-view-img" accept="image/png, image/jpeg, image/jpg, image/svg">
+                            <input type="file" name="upload-image" id="graph-view-img" accept="image/png, image/jpeg, image/jpg, image/svg, image/svg+xml">
                             <br>
                             <img class="preview-img" src="/static/images/default-image.jpg">
                         </fieldset>
@@ -46,15 +46,15 @@
                     <div class="col-sm-6">
                       <fieldset>
                         <legend>Position</legend>
-                        <code>X:</code><input type="number" name="pos-x1" value="0" min="0">
-                        <code>Y:</code><input type="number" name="pos-y1" value="0" min="0">
+                        <code>X:</code><input type="number" name="pos-x" value="0" min="0">
+                        <code>Y:</code><input type="number" name="pos-y" value="0" min="0">
                     </fieldset>
                     </div>
                     <div class="col-sm-6">
                       <fieldset>
                         <legend>Size</legend>
-                        <code>Width:&nbsp;</code><input class="mini" type="number" name="pos-x1" value="0" min="0">
-                        <code>Height:</code><input class="mini" type="number" name="pos-y1" value="0" min="0">
+                        <code>Width:&nbsp;</code><input class="mini" type="number" name="width" value="0" min="0">
+                        <code>Height:</code><input class="mini" type="number" name="height" value="0" min="0">
                     </fieldset>
                     </div>
                   </div>
@@ -64,7 +64,7 @@
                     <div class="col-sm-12">
                       <fieldset>
                         <legend>Movement expression</legend>
-                          <textarea style="width: 456px;"></textarea>
+                          <textarea name="move-exp" style="width: 456px;"></textarea>
                           <button style="float: right;">Browse</button>
                           <br>
                       </fieldset>
@@ -73,8 +73,8 @@
                   <div class="row">
                     <div class="col-sm-12">
                       <label style="padding: 15px; font-weight: bold;">Range:</label>
-                      <code>min: </code><input type="number" name="min" value="0">
-                      <code style="margin-left: 40px;">max: </code><input type="number" name="max" value="100">
+                      <code>min: </code><input type="number" name="move-min" value="0">
+                      <code style="margin-left: 40px;">max: </code><input type="number" name="move-max" value="100">
                     </div>
                   </div>
                   <div class="row">
@@ -97,7 +97,7 @@
                     <div class="col-sm-12">
                       <fieldset>
                         <legend>Hidden when</legend>
-                          <textarea style="width: 455px;"></textarea>
+                          <textarea name="hidden-exp" style="width: 455px;"></textarea>
                           <button style="float: right;">Browse</button>
                       </fieldset>
                     </div>
@@ -108,7 +108,7 @@
                     <div class="col-sm-12">
                       <fieldset>
                         <legend>Description</legend>
-                          <textarea style="width: 536px;"></textarea>
+                          <textarea name="description" style="width: 536px;"></textarea>
                           <br>
                       </fieldset>
                     </div>
@@ -117,7 +117,7 @@
                     <div class="col-sm-12">
                       <fieldset>
                         <legend>Tooltip</legend>
-                          <textarea style="width: 536px;"></textarea>
+                          <textarea name="tooltip" style="width: 536px;"></textarea>
                           <br>
                       </fieldset>
                     </div>
@@ -135,6 +135,7 @@
               </div>
         </div>
         <div class="modal-footer">
+          <input type="text" name="target-id" value="" style="display: none;">
           <button type="button" name="save" class="btn btn-success btn-sm">&nbsp;Apply&nbsp;</button>
           <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancel</button>
         </div>

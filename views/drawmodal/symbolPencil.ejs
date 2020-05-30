@@ -19,7 +19,7 @@
                     <div class="col-sm-4">
                       <fieldset>
                         <legend>Rotation</legend>
-                        <code>Degree:</code><input type="number" name="width" value="0" min="-360" max="360">
+                        <code>Degree:</code><input type="number" name="degree" value="0" min="-360" max="360">
                       </fieldset>
                       <fieldset>
                         <legend>Order</legend>
@@ -29,16 +29,16 @@
                     <div class="col-sm-4">
                       <fieldset>
                         <legend>Line property</legend>
-                        <code>Width:</code><input type="number" name="width" value="1" min="0"><br>
+                        <code>Width:</code><input type="number" name="line-width" value="1" min="0"><br>
                         <code>Style:</code>
                         <select class="line-style" name="line-style">
                           <option value="solid">Solid</option>
                           <option value="dash">Dash</option>
                           <option value="dot">Dot</option>
                         </select><br>
-                        <code>Color:</code><button class="btn-color-1"></button><br>
+                        <code>Color:</code><input type="text" name="line-color" id="pencil-picker-type" value='#276cb8' class="color-picker"/><br>
                         <code>Cap:&nbsp;&nbsp;</code>
-                        <select class="line-style" name="line-lineCap">
+                        <select class="line-style" name="line-cap">
                           <option value="butt">Butt</option>
                           <option value="round">Round</option>
                           <option value="square">Square</option>
@@ -59,7 +59,7 @@
                     <div class="col-sm-12">
                       <fieldset>
                         <legend>Movement expression</legend>
-                          <textarea style="width: 456px;"></textarea>
+                          <textarea name="move-exp" style="width: 456px;"></textarea>
                           <button style="float: right;">Browse</button>
                           <br>
                       </fieldset>
@@ -68,8 +68,8 @@
                   <div class="row">
                     <div class="col-sm-12">
                       <label style="padding: 15px; font-weight: bold;">Range:</label>
-                      <code>min: </code><input type="number" name="min" value="0">
-                      <code style="margin-left: 40px;">max: </code><input type="number" name="max" value="100">
+                      <code>min: </code><input type="number" name="move-min" value="0">
+                      <code style="margin-left: 40px;">max: </code><input type="number" name="move-max" value="100">
                     </div>
                   </div>
                   <div class="row">
@@ -89,33 +89,32 @@
                 </div>
                 <div id="animation-pencil" class="tab-pane fade">
                   <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-12">
                       <fieldset>
                         <legend>ON color when</legend>
-                          <textarea style="width: 160px;"></textarea>
+                          <textarea name="oncolor-exp" style="width: 452px;"></textarea>
                           <button class="" style="float: right;">Browse</button>
                           <br>
-                          <code>ON color:</code><button class="btn-color-1"></button>&nbsp;&nbsp;
-                          <code>OFF color:</code><button class="btn-color-2"></button>
+                          <code>ON color:</code><input type="text" name="on-color" id="pencil-picker-on" value='#276cb8' class="color-picker"/>&nbsp;&nbsp;
+                          <code>OFF color:</code><input type="text" name="off-color" id="pencil-picker-off" value='#276cb8' class="color-picker"/>
                       </fieldset>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-12">
                       <fieldset>
                         <legend>Hidden when</legend>
-                          <textarea style="width: 160px;"></textarea>
+                          <textarea name="hidden-exp" style="width: 452px;"></textarea>
                           <button style="float: right;">Browse</button>
-                          <br><br>
                       </fieldset>
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-12">
                       <fieldset>
                         <legend>Flash when</legend>
-                        <textarea style="width: 160px;"></textarea>
+                        <textarea name="flash-exp" style="width: 452px;"></textarea>
                         <button style="float: right;">Browse</button>
                         <br>
-                        <code>Flash ON color:</code><button class="btn-color-1"></button>&nbsp;&nbsp;
+                        <code>Flash ON color:</code><input type="text" name="flash-on" id="pencil-picker-flash" value='#276cb8' class="color-picker"/>&nbsp;&nbsp;
                       </fieldset>
                     </div>
                   </div>
@@ -125,7 +124,7 @@
                     <div class="col-sm-12">
                       <fieldset>
                         <legend>Description</legend>
-                          <textarea style="width: 536px;"></textarea>
+                          <textarea name="description" style="width: 536px;"></textarea>
                           <br>
                       </fieldset>
                     </div>
@@ -134,7 +133,7 @@
                     <div class="col-sm-12">
                       <fieldset>
                         <legend>Tooltip</legend>
-                          <textarea style="width: 536px;"></textarea>
+                          <textarea name="tooltip" style="width: 536px;"></textarea>
                           <br>
                       </fieldset>
                     </div>
@@ -152,6 +151,7 @@
               </div>
         </div>
         <div class="modal-footer">
+          <input type="text" name="target-id" value="" style="display: none;">
           <button type="button" name="save" class="btn btn-success btn-sm">&nbsp;Apply&nbsp;</button>
           <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancel</button>
         </div>
@@ -173,4 +173,6 @@
         $('#symbolPencil #access-pencil input[name=privilege-level]').prop('disabled', false);
       }
     })
+
+    initColorPicker(['pencil-picker-type', 'pencil-picker-on', 'pencil-picker-off', 'pencil-picker-flash']);
   </script>

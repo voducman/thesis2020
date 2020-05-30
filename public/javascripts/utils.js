@@ -55,3 +55,22 @@ function fortmatTime(time){
     let result = table[text] || text;
     return result;
  }
+
+ const colorPickerOptions = {
+    type: "text",
+    showInput: "true",
+    showAlpha: "false",
+    showButtons: "false",
+    allowEmpty: "false"
+  }
+
+ function initColorPicker(listInputID){
+     if (Array.isArray(listInputID)){
+        listInputID.forEach(id => {
+            $(`#${id}`).spectrum(colorPickerOptions);
+        })
+     }
+     else{
+        $(`#${listInputID}`).spectrum(colorPickerOptions);
+     }
+ }

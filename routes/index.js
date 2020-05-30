@@ -49,7 +49,6 @@ router.post(
   "/register",
   passport.authenticate("local-signup"),
   function(req, res){
-    console.log('POST: register + ', req.user);
     req.logout();
     res.send(true);
   }
@@ -85,8 +84,7 @@ router.get("/profile", utils.isLoggedIn, function(req, res){
 
 
 router.put("/profile/:command", utils.isLoggedIn, function(req, res){
-  
-  console.log("PUT: /profile", req.body);
+  const email = req.user.local.email;
   const data = req.body;
   let updateDB;
 
@@ -121,7 +119,7 @@ router.put("/profile/:command", utils.isLoggedIn, function(req, res){
     console.log("PUT request image upload: ");
 
     let form = new formidable.IncomingForm();
-    form.uploadDir = "public/avatar";
+    form.uploadDir = `public/userdata/${email}/avatar`;
     form.keepExtensions = true;
     form.parse(req, function(err, fields, files) {
       // change path to add database

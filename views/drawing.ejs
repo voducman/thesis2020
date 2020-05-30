@@ -49,6 +49,7 @@
     <% include scripts-drawing %>
     <% include setupAlign %>
     <% include setupPageInfo %>
+
     <!-- Basic components -->
     <% include addNewPage %>
     <% include symbolLine %>
@@ -66,13 +67,32 @@
     <% include symbolButton %>
     <% include symbolSwitch %>
     <% include symbolInput %>
+    <% include symbolHorizontalSlider %>
+    <% include symbolVerticalSlider %>
+    <% include symbolProgressBar %>
+    <% include symbolCheckbox %>
+     <!-- include symbolSet  -->
+
+    <!-- Graph components -->
+    <% include symbolLineChart %>
+    <% include symbolBarChart %>
+    <% include symbolPieChart %>
+    <% include symbolDonutChart %>
+    <% include symbolRadialGauge %>
+    <% include symbolSpeedometer %>
+    <% include symbolLinearGauge %>
+
+    <!-- Advanced components -->
+    <% include symbolRadialClock %>
+    <% include symbolDigitalClock %>
+    <% include symbolCamera %>
 </body>
 
 <script type="text/javascript" src="/static/javascripts/drawing.bundle.js"></script>
 <script type="text/javascript">
     (function(){
        $(document.body).tooltip({ selector: "[data-toggle=tooltip]" });
-       $('#symbolInput').modal('show');
+       //$('#symbolRectangle').modal('show');
     })()
 </script>
 </html>

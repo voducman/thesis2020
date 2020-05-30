@@ -4,7 +4,7 @@
 }
 
 .bg-gray{
-    background-color: #f7f7f7;
+    background-color: #e2e2e2;
     padding-bottom: 15px!important;
 }
 
@@ -20,4 +20,123 @@
     height: 40px;
     margin: 5px;
     padding: 0px;
+    border-radius: 5px;
+}
+
+.btn-symbol img{
+    background-color: white;
+    border-radius: 5px;
+}
+
+
+/* Compiled SCSS for Chartist plugin legend */
+.ct-legend {
+	position: relative;
+	z-index: 10;
+    list-style-type: none;
+}
+
+.ct-legend li {
+	position: relative;
+	padding-left: 23px;
+    top: 0;
+    display: inline-block;
+}
+
+.ct-legend li:before {
+	width: 12px;
+	height: 12px;
+	position: absolute;
+    left: 0;
+    top: 3px;
+	content: '';
+	border: 3px solid transparent;
+    border-radius: 2px;
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.ct-legend li.inactive:before {
+	background: transparent;
+}
+
+.ct-legend.ct-legend-inside {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+.ct-legend .ct-series-0:before {
+	background-color: #02acd7;
+	border-color: #02acd7;
+}
+
+.ct-legend .ct-series-1:before {
+	background-color: #f05b4f;
+	border-color: #f05b4f;
+}
+
+.ct-legend .ct-series-2:before {
+	background-color: #f4c63d;
+	border-color: #f4c63d;
+}
+
+.ct-legend .ct-series-3:before {
+	background-color: #d17905;
+	border-color: #d17905;
+}
+
+.ct-legend .ct-series-4:before {
+	background-color: #453d3f;
+	border-color: #453d3f;
+}
+
+.ct-legend .ct-series-5:before {
+	background-color: #59922b;
+	border-color: #59922b;
+}
+
+.ct-legend .ct-series-6:before {
+	background-color: #0544d3;
+	border-color: #0544d3;
+}
+
+.ct-legend .ct-series-7:before {
+	background-color: #6b0392;
+	border-color: #6b0392;
+}
+
+.ct-legend .ct-series-8:before {
+	background-color: #f05b4f;
+	border-color: #f05b4f;
+}
+
+.ct-legend .ct-series-9:before {
+	background-color: #dda458;
+	border-color: #dda458;
+}
+
+.ct-legend .ct-series-10:before {
+	background-color: #eacf7d;
+	border-color: #eacf7d;
+}
+
+.ct-legend .ct-series-11:before {
+	background-color: #86797d;
+	border-color: #86797d;
+}
+
+.ct-legend .ct-series-12:before {
+	background-color: #b2c326;
+	border-color: #b2c326;
+}
+
+.ct-legend .ct-series-13:before {
+	background-color: #6188e2;
+	border-color: #6188e2;
+}
+
+.ct-legend .ct-series-14:before {
+	background-color: #a748ca;
+	border-color: #a748ca;
 }

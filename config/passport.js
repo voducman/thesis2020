@@ -1,6 +1,8 @@
 const LocalStrategy = require('passport-local').Strategy;
 const User          = require('../models/User');
 const Utils         = require('../controller/Utils');
+const fs            = require('fs');
+const path          = require('path');
 
 module.exports = function(passport){
     
@@ -63,8 +65,6 @@ module.exports = function(passport){
             return done(null, false);
         }
 
-        console.log("Passport is working");
-        console.log(req.body);
         process.nextTick(function() {
             User.findOne({ 'local.email' :  email }, function(err, user) {
                 if (err)
@@ -78,13 +78,18 @@ module.exports = function(passport){
                     newUser.local.username    = req.body["name"];
                     newUser.local.termCond    = true;
                     newUser.save(function(err) {
-                        if (err)
+                        if (err){
                             throw err;
-
-                        // console.log(req.session)
-                        // console.log(req.sessionID)
-                        // delete newUser.local.password;
-                        // console.log(newUser);
+                        }
+                            
+                        try{
+                            fs.mkdirSync(path.join(__dirname, '../public/userdata', email));
+                            fs.mkdirSync(path.join(__dirname, '../public/userdata', email, 'avatar')); 
+                            fs.mkdirSync(path.join(__dirname, '../public/userdata', email, 'symbol')); 
+                        }catch(e){
+                            console.log("Create userdata folder get ERROR.")
+                        }
+                        
                         return done(null, newUser);
                     });
                 }

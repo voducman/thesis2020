@@ -19,8 +19,8 @@
                     <div class="col-sm-3">
                       <fieldset>
                         <legend>Position</legend>
-                        <code>X:</code><input type="number" class="mini" name="pos-x1" value="1" min="0"><br>
-                        <code>Y:</code><input type="number" class="mini" name="pos-y1" value="1" min="0"><br>
+                        <code>X:</code><input type="number" class="mini" name="pos-x" value="1" min="0"><br>
+                        <code>Y:</code><input type="number" class="mini" name="pos-y" value="1" min="0"><br>
                       </fieldset>
                     </div>
                     <div class="col-sm-4">
@@ -30,20 +30,20 @@
                       </fieldset>    
                       <fieldset>
                         <legend>Rotation</legend>
-                        <code>Degree:</code><input type="number" name="width" value="0" min="-360" max="360">
+                        <code>Degree:</code><input type="number" name="degree" value="0" min="-360" max="360">
                       </fieldset>
                     </div>
                     <div class="col-sm-5">
                       <fieldset>
                         <legend>Label</legend>
-                            <code>Before:</code><input type="text" name="width" value="OFF"><br>
-                            <code>After:&nbsp;</code><input type="text" name="width" value="ON"><br>
+                            <code>Before:</code><input type="text" name="label-before" value="OFF"><br>
+                            <code>After:&nbsp;</code><input type="text" name="label-after" value="ON"><br>
                       </fieldset>
-                      <fieldset>
+                      <!-- <fieldset>
                         <legend>Color</legend>
-                            <code>When on:&nbsp;</code><button class="btn-color-1 lg"></button><br>
-                            <code>When off:</code><button class="btn-color-2 lg"></button>
-                      </fieldset>
+                            <code>When on:&nbsp;</code><input type="text" name="on-color" id="switch-picker-on" value='#276cb8' class="color-picker"/><br>
+                            <code>When off:</code><input type="text" name="off-color" id="switch-picker-off" value='#276cb8' class="color-picker"/>
+                      </fieldset> -->
                     </div>
                   </div>
                   <div class="row">
@@ -61,7 +61,7 @@
                     <div class="col-sm-12">
                       <fieldset>
                         <legend>Movement expression</legend>
-                          <textarea style="width: 456px;"></textarea>
+                          <textarea name="move-exp" style="width: 456px;"></textarea>
                           <button style="float: right;">Browse</button>
                           <br>
                       </fieldset>
@@ -70,8 +70,8 @@
                   <div class="row">
                     <div class="col-sm-12">
                       <label style="padding: 15px; font-weight: bold;">Range:</label>
-                      <code>min: </code><input type="number" name="min" value="0">
-                      <code style="margin-left: 40px;">max: </code><input type="number" name="max" value="100">
+                      <code>min: </code><input type="number" name="move-min" value="0">
+                      <code style="margin-left: 40px;">max: </code><input type="number" name="move-max" value="100">
                     </div>
                   </div>
                   <div class="row">
@@ -94,7 +94,7 @@
                     <div class="col-sm-12">
                       <fieldset>
                         <legend>Hidden when</legend>
-                          <textarea style="width: 452px;"></textarea>
+                          <textarea name="hidden-exp" style="width: 452px;"></textarea>
                           <button style="float: right;">Browse</button>
                       </fieldset>
                     </div>
@@ -103,7 +103,7 @@
                     <div class="col-sm-12">
                         <fieldset>
                             <legend>Run when change to ON</legend>
-                              <textarea style="width: 452px;" name="switch-on"></textarea>
+                              <textarea name="run-on-exp" style="width: 452px;" name="switch-on"></textarea>
                               <button class="" style="float: right;">Browse</button>
                         </fieldset>
                     </div>
@@ -112,7 +112,7 @@
                     <div class="col-sm-12">
                         <fieldset>
                             <legend>Run when change to OFF</legend>
-                              <textarea style="width: 452px;" name="switch-off"></textarea>
+                              <textarea name="run-off-exp" style="width: 452px;" name="switch-off"></textarea>
                               <button class="" style="float: right;">Browse</button>
                         </fieldset>
                     </div>
@@ -123,7 +123,7 @@
                     <div class="col-sm-12">
                       <fieldset>
                         <legend>Description</legend>
-                          <textarea style="width: 536px;"></textarea>
+                          <textarea name="description" style="width: 536px;"></textarea>
                           <br>
                       </fieldset>
                     </div>
@@ -132,7 +132,7 @@
                     <div class="col-sm-12">
                       <fieldset>
                         <legend>Tooltip</legend>
-                          <textarea style="width: 536px;"></textarea>
+                          <textarea name="tooltip" style="width: 536px;"></textarea>
                           <br>
                       </fieldset>
                     </div>
@@ -150,6 +150,7 @@
               </div>
         </div>
         <div class="modal-footer">
+          <input type="text" name="target-id" value="" style="display: none;">
           <button type="switch" name="save" class="btn btn-success btn-sm">&nbsp;Apply&nbsp;</button>
           <button type="switch" class="btn btn-danger btn-sm" data-dismiss="modal">Cancel</button>
         </div>
@@ -171,4 +172,6 @@
         $('#symbolSwitch #access-switch input[name=privilege-level]').prop('disabled', false);
       }
     })
+
+    initColorPicker(['switch-picker-on', 'switch-picker-off']);
   </script>

@@ -1,0 +1,245 @@
+<div id="symbolSet" class="modal fade symbol-property" role="dialog">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Symbol Set Properties</h4>
+        </div>
+        <div class="modal-body">
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#appearance-symbol-set">Appearance</a></li>
+                <li><a data-toggle="tab" href="#movement-symbol-set">Movement</a></li>
+                <li><a data-toggle="tab" href="#animation-symbol-set">Animation</a></li>
+                <li><a data-toggle="tab" href="#access-symbol-set">Access</a></li>
+              </ul>
+              
+              <div class="tab-content">
+                <div id="appearance-symbol-set" class="tab-pane fade in active">
+                  <div class="row">
+                    <div class="col-sm-6">
+                        <fieldset>
+                            <legend>Rotation</legend>
+                            <code>Degree:</code><input type="number" name="degree" value="0" min="-360" max="360">
+                        </fieldset>
+                        <fieldset>
+                            <legend>Order</legend>
+                            <code>Z-index:</code><input type="number" name="z-index" value="1" min="1" max="10">
+                        </fieldset>
+                        <fieldset>
+                            <legend>Draggable</legend>
+                            <input type="checkbox" name="has-draggable-design" class="checkbox-custom" checked><span
+                                class="checkbox-custom">Draggable when Design</span><br>
+                            <input type="checkbox" name="has-draggable-run" class="checkbox-custom"><span class="checkbox-custom">Draggable
+                                when Run</span><br>
+                        </fieldset>
+                    </div>
+                    <div class="col-sm-6">
+                        <fieldset>
+                            <legend>Position</legend>
+                            <code>X:</code><input  type="number" name="pos-x" value="0" min="0"><br>
+                            <code>Y:</code><input  type="number" name="pos-y" value="0" min="0">
+                        </fieldset>
+                        <fieldset>
+                            <legend>Size</legend>
+                            <code>Width:&nbsp;</code><input type="number" name="width" value="0" min="0"><br>
+                            <code>Height:</code><input type="number" name="height" value="0" min="0">
+                        </fieldset>
+                    </div>
+                  </div>
+                </div>
+                <div id="movement-symbol-set" class="tab-pane fade">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <fieldset>
+                        <legend>Movement expression</legend>
+                          <textarea name="move-exp" style="width: 456px;"></textarea>
+                          <button style="float: right;">Browse</button>
+                          <br>
+                      </fieldset>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <label style="padding: 15px; font-weight: bold;">Range:</label>
+                      <code>min: </code><input type="number" name="move-min" value="0">
+                      <code style="margin-left: 40px;">max: </code><input type="number" name="move-max" value="100">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <fieldset>
+                        <legend>Offset horizontal</legend>
+                        <code>Offset X: </code><input type="number" name="offset-x" value="0">
+                      </fieldset>
+                    </div>
+                    <div class="col-sm-6">
+                      <fieldset>
+                        <legend>Offset vertical</legend>
+                        <code>Offset Y: </code><input type="number" name="offset-y" value="0">
+                      </fieldset>
+                    </div>
+                  </div>
+                </div>
+                <div id="animation-symbol-set" class="tab-pane fade">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <fieldset>
+                        <legend>Hidden when</legend>
+                          <textarea name="hidden-exp" style="width: 455px;"></textarea>
+                          <button style="float: right;">Browse</button>
+                      </fieldset>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <fieldset>
+                        <legend>Boolean expression</legend>
+                          <textarea name="boolean-exp" style="width: 455px;"></textarea>
+                          <button style="float: right;">Browse</button>
+                          <code>ON symbol:</code><button onclick="showChooseSymbol('on')">Choose</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                          <code>OFF symbol:</code><button onclick="showChooseSymbol('off')">Choose</button>
+                          <input type="text" name="on-symbol"  style="display: none;" value="">
+                          <input type="text" name="off-symbol" style="display: none;" value="">
+                      </fieldset>
+                    </div>
+                  </div>
+                  <div class="row" id="symbol-set-select" style="display: none;">
+                    <div class="col-sm-12">
+                      <fieldset>
+                        <legend class="on"  style="display: none;">Select ON symbol</legend>
+                        <legend class="off" style="display: none;">Select OFF symbol</legend>
+                        <div class="row">
+                          <div class="col-sm-4">
+                            <ul class="nav nav-tabs nav-stacked">
+                              <% symbols.forEach(function(symbol, index){  %>
+                              <%  if (index == 0){  %>
+                                <li class="active"><a data-toggle="tab" href="#symbol-0"><%= Object.keys(symbol) %></a></li>       
+                              <%  } else { %>
+                                <li><a data-toggle="tab" href="#symbol-<%=index%>"><%= Object.keys(symbol) %></a></li> 
+                              <%  } %>
+                              <% }) %>
+                            </ul>
+                            <img src="/static/images/default-image.jpg">
+                          </div>
+                          <div class="col-sm-8">
+                              <% symbols.forEach(function(symbol, index){  %>
+                              <%  if (index == 0){  %>
+                                <div id="symbol-0" class="tab-pane fade in active">
+                                  <%     Object.values(symbol)[0].forEach(function(imgUrl) { %>
+                                            <img src="<%= imgUrl %>">
+                                  <%     }) %>
+                                </div>  
+
+                              <%  } else { %>
+                                <div id="symbol-<%=index%>" class="tab-pane fade">
+                                  <%     Object.values(symbol)[0].forEach(function(imgUrl) { %>
+                                    <img src="<%= imgUrl %>">
+                                  <%     }) %>
+                                </div>
+                              <%  } %>
+                              <% }) %>
+                            <div id="test2" class="tab-pane fade">
+                              hello 2
+                            </div>
+                            <div id="test3" class="tab-pane fade">
+                              hello 3
+                            </div>
+                            <div id="test4" class="tab-pane fade">
+                              hello 4
+                            </div>
+                          </div>
+                        </div>
+                      </fieldset>
+                    </div>
+                  </div>
+                </div>
+                <div id="access-symbol-set" class="tab-pane fade">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <fieldset>
+                        <legend>Description</legend>
+                          <textarea name="description" style="width: 536px;"></textarea>
+                          <br>
+                      </fieldset>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <fieldset>
+                        <legend>Tooltip</legend>
+                          <textarea name="tooltip" style="width: 536px;"></textarea>
+                          <br>
+                      </fieldset>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <fieldset>
+                        <legend>Security</legend>
+                          <input type="checkbox" name="has-privilege" class="checkbox-custom" checked><span class="checkbox-custom">No privilege restrictions</span><br>
+                          <code>Privilege level: </code><input type="number" name="privilege-level" min="0" max="8" disabled>
+                      </fieldset>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </div>
+        <div class="modal-footer">
+          <input type="text" name="target-id" value="" style="display: none;">
+          <button type="button" name="save" class="btn btn-success btn-sm">&nbsp;Apply&nbsp;</button>
+          <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+
+  <script>
+    $("#symbolSet").draggable({
+      handle: ".modal-header"
+    }); 
+
+    // Set event for has-privilege restrictions
+    $('#symbolSet #access-symbol-set input[name=has-privilege]').click(e => {
+      if (e.target.checked){
+        $('#symbolSet #access-symbol-set input[name=privilege-level]').prop('disabled', true);
+      }else{
+        $('#symbolSet #access-symbol-set input[name=privilege-level]').prop('disabled', false);
+      }
+    })
+
+   // Show list symbol for ON/OFF action
+   function showChooseSymbol(type) {
+      $('#symbol-set-select').show();
+
+      if (type == "on") {
+        $('#symbol-set-select .on').show();
+        $('#symbol-set-select .off').hide();
+        return;
+      }
+
+      $('#symbol-set-select .on').hide();
+      $('#symbol-set-select .off').show();
+    }
+
+
+    $('#symbol-set-select .col-sm-8 > div img').each(function(){
+      $(this).click(function(e){
+        let imgUrl = e.target.src;
+        document.querySelector('#symbol-set-select .col-sm-4 > img').src = imgUrl;
+      })
+
+      $(this).dblclick(function(e){
+        let imgUrl = e.target.src;
+        // Check on/off symbol?
+        let isOn = (document.querySelector('#symbol-set-select .on').style.display == 'none')? false:true;
+        if (isOn){
+          document.querySelector('#animation-symbol-set input[name=on-symbol]').value = imgUrl;
+        }else{
+          document.querySelector('#animation-symbol-set input[name=off-symbol]').value = imgUrl;
+        }
+        // Hide symbol picker
+        document.querySelector('#symbol-set-select').style.display = "none";
+      })
+    })
+  </script>

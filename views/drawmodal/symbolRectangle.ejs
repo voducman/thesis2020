@@ -19,38 +19,38 @@
                     <div class="col-sm-4">
                       <fieldset>
                         <legend>Position</legend>
-                        <code>X:</code><input type="number" name="pos-x1" value="1" min="0"><br>
-                        <code>Y:</code><input type="number" name="pos-y1" value="1" min="0"><br>
+                        <code>X:</code><input type="number" name="pos-x" value="1" min="0"><br>
+                        <code>Y:</code><input type="number" name="pos-y" value="1" min="0"><br>
                       </fieldset>
                       <fieldset>
                         <legend>Fill</legend>
                         <input type="checkbox" name="has-fill" class="checkbox-custom"><span class="checkbox-custom">Filled</span><br>
-                        <code>Color:</code><button name="choose-fill-color" class="btn-color-1" disabled></button>
+                        <code>Color:</code><input type="text" name="fill-color" id="rect-picker-fill" value='#276cb8' class="color-picker"/>
                       </fieldset>
                     </div>
                     <div class="col-sm-4">
+                      <fieldset>
+                        <legend>Rotation</legend>
+                        <code>Degree:</code><input type="number" name="degree" value="0" min="-360" max="360">
+                      </fieldset>
                       <fieldset>
                         <legend>Order</legend>
                         <code>Z-index:</code><input type="number" name="z-index" value="1" min="1" max="10">
                       </fieldset>    
-                      <fieldset>
-                        <legend>Rotation</legend>
-                        <code>Degree:</code><input type="number" name="width" value="0" min="-360" max="360">
-                      </fieldset>
                     </div>
                     <div class="col-sm-4">
                       <fieldset>
                         <legend>Line property</legend>
-                        <code>Width:</code><input type="number" name="width" value="1" min="0"><br>
+                        <code>Width:</code><input type="number" name="line-width" value="1" min="0"><br>
                         <code>Style:</code>
                         <select class="line-style" name="line-style">
                           <option value="solid">Solid</option>
                           <option value="dash">Dash</option>
                           <option value="dot">Dot</option>
                         </select><br>
-                        <code>Color:</code><button class="btn-color-1"></button><br>
+                        <code>Color:</code><input type="text" name="line-color" id="rect-picker-type" value='#276cb8' class="color-picker"/><br>
                         <code>Cap:&nbsp;&nbsp;</code>
-                        <select class="line-style" name="line-lineCap">
+                        <select class="line-style" name="line-cap">
                           <option value="butt">Butt</option>
                           <option value="round">Round</option>
                           <option value="square">Square</option>
@@ -71,7 +71,7 @@
                         <legend>Size</legend>
                         <code>Width:&nbsp;</code><input class="lg" type="number" name="width" value="1" min="0"><br>
                         <code>Height:</code><input class="lg" type="number" name="height" value="1" min="0"><br>
-                        <code>Radius:</code><input class="lg" type="number" name="radius" value="0" min="0"><br>
+                        <code>Radius:</code><input class="lg" type="number" name="size-radius" value="0" min="0"><br>
                       </fieldset>
                     </div>
                   </div>
@@ -81,7 +81,7 @@
                     <div class="col-sm-12">
                       <fieldset>
                         <legend>Movement expression</legend>
-                          <textarea style="width: 456px;"></textarea>
+                          <textarea name="move-exp" style="width: 456px;"></textarea>
                           <button style="float: right;">Browse</button>
                           <br>
                       </fieldset>
@@ -90,8 +90,8 @@
                   <div class="row">
                     <div class="col-sm-12">
                       <label style="padding: 15px; font-weight: bold;">Range:</label>
-                      <code>min: </code><input type="number" name="min" value="0">
-                      <code style="margin-left: 40px;">max: </code><input type="number" name="max" value="100">
+                      <code>min: </code><input type="number" name="move-min" value="0">
+                      <code style="margin-left: 40px;">max: </code><input type="number" name="move-max" value="100">
                     </div>
                   </div>
                   <div class="row">
@@ -111,33 +111,33 @@
                 </div>
                 <div id="animation-rectangle" class="tab-pane fade">
                   <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-12">
                       <fieldset>
                         <legend>ON color when</legend>
-                          <textarea style="width: 160px;"></textarea>
+                          <textarea name="oncolor-exp" style="width: 452px;"></textarea>
                           <button class="" style="float: right;">Browse</button>
                           <br>
-                          <code>ON color:</code><button class="btn-color-1"></button>&nbsp;&nbsp;
-                          <code>OFF color:</code><button class="btn-color-2"></button>
+                          <code>ON color:</code><input type="text" name="on-color" id="rect-picker-on" value='#276cb8' class="color-picker"/>&nbsp;&nbsp;
+                          <code>OFF color:</code><input type="text" name="off-color" id="rect-picker-off" value='#276cb8' class="color-picker"/>
                       </fieldset>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-12">
                       <fieldset>
                         <legend>Hidden when</legend>
-                          <textarea style="width: 160px;"></textarea>
-                          <button class="" style="float: right;">Browse</button>
+                          <textarea name="hidden-exp" style="width: 452px;"></textarea>
+                          <button style="float: right;">Browse</button>
                           <br><br>
                       </fieldset>
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-12">
                       <fieldset>
                         <legend>Flash when</legend>
-                        <textarea style="width: 160px;"></textarea>
+                        <textarea name="flash-exp" style="width: 452px;"></textarea>
                         <button style="float: right;">Browse</button>
                         <br>
-                        <code>Flash ON color:</code><button class="btn-color-1"></button>&nbsp;&nbsp;
+                        <code>Flash ON color:</code><input type="text" name="flash-on" id="rect-picker-flash" value='#276cb8' class="color-picker"/>&nbsp;&nbsp;
                       </fieldset>
                     </div>
                   </div>
@@ -147,7 +147,7 @@
                     <div class="col-sm-12">
                       <fieldset>
                         <legend>Description</legend>
-                          <textarea style="width: 536px;"></textarea>
+                          <textarea name="description" style="width: 536px;"></textarea>
                           <br>
                       </fieldset>
                     </div>
@@ -156,7 +156,7 @@
                     <div class="col-sm-12">
                       <fieldset>
                         <legend>Tooltip</legend>
-                          <textarea style="width: 536px;"></textarea>
+                          <textarea name="tooltip" style="width: 536px;"></textarea>
                           <br>
                       </fieldset>
                     </div>
@@ -174,6 +174,7 @@
               </div>
         </div>
         <div class="modal-footer">
+          <input type="text" name="target-id" value="" style="display: none;">
           <button type="button" name="save" class="btn btn-success btn-sm">&nbsp;Apply&nbsp;</button>
           <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancel</button>
         </div>
@@ -204,4 +205,6 @@
         $('#symbolRectangle #access-rectangle input[name=privilege-level]').prop('disabled', false);
       }
     })
+
+    initColorPicker(['rect-picker-type', 'rect-picker-fill', 'rect-picker-on', 'rect-picker-off', 'rect-picker-flash']);
   </script>

@@ -19,19 +19,19 @@
                     <div class="col-sm-3">
                       <fieldset>
                         <legend>Position</legend>
-                        <code>X:</code><input type="number" class="mini" name="pos-x1" value="1" min="0"><br>
-                        <code>Y:</code><input type="number" class="mini" name="pos-y1" value="1" min="0"><br>
+                        <code>X:</code><input type="number" class="mini" name="pos-x" value="1" min="0"><br>
+                        <code>Y:</code><input type="number" class="mini" name="pos-y" value="1" min="0"><br>
                       </fieldset>
                     </div>
                     <div class="col-sm-4">
                       <fieldset>
+                        <legend>Rotation</legend>
+                        <code>Degree:</code><input type="number" name="degree" value="0" min="-360" max="360">
+                      </fieldset>
+                      <fieldset>
                         <legend>Order</legend>
                         <code>Z-index:</code><input type="number" name="z-index" value="1" min="1" max="10">
                       </fieldset>    
-                      <fieldset>
-                        <legend>Rotation</legend>
-                        <code>Degree:</code><input type="number" name="width" value="0" min="-360" max="360">
-                      </fieldset>
                     </div>
                     <div class="col-sm-5">
                       <fieldset>
@@ -41,19 +41,19 @@
                         <select class="line-style" name="font-weight">
                             <option value="normal" selected>Normal</option>
                             <option value="100">100</option>
-                            <option value="100">200</option>
-                            <option value="100">300</option>
-                            <option value="100">400</option>
-                            <option value="100">500</option>
-                            <option value="100">600</option>
-                            <option value="100">700</option>
-                            <option value="100">800</option>
-                            <option value="100">900</option>
+                            <option value="200">200</option>
+                            <option value="300">300</option>
+                            <option value="400">400</option>
+                            <option value="500">500</option>
+                            <option value="600">600</option>
+                            <option value="700">700</option>
+                            <option value="800">800</option>
+                            <option value="900">900</option>
                             <option value="bold">Bold</option>
                           </select><br>
                         <code>Font:&nbsp;</code>
                         <select class="line-style md" name="font-family">
-                            <option value="normal" selected>Normal</option>
+                            <option value="inherit" selected>Normal</option>
                             <option value="'Times New Roman', Times, serif">Times New Roman</option>
                             <option value="Arial, Helvetica, sans-serif">Arial</option>
                             <option value="'Courier New', Courier, monospace">Courier New</option>
@@ -74,8 +74,8 @@
                             <option value="normal" selected>Normal</option>
                             <option value="italic">Italic</option>
                             <option value="oblique">Oblique</option>
-                          </select><br>
-                        <code>Color:</code><button class="btn-color-1"></button><br>               
+                        </select><br>
+                        <code>Color:</code><input type="text" name="font-color" id="button-picker-font" value='#276cb8' class="color-picker"/><br>               
                       </fieldset>
                     </div>
                   </div>
@@ -85,7 +85,7 @@
                           <legend>Button size</legend>
                           <code>Width:&nbsp;</code><input type="number" name="width" value="0" min="5"><br>
                           <code>Height:</code><input type="number" name="height" value="0" min="5"><br>
-                          <code>Color:&nbsp;</code><button class="btn-color-1"></button><br>         
+                          <code>Color:&nbsp;</code><input type="text" name="button-color" id="button-picker-size" value='#276cb8' class="color-picker"/><br>         
                         </fieldset>
                     </div>
                     <div class="col-md-6">
@@ -95,14 +95,11 @@
                         <input type="checkbox" name="has-draggable-run" class="checkbox-custom"><span class="checkbox-custom">Draggable when Run</span><br>
                       </fieldset>
                     </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-sm-12">
-                        <fieldset>
-                            <legend>Run when click</legend>
-                              <textarea style="width: 452px;"></textarea>
-                              <button class="" style="float: right;">Browse</button>
-                        </fieldset>
+                    <div class="col-md-6">
+                      <fieldset>
+                        <legend>Text value</legend>
+                        <textarea name="text-value" style="width: 232px;"></textarea>
+                      </fieldset>
                     </div>
                   </div>
                 </div>
@@ -111,7 +108,7 @@
                     <div class="col-sm-12">
                       <fieldset>
                         <legend>Movement expression</legend>
-                          <textarea style="width: 456px;"></textarea>
+                          <textarea name="move-exp" style="width: 456px;"></textarea>
                           <button style="float: right;">Browse</button>
                           <br>
                       </fieldset>
@@ -120,8 +117,8 @@
                   <div class="row">
                     <div class="col-sm-12">
                       <label style="padding: 15px; font-weight: bold;">Range:</label>
-                      <code>min: </code><input type="number" name="min" value="0">
-                      <code style="margin-left: 40px;">max: </code><input type="number" name="max" value="100">
+                      <code>min: </code><input type="number" name="move-min" value="0">
+                      <code style="margin-left: 40px;">max: </code><input type="number" name="move-max" value="100">
                     </div>
                   </div>
                   <div class="row">
@@ -144,8 +141,17 @@
                     <div class="col-sm-12">
                       <fieldset>
                         <legend>Hidden when</legend>
-                          <textarea style="width: 452px;"></textarea>
-                          <button class="" style="float: right;">Browse</button>
+                        <textarea name="hidden-exp" style="width: 452px;"></textarea>
+                        <button class="" style="float: right;">Browse</button>
+                      </fieldset>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <fieldset>
+                        <legend>Run when click</legend>
+                        <textarea name="run-exp" style="width: 452px;"></textarea>
+                        <button class="" style="float: right;">Browse</button>
                       </fieldset>
                     </div>
                   </div>
@@ -155,7 +161,7 @@
                     <div class="col-sm-12">
                       <fieldset>
                         <legend>Description</legend>
-                          <textarea style="width: 536px;"></textarea>
+                          <textarea name="description" style="width: 536px;"></textarea>
                           <br>
                       </fieldset>
                     </div>
@@ -164,7 +170,7 @@
                     <div class="col-sm-12">
                       <fieldset>
                         <legend>Tooltip</legend>
-                          <textarea style="width: 536px;"></textarea>
+                          <textarea name="tooltip" style="width: 536px;"></textarea>
                           <br>
                       </fieldset>
                     </div>
@@ -182,6 +188,7 @@
               </div>
         </div>
         <div class="modal-footer">
+          <input type="text" name="target-id" value="" style="display: none;">
           <button type="button" name="save" class="btn btn-success btn-sm">&nbsp;Apply&nbsp;</button>
           <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancel</button>
         </div>
@@ -203,4 +210,6 @@
         $('#symbolButton #access-button input[name=privilege-level]').prop('disabled', false);
       }
     })
+
+    initColorPicker(['button-picker-font', 'button-picker-size']);
   </script>
