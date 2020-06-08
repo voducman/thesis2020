@@ -5,6 +5,8 @@
     <% include metadata %>
     <link rel="stylesheet" href="/static/css/design-drawing.css">
     <link rel="stylesheet" href="/static/css/drawing-modal.css">
+    <script src="/static/context-menu/context-menu.js"></script>
+    <link rel="stylesheet" href="/static/context-menu/context-menu.css"> 
 </head>
 <body>
     <div class="wrapper" id="main-view" style="background-color: #343435;">
@@ -23,22 +25,7 @@
                             </ul>
                             
                             <div class="tab-content" id="whiteboard-management" data-width="<%= resolution.width %>" data-height="<%= resolution.height %>">
-                                <!-- <div id="page-1" class="tab-pane fade in active drawing-page">
-                                    <div class="col-md-12" style="width: 0px; height: 0px; z-index: 0; background-color: #e4e4e4; position: absolute; padding:0">
-                                        
-                                    </div>
-                                </div> -->
-                                <!-- <div id="page-2" class="tab-pane fade">
-                                    <div class="col-md-12" 
-                                        style="width: 1280px; height: 720px; z-index: 0; background-color: #5d5d5e; position: absolute; ">
-                                        <div style="width: 80px; height: 80px; position: absolute; background-color: red; left: 0; top: 10px;">
-                                        </div>
-                                        <div
-                                            style="width: 80px; height: 100px; position: absolute; background-color: yellow; left: 80px; top: 0px;">
-                                        </div>
-                                    </div>
-                                </div> -->
-                          
+
                             </div>
                         </div>
                     </div>
@@ -71,7 +58,7 @@
     <% include symbolVerticalSlider %>
     <% include symbolProgressBar %>
     <% include symbolCheckbox %>
-     <!-- include symbolSet  -->
+    <% include symbolSet %>
 
     <!-- Graph components -->
     <% include symbolLineChart %>

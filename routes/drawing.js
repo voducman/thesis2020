@@ -11,13 +11,15 @@ const Drawing    = require('../models/Drawing');
 const Utils      = require('../controller/Utils');
 const DrawingDAO = require('../models/dao/DrawingDAO');
 const DesignDAO  = require('../models/dao/DesignDAO');
-const ResponseForm = require('../models/form/CommonResponseForm');
-const Resolution = require('../models/constant/resolution');
+const CompiledDrawDAO = require('../models/dao/CompiledDrawingDAO');
+const ResponseForm    = require('../models/form/CommonResponseForm');
+const Resolution      = require('../models/constant/resolution');
 
 
 
-const drawingDAO = new DrawingDAO();
-const designDAO  = new DesignDAO();
+const drawingDAO         = new DrawingDAO();
+const designDAO          = new DesignDAO();
+const compiledDrawingDAO = new CompiledDrawDAO();
 
 
 router.post("/upload/symbol", Utils.isLoggedIn, function(req, res){
@@ -37,6 +39,69 @@ router.post("/upload/symbol", Utils.isLoggedIn, function(req, res){
         symbolURL = files.image.path.replace('public', '/static');
         responseForm = new ResponseForm(true, "Upload success.", symbolURL);
         res.status(200).send(JSON.stringify(responseForm));
+    })
+    
+})
+
+router.post("/json/update/:designId", Utils.isLoggedIn, function(req, res){
+    let email = req.user.local.email;
+    let designId = req.params.designId;
+    let responseForm
+    
+    drawingDAO.getDrawingByIdAndEmail(designId, email)
+        .then(draw => {
+            draw.drawing = JSON.stringify(req.body);
+            draw.lastModified = Date.now();
+            return draw.save();
+
+        })
+        .then(() => {
+            responseForm = new ResponseForm(true, "Update Drawing Success", null);
+            res.status(200).send(JSON.stringify(responseForm));
+        })
+        .catch(e => {
+            responseForm = new ResponseForm(false, "Update Drawing Get Error", null);
+            res.status(500).send(JSON.stringify(responseForm));
+        })
+
+    
+})
+
+
+router.post("/compile", Utils.isLoggedIn, function(req, res){
+    let email = req.user.local.email;
+    let {designId} = req.body;
+    let drawing, responseForm;
+    
+    drawingDAO.getDrawingByIdAndEmail(designId, email)
+    .then(draw => {
+
+        drawing = draw.drawing;
+        return compiledDrawingDAO.getCompiledDrawingByIdAndEmail(designId, email)
+    })
+    .then(compiledDrawing => {    
+        if (compiledDrawing == null){
+            return compiledDrawingDAO.createAndSaveNewDrawing(designId, email, drawing)
+        }else{
+            compiledDrawing.drawing = drawing;
+            return compiledDrawing.save()
+        }
+    })
+    .then(compiledDrawing => {
+        designDAO.getDesignByIdAndEmail(designId, email)
+        .then(design => {
+            design.runLink = '/running/compiled/' + design.name + '/' + designId;
+            design.compiled = true;
+            design.save();
+        })
+
+        responseForm = new ResponseForm(true, "Compile Drawing Success", true);
+        res.status(200).send(JSON.stringify(responseForm));
+    })
+    .catch(e => {
+
+        responseForm = new ResponseForm(false, "Compile Drawing Get Error", null);
+        res.status(500).send(JSON.stringify(responseForm));
     })
     
 })
@@ -69,7 +134,7 @@ router.get("/json/fetch/:designId", Utils.isLoggedIn, function (req, res) {
     let searchObj = { "email": email, "designId": designId };
     drawingDAO.findOneByObject(searchObj)
         .then(function (draw) {
-            console.debug(draw);
+            
             if (draw == null) {
 
                 drawingDAO.createAndSaveNewDrawing(designId, email)
@@ -80,7 +145,7 @@ router.get("/json/fetch/:designId", Utils.isLoggedIn, function (req, res) {
                     })
                     .catch(function (e) {
                         
-                        responseForm = new ResponseForm(false, "Cannot create new Drawing", null);
+                        responseForm = new ResponseForm(false, "Cannot Create New Drawing", null);
                         res.status(500).send(JSON.stringify(responseForm));
                     })
             } else {
@@ -96,8 +161,6 @@ router.get("/json/fetch/:designId", Utils.isLoggedIn, function (req, res) {
         })
 
 })
-
-
 
 
 module.exports = router;

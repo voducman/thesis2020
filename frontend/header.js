@@ -1,10 +1,9 @@
-let sessionUser;
 
 $(document).ready(function(){
     $.get("/user/infor", function(data, status){
 
             console.log(data);
-            sessionUser = data;
+            window.sessionUser = data;
             addLockScreen2Page(data.username, data.avatarLink);
     
         $("#btn-unlock").click(function(event){
@@ -80,9 +79,8 @@ function addLockScreen2Page(username, avatarLink){
 }
 
 $("#check-connection").click(function(event){
-    let connected = false;
-    // TO-DO list
-    // call function to Check if A is connecting or not
+    let connected;
+    connected = document.getElementById('check-connection').querySelector('i').classList.contains('connected');
 
     if (connected){
         showNotification("top", "right", "success", "<big>STATUS</big>: <b>Web-socket</b> is connecting.");

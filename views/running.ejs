@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <% include metadata %>
+    <link rel="stylesheet" href="/static/css/design-drawing.css">
+    <link rel="stylesheet" href="/static/css/drawing-modal.css">
+    <script src="/static/context-menu/context-menu.js"></script>
+    <link rel="stylesheet" href="/static/context-menu/context-menu.css"> 
+</head>
+<body>
+    <div class="wrapper" id="main-view" style="background-color: #343435;">
+        <div class="main-painel" style="overflow:visible; position: absolute;">
+            <div class="content" style="margin-top: 0px; position: absolute; left: 0;">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12 pd-mg-0" style="width: <%= resolution.width %>px;">
+                            <ul class="nav nav-tabs" id="tab-management" style="background-color: #343435;">
+                                
+                                <div>
+                                    <% include header-running %>
+                                </div>
+                            </ul>
+    
+                            <div class="tab-content" id="whiteboard-management" data-width="<%= resolution.width %>" data-height="<%= resolution.height %>">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <% include scripts-drawing %>
+</body>
+
+<script type="text/javascript" src="/static/javascripts/running.bundle.js"></script>
+<script type="text/javascript">
+    (function(){
+       $(document.body).tooltip({ selector: "[data-toggle=tooltip]" });
+    })()
+
+    $(document).ready(function(){
+        console.log('update time')
+        let startTime = Date.now();
+        setInterval(function () {
+            let totalSeconds = Date.now() - startTime;
+            document.getElementById('total-runtime').textContent = convertSecondToTime(totalSeconds / 1000);
+        }, 1000)
+    })
+
+    function convertSecondToTime(seconds){
+        let _hours = Math.floor(seconds/3600);
+        let _minutes = Math.floor((seconds - _hours*3600)/60);
+        let _seconds = parseInt((seconds - _hours*3600 - _minutes*60));
+        return `${_hours} : ${_minutes} : ${_seconds}`;
+    }
+</script>
+</html>

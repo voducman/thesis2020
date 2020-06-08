@@ -32,11 +32,12 @@ class Controller extends BaseController{
         this.setupAllControlBtnClickEvent(this);
         // Step 2: Fetch design data from server
         let designId = View.getDesignId();
-        console.info(designId)
         
         try {
-            let response = await this.model.initDrawingFromServer(designId);          
-
+            let pageList = await this.model.initDrawingFromServer(designId);  
+            if (pageList.length > 0) this.setupAllEventSymbolButton();        
+            // Loop in drawObject to re-render drawing page
+            View.renderPageFromOldData(pageList, this);
         }catch(e){
             console.log(e)
         }

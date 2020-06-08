@@ -1,10 +1,13 @@
-import PositionHandlerUtil from './PositionHandlerUtil';
+import {RunningExpressionCollection} from './form/RunningExpressionCollection';
+import {initProcessingRuntime}       from './runtimeUtil';
+import {stopProcessingRuntime}       from './runtimeUtil';
+import PositionHandlerUtil           from './PositionHandlerUtil';
 import { SVG } from '@svgdotjs/svg.js';
 import '@svgdotjs/svg.draggable.js';
 import Controller from './Controller';
 import View       from './View';
 import Util       from '../utils';
-
+import {sendAjaxToServer}  from '../utils';
 
 
 
@@ -13,20 +16,87 @@ class BaseController extends PositionHandlerUtil {
     // Control button - event hanler function
     setSaveBtnClickEvent(controllerRef) {
         $('#design-save').click(() => {
-            alert("save");
+            let pageInfoList = [], designId = View.getDesignId();
+            // TO-DO here 
+            document.getElementById('whiteboard-management').children.forEach(function(page){
+                let pageObj = View.parseJsonPageById(page.getAttribute('id'));
+                pageInfoList.push(pageObj);
+            })
 
+            console.log(JSON.stringify(pageInfoList));
+            Util.sendAjaxToServer('/drawing/json/update/' + designId, 'POST', JSON.stringify(pageInfoList))
+            .then(resonseForm => {
+                console.log(resonseForm);
+            })
+            .catch(e => console.log(e));
         })
     }
 
     setRunBtnClickEvent(controllerRef) {
         $('#design-run').click(() => {
-            alert("run")
+            let runningExpCollection = new RunningExpressionCollection();
+            const whiteBoards = document.getElementById('whiteboard-management').querySelectorAll('svg[id|="wb"]');
+            Array.from(whiteBoards).forEach(function(wb){
+                
+                Array.from(wb.children).forEach(function(symbol){
+                    
+                    try {
+                        let properties = symbol.properties;
+                        let symbolType = properties.id.replace(/-[0-9]+/i, '');
+
+                        if (properties['moveExp'] && properties['moveExp'].trim()) {
+                            runningExpCollection.pushMoveExp(properties);
+                        }
+
+                        if (properties['hiddenExp'] && properties['hiddenExp'].trim()) {
+                            runningExpCollection.pushHiddenExp(properties);
+                        }
+
+                        if (symbolType === 'button' && properties['runExp']) {
+                            runningExpCollection.pushRunExp(properties);
+                        }
+
+                        if (['checkbox', 'switch'].includes(symbolType)) {
+                            if (properties['runOffExp']) runningExpCollection.pushRunOffExp(properties);
+                            if (properties['runOnExp']) runningExpCollection.pushRunOnExp(properties);
+                        }
+
+                        if (symbolType === 'symbol-set' && properties['booleanExp']) {
+                            runningExpCollection.pushBooleanExp(properties);
+                        }
+
+                        if (['circle', 'ellipse', 'line', 'pencil', 'polygon', 'polyline', 'rectangle'].includes(symbolType)) {
+                            if (properties['onColorExp']) runningExpCollection.pushOnColorExp(properties);
+                            if (properties['flashExp']) runningExpCollection.pushFlashExp(properties);
+                        }
+
+                        if (symbolType === 'display-value' && properties['numericExp']) {
+                            runningExpCollection.pushNumericExp(properties);
+                        }
+
+                        if (['line-chart', 'bar-chart', 'pie-chart', 'donut-chart', 'speedometer'].includes(symbolType)) {
+                            runningExpCollection.pushAssignTag(properties);
+                        }
+                        if (['h-slider', 'v-slider', 'input', 'linear-gauge', 'progress-bar', 'radial-gauge'].includes(symbolType)) {
+                            runningExpCollection.pushAssignTag(properties);
+                        }
+
+                    } catch (e) {
+                        return;
+                    }
+                    
+                    return;
+                })
+            })
+            View.disableWhenRun();
+            initProcessingRuntime(runningExpCollection);
         })
     }
 
     setStopBtnClickEvent(controllerRef) {
         $('#design-stop').click(() =>{
-            alert("stop")
+            View.enableWhenStop();
+            stopProcessingRuntime();
         })
     }
 
@@ -49,8 +119,14 @@ class BaseController extends PositionHandlerUtil {
     }
 
     setCompileClickEvent(controllerRef) {
+        const data = {'designId': View.getDesignId()};
         $('#design-compile').click(() =>{
-            alert("compile")
+            sendAjaxToServer("/drawing/compile", "POST", JSON.stringify(data))
+            .then(responseForm => {
+                console.log(responseForm);
+            })
+            .catch(e => console.log(e + ''));
+            
         })
     }
 
@@ -242,6 +318,13 @@ class BaseController extends PositionHandlerUtil {
             let currentActive = View.getCurrentActivePageId();
             let wb = controllerRef.view[currentActive].whiteBoard;
             this.drawProgressBar(wb);
+        })
+
+        $('#symbol-ver-process-bar').click(() => {
+
+            let currentActive = View.getCurrentActivePageId();
+            let wb = controllerRef.view[currentActive].whiteBoard;
+            this.drawProgressBar(wb, true);
         })
     }
 

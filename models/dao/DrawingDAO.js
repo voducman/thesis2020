@@ -15,7 +15,7 @@ module.exports = class DrawingDAO extends BaseDAO{
      * @returns {boolean} True if save success, else return False
      * return value of an async function is implicitly wrapped in Promise.resolve
      */
-    async createAndSaveNewDrawing(designId, email, drawing = "{}"){
+    async createAndSaveNewDrawing(designId, email, drawing = "[]"){
         try{
             const newDrawing = new Drawing({email, designId, drawing});
             console.debug(newDrawing);

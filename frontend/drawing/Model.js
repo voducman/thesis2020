@@ -1,7 +1,6 @@
 import util from '../utils';
 
 export default (function(){
-    let source = {};
 
     return {
         initDrawingFromServer: function (designId) {
@@ -9,9 +8,10 @@ export default (function(){
 
                 util.sendAjaxToServer("/drawing/json/fetch/" + designId)
                     .then(function (receiveForm) {
-                        console.debug({receiveForm})
-                        source = receiveForm.getData();
-                        return resolve(true);
+                        let drawJson = receiveForm.getData().drawing;
+
+                        console.log(JSON.parse(drawJson));
+                        return resolve(JSON.parse(drawJson));
                     })
                     .catch(function (e) {
                         return reject(false);

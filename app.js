@@ -27,6 +27,7 @@ const usersRouter   = require('./routes/user');
 const dataRouter    = require('./routes/design');
 const gatewayRouter = require('./routes/gateway');
 const drawingRouter = require('./routes/drawing');
+const runningRouter = require('./routes/running');
 
 
 // Connect to Database
@@ -85,6 +86,7 @@ app.use('/user',    usersRouter);
 app.use('/design',  dataRouter);
 app.use('/gateway', gatewayRouter);
 app.use('/drawing', drawingRouter);
+app.use('/running/',runningRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,0 +1,37 @@
+<span style="position: absolute; right: 150px; top: 10px">
+    Total run time: 
+    <span id="total-runtime">
+        0 : 00 : 00
+    </span>
+    s
+</span>
+
+<ul class="nav navbar-nav navbar-right" style="max-height: 45px; margin-top: -5px!important;">
+    <li>
+        <a href="#" id="check-connection" class="dropdown-toggle" data-toggle="tooltip" data-placement="bottom"
+            title="Connection Status">
+            <i class="material-icons disconnected" >swap_vertical_circle</i>
+            <p class="hidden-lg hidden-md">connection status</p>
+        </a>
+    </li>
+    <li>
+        <a href="#pablo" class="dropdown-toggle" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <i class="material-icons" style="color: blanchedalmond;">person</i>
+            <p class="hidden-lg hidden-md">Profile</p>
+        </a>
+        <ul class="dropdown-menu" style="text-align: center;">
+            <label class="dropdown-header"><%= user.email %></label>
+            <li>
+                <a href="#" id="lockscreen"><i class="material-icons"
+                        style="margin-top: -5px;">lock</i>&nbsp;&nbsp;&nbsp;Lock&nbsp;&nbsp;&nbsp;</a>
+            </li>
+            <div class="divider"></div>
+            <li>
+                <a href="/logout"><i class="material-icons"
+                        style="margin-top: -5px;">logout</i>&nbsp;&nbsp;&nbsp;Logout</a>
+            </li>
+        </ul>
+
+    </li>
+</ul>

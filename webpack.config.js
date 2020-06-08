@@ -14,7 +14,8 @@ module.exports = {
         gatewayPLC:  './frontend/manager/plc.js',
         gatewayTag:  './frontend/manager/tag.js',
         design:  './frontend/design/design.js',
-        drawing:     './frontend/drawing/Controller.js'
+        drawing:     './frontend/drawing/Controller.js',
+        running:  './frontend/run/Controller.js'
     },
     output: {
         filename: './[name].bundle.js',
