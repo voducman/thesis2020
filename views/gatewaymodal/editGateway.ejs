@@ -1,0 +1,406 @@
+
+<div class="modal fade" id="editGateway" tabindex="-1" role="dialog" aria-labelledby="Modal-label">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <ul class="nav nav-pills nav-pills-rose nav-stacked">
+                                    <li class="active">
+                                        <a href="#edit-gateway" data-toggle="tab" onclick="onActiveGatewayTab();">Gateway</a>
+                                    </li>
+                                    <li>
+                                        <a href="#edit-plc" data-toggle="tab" onclick="onActivePlcTab();">Create PLC</a>
+                                    </li>
+                                    <li>
+                                        <a href="#edit-tag" data-toggle="tab" onclick="onActiveTagTab();">Create
+                                            Tag</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-9 col-md-offset-1" style="margin-left: 20px; padding-right: 0;">
+                                <div class="tab-content">
+                                    <div class="tab-pane active gateway" id="edit-gateway">
+                                        <fieldset class="form-group table-bordered">
+                                            <legend style="width: auto; margin-left: 30px;">&nbsp;Gateway Info&nbsp;[01]
+                                            </legend>
+                                            <div class="row form-group">
+                                                <div class="col-xs-6" style="display: none;">
+                                                    <input name="uniqueId" type="text" class="input auto form-control" tabindex="0">
+                                                </div>
+                                                <div class="col-xs-6 form-group">
+                                                    <span>Name* </span>
+                                                    <input name="name" type="text" class="input auto form-control" tabindex="1">
+                                                </div>
+                                                <div class="col-xs-6 form-group">
+                                                    <span>ScanTime* </span>
+                                                    <input name="scan-time" type="number" class="input auto form-control" tabindex="4">
+                                                </div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col-xs-12 form-group">
+                                                    <span>Adress <i>(Ex: 1600 Pennsylvania Avenue NW)</i></span>
+                                                    <input name="address" type="text" class="input auto form-control" tabindex="3">
+                                                </div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col-xs-6 form-group">
+                                                    <span>Longitude* </span>
+                                                    <input name="longitude" type="number" class="input auto form-control" tabindex="5">
+                                                </div>
+                                                <div class="col-xs-6 form-group">
+                                                    <span>Latitude* </span>
+                                                    <input name="latitude" type="number" class="input auto form-control" tabindex="6">
+                                                </div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col-md-12 form-group">
+                                                    <span>Description</span>
+                                                    <textarea name="description" type="text" class="custom form-control" rows="2" tabindex="7"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="text-center">
+                                                    <button type="button" rel="tooltip" class="btn btn-success btn-round btn-sm"
+                                                        title="Save" ><i class="material-icons">save</i>
+                                                        Change
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+
+                                    <div class="tab-pane plc" id="edit-plc">
+                                        <fieldset class="form-group table-bordered">
+                                            <legend style="width: auto; margin-left: 30px;">
+                                                <a data-toggle="collapse" href="#collapsePLC" class="collapsed"
+                                                    style="color: #333;">
+                                                    &nbsp;Adding PLC&nbsp;
+                                                    <b class="caret"></b>
+                                                </a>
+
+                                            </legend>
+                                            <div class="collapse in" id="collapsePLC">
+                                                <div class="row form-group" style="margin-top: 10px;">
+                                                    <div class="col-xs-4 form-group">
+                                                        <span>Producer *</span>
+                                                        <select class="custom" name="producer" title="Select Producer">
+                                                            <option value="siemens" selected>Siemens</option>
+                                                            <option value="schneider">Schneider</option>
+                                                            <option value="mitsubishi">Mitsubishi</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-xs-4 form-group">
+                                                        <span>Type *</span>
+                                                        <select class="custom" name="type" title="Select Type">
+                                                            <option value="s7-300">S7 300</option>
+                                                            <option value="s7-1200" selected>S7 1200</option>
+                                                            <option value="s7-1500">S7 1500</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-xs-4 form-group">
+                                                        <span>Protocol&nbsp;*</span>
+                                                        <select class="custom" name="protocol" title="Select Protocol">
+                                                            <option value="modbus-tcp">Modbus TCP</option>
+                                                            <option value="s7-connection" selected>S7 Connection</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="row form-group">
+                                                    <div class="col-xs-6 form-group">
+                                                        <span>PLC Name *</span>
+                                                        <input name="name" type="text" class="input auto form-control">
+                                                    </div>
+                                                    <div class="col-xs-6 form-group">
+                                                        <span>IP Address *</span>
+                                                        <input name="ip-address" type="text" class="input auto form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="row form-group">
+                                                   <div class="col-xs-12 form-group">
+                                                        <span>Description</span>
+                                                        <textarea name="description" type="text" class="custom form-control" rows="2" tabindex="7"></textarea>
+                                                   </div>
+                                                </div>
+                                                <div class="row save">
+                                                    <div class="text-center">
+                                                        <button type="button" rel="tooltip" class="btn btn-success btn-round btn-sm save"
+                                                            title="Create New" onclick="onClickSavePLC()">
+                                                            <i class="material-icons">add_circle</i>
+                                                            Create New
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="row update" style="display: none;">
+                                                    <div class="text-center">
+                                                        <button type="button" rel="tooltip" class="btn btn-success btn-round btn-sm"
+                                                            title="Create New" onclick="onClickUpdatePLC()">
+                                                            <i class="material-icons">add_circle</i>
+                                                            Update
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+
+                                    </div>
+                                    <div class="tab-pane tag" id="edit-tag">
+                                        <fieldset class="form-group table-bordered">
+                                            <legend style="width: auto; margin-left: 30px;">
+                                                <a data-toggle="collapse" href="#collapseTag" class="collapsed"
+                                                    style="color: #333;">
+                                                    &nbsp;Adding Tag&nbsp;
+                                                    <b class="caret"></b>
+                                                </a>
+                                            </legend>
+                                            <div class="collapse in" id="collapseTag">
+                                                <div class="row form-group" style="margin-top: 10px;">
+                                                    <div class="col-xs-6 form-group">
+                                                        <span>Type *</span>
+                                                        <select class="custom" name="tag-type">
+                                                            <option value="external" selected>External</option>
+                                                            <option value="internal">Internal</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-xs-6 form-group external">
+                                                        <span>PLC *</span>
+                                                        <select class="custom" name="plc">
+                                                            
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-xs-6 form-group internal">
+                                                        <span>Data Type *</span>
+                                                        <select class="custom" name="dataType">
+                                                            <option value="int" selected>INT</option>
+                                                            <option value="real">READ</option>
+                                                            <option value="string">STRING</option>
+                                                            <option value="boolean">BOOLEAN</option>
+                                                        </select>   
+                                                    </div>
+                                                </div>
+                                                <div class="row internal form-group">
+                                                    <div class="col-xs-4 form-group">
+                                                         <span>Tag Name *</span>
+                                                         <input name="name" type="text" class="input auto form-control">
+                                                    </div>
+                                                    <div class="col-xs-4 form-group">
+                                                         <span>Scale</span>
+                                                         <input name="scale" type="number" class="input auto form-control">
+                                                     </div>
+                                                     <div class="col-xs-4 form-group">
+                                                         <span>Offset</span>
+                                                         <input name="offset" type="number" class="input auto form-control">
+                                                    </div>
+                                                 </div>
+                                                <div class="row external form-group">
+                                                    <div class="col-md-7" style="padding-left: 0;">
+                                                        <div class="row form-group">
+                                                            <div class="col-xs-12 form-group">
+                                                                <span>Tag Name *</span>
+                                                                <input name="name" type="text" class="input auto form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row form-group">
+                                                            <div class="col-xs-6 form-group">
+                                                                <span>Scale</span>
+                                                                <input name="scale" type="number" class="input auto form-control" value="1">
+                                                            </div>
+                                                            <div class="col-xs-6 form-group">
+                                                                <span>Offset</span>
+                                                                <input name="offset" type="number" class="input auto form-control" value="0">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row form-group">
+                                                            <div class="col-xs-6 form-group">
+                                                                <span>Minimum</span>
+                                                                <input name="minimum" type="number" class="input auto form-control">
+                                                            </div>
+                                                            <div class="col-xs-6 form-group">
+                                                                <span>Maximum</span>
+                                                                <input name="maximum" type="number" class="input auto form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>            
+                                                    <div class="col-xs-5 advance-options">
+                                                        <div class="row form-group">
+                                                            <div class="checkbox">
+                                                                <label>
+                                                                    <input type="checkbox" name="alarm-checkbox">
+                                                                    Alarm
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row alarm" style="display: none;">
+                                                            <div class="col-xs-6">
+                                                                <span>HIHI</span>
+                                                                <input name="alarm-hihi" type="number" class="input auto form-control">
+                                                            </div>
+                                                            <div class="col-xs-6">
+                                                                <span>LOWLOW</span>
+                                                                <input name="alarm-lowlow" type="number" class="input auto form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row alarm" style="display: none;">
+                                                            <div class="col-xs-6">
+                                                                <span>HI</span>
+                                                                <input name="alarm-hi" type="number" class="input auto form-control">
+                                                            </div>
+                                                            <div class="col-xs-6">
+                                                                <span>LOW</span>
+                                                                <input name="alarm-low" type="number" class="input auto form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row form-group">
+                                                            <div class="checkbox">
+                                                                <label>
+                                                                    <input type="checkbox" name="trend-checkbox">
+                                                                    Trend
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>  
+                                                </div>
+                                                <div class="row form-group external">
+                                                    <div class="col-xs-4">
+                                                        <div class="radio">
+                                                            <label>
+                                                                <input type="radio" name="readOnly" checked value="true">
+                                                                Read Only
+                                                            </label>
+                                                            <label>
+                                                                <input type="radio" name="readOnly" value="false">
+                                                                Read/Write
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-4">
+                                                        <span>Memory Address *</span>
+                                                        <input name="memory-address" type="text" class="input auto form-control">
+                                                    </div>
+                                                    <div class="col-xs-4">
+                                                        <span>Deadband</span>
+                                                        <input name="deadband" type="number" class="input auto form-control" value="0">
+                                                    </div>
+                                                </div>
+                                                <div class="row form-group">
+                                                    <div class="row form-group">
+                                                        <div class="col-md-12 form-group">
+                                                            <span>Description</span>
+                                                            <textarea name="description" type="text" class="custom form-control" rows="2" tabindex="7"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row" id="Tag-new">
+                                                    <div class="text-center">
+                                                        <button type="button" rel="tooltip"
+                                                            class="btn btn-success btn-round btn-sm" title="Create New">
+                                                            <i class="material-icons">add_circle</i>
+                                                            Create New
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="row hidden" id="Tag-edit">
+
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" id="PLC-table" style="display: none;">
+                            <fieldset class="form-group table-bordered">
+                                <legend style="width: auto; margin-left: 30px;">
+                                    <a data-toggle="collapse" href="#collapsePLC-table" class="collapsed"
+                                        style="color: #333;">
+                                        &nbsp;PLCs Table&nbsp;
+                                        <b class="caret"></b>
+                                    </a>
+                                </legend>
+                                <div class="collapse" id="collapsePLC-table">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="card" style="background-color: #f3f9f7; margin-top: 0;">
+                                                <div class="card-content">
+                                                    <div class="table-responsive">
+                                                        <table class="table" style="font-size: small;">
+                                                            <thead
+                                                                style="background-color: #a4a4a4; font-weight: 900!important;">
+                                                                <tr>
+                                                                    <th class="text-center">STT</th>
+                                                                    <th class="text-center">Name</th>
+                                                                    <th class="text-center">Producer</th>
+                                                                    <th class="text-center">Type</th>
+                                                                    <th class="text-center">Protocol</th>
+                                                                    <th class="text-center">IP Adress</th>
+                                                                    <th class="text-center">Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="plc-popup">
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                            </fieldset>
+                        </div>
+
+                        <div class="row" id="Tag-table" style="display: none;">
+                            <fieldset class="form-group table-bordered">
+                                <legend style="width: auto; margin-left: 30px;">
+                                    <a data-toggle="collapse" href="#collapseTag-table" class="collapsed"
+                                        style="color: #333;">
+                                        &nbsp;Tags Table&nbsp;
+                                        <b class="caret"></b>
+                                    </a>
+                                </legend>
+                                <div class="collapse" id="collapseTag-table">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="card" style="background-color: #f3f9f7; margin-top: 0;">
+                                                <div class="card-content">
+                                                    <div class="table-responsive">
+                                                        <table class="table" style="font-size: small;">
+                                                            <thead
+                                                                style="background-color: #a4a4a4; font-weight: 900!important;">
+                                                                <tr>
+                                                                    <th class="text-center">STT</th>
+                                                                    <th class="text-center">Name</th>
+                                                                    <th class="text-center">Type</th>
+                                                                    <th class="text-center">Unit</th>
+                                                                    <th class="text-center">Address</th>
+                                                                    <th class="text-center">DataType</th>
+                                                                    <th class="text-center">Trend</th>
+                                                                    <th class="text-center">Alarm</th>
+                                                                    <th class="text-center">Action</th>
+
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="tag-popup">
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

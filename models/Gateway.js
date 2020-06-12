@@ -2,8 +2,15 @@ const mongoose = require('mongoose');
 
 let userSchema = mongoose.Schema({
     email: String,
-    data: Object,
-    createdTime: { type: Date, default: Date.now },
+    uniqueId: String,
+    name: String,
+    address: String,
+    scanTime: Number,
+    longitude: Number,
+    latitude: Number,
+    description: String,
+    createdTime:  {type: Date, default: Date.now },
+    lastModified: {type: Date, default: Date.now }
 
 }, {
     collection: 'gateway',

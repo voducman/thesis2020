@@ -62,7 +62,9 @@ function renderVectorMap(){
 }
 
 module.exports = {
-    renderVectorMap,
+    renderVectorMap: function(){
+        
+    }
 
 }
 

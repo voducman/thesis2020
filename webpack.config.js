@@ -9,7 +9,7 @@ module.exports = {
         sidebar:  './frontend/sidebar.js',
         footer:   './frontend/footer.js',
         profile:  './frontend/profile.js',
-        gateway:  './frontend/gateway/main.js',
+        gateway:  './frontend/gateway/controller.js',
         gatewayList: './frontend/manager/list.js',
         gatewayPLC:  './frontend/manager/plc.js',
         gatewayTag:  './frontend/manager/tag.js',

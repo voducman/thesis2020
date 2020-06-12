@@ -3,6 +3,87 @@
 
 <head>
     <% include metadata %>
+    <style>
+        .modal-body{
+            padding-top: 0!important;;
+        }
+
+        div.form-group, fieldset{
+            margin: 0;
+        }
+
+        fieldset{
+            border-radius: 5px;
+        }
+
+        legend{
+            font-size: 17px;
+            margin-bottom: 0px;
+        }
+        .input{
+            padding-left: 10px;
+            border-radius: 2px!important;
+            height: 25px!important;
+            border: 1px solid #cec9c9!important;
+            background-image: none!important;
+        }
+        .input.sm{ width: 70px; }
+        .input.md{ width: 100px;}
+        .input.lg{ width: 150px;}
+        .input.xl{ width: 200px;}
+        .input.auto{ width: 100%;}
+    
+        textarea.custom{
+            padding-left: 10px;
+            border-radius: 2px!important;
+            border: 1px solid #cec9c9!important;
+            width: 100%;
+            background-image: none!important;
+        }
+    
+        div.has-error input, div.has-error textarea{
+            border-color: red!important;
+        }
+
+        #editGateway .modal-body{
+        padding: 0!important;
+    }
+
+    #editGateway .card-content{
+        padding-top: 0;
+    }
+
+    #editGateway span{
+        font-size: 12px;
+    }
+
+    select.custom{
+        width: 100%;
+        height: 25px;
+        background-color: #efefef;
+        border-radius: 2px;
+    }
+
+    .internal{
+        display: none;
+    }
+
+    .nav-pills:not(.nav-pills-icons) > li > a{
+        border-radius: 5px!important;
+    }
+
+    .advance-options{
+        border: 1px solid #c7c7c7; 
+        border-radius: 4px; 
+        margin-left: -16px; 
+        background-color: #f3f3f3;
+    }
+
+    .advance-options input{
+        background-color: white!important;
+    }
+    
+    </style>
 </head>
 
 <body>
@@ -17,11 +98,6 @@
                         <i class="material-icons">note_add</i>
                         Create New
                     </button>
-                    <!-- <button type="button" rel="tooltip" class="btn btn-danger" data-original-title=""
-                        title="Save Gateway" onclick="putGatewaytoDatabase()">
-                        <i class="material-icons">save</i>
-                        Save
-                    </button> -->
                 </div>
                 <div class="container-fluid">
                     <div class="row">
@@ -34,68 +110,26 @@
                         </div>
                     </div>
                     <div class="row">
-                        <!-- <div class="col-md-3 col-md-offset-9 text-right" style="margin-bottom: -2%">
-                            <button type="button" rel="tooltip" class="btn btn-success btn-round" data-original-title=""
-                                title="Create New" onclick="addPopupCreateNew()">
-                                <i class="material-icons">note_add</i>
-                                Create New
-                            </button>
-                            <button type="button" rel="tooltip" class="btn btn-danger" data-original-title=""
-                                title="Save Gateway" onclick="putGatewaytoDatabase()">
-                                <i class="material-icons">save</i>
-                                Save
-                            </button> 
-                        </div> -->
-                    </div>
-                    <div class="row">
                         <div class="col-md-12">
                             <div class="card" style="background-color: #f3f9f7;">                               
                                 <div class="card-content">
                                     <div class="table-responsive">
-                                        <table class="table" style="font-size: small;">
+                                        <table class="table table-hover table-striped" style="font-size: small;">
                                             <thead style="background-color: #3fb0ac; font-weight: 900!important;">
                                                 <tr>
-                                                    <th class="text-center">ID</th>
+                                                    <th class="text-center">STT</th>
+                                                    <th>Unique ID</th>
                                                     <th>Name</th>
                                                     <th>Created Time</th>
                                                     <th>Last Modified</th>
-                                                    <th class="text-center">PLCs</th>
-                                                    <th class="text-center">Tags</th>
                                                     <th class="text-center">Status</th>
                                                     <th class="text-center">Action</th>
-    
                                                 </tr>
                                             </thead>
-                                            <tbody id="render-row">
+                                            <tbody id="gateway-main-page">
                                                            
                                             </tbody>
                                         </table>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <ul class="pagination pagination-info" id="pagination-gateway">
-                                                    <p>Showing 1 to * of * entries</p>
-                                                </ul>
-                                            </div>
-                                            <div class="col-md-3 col-md-offset-6 text-right">
-                                                <ul class="pagination pagination-info">
-                                                    <li>
-                                                        <a href="javascript:void(0);" id="first-gateway"><<</a>
-                                                    </li>
-                                                    <li class="active">
-                                                        <a href="javascript:void(0);" id="back-gateway">1</a>
-                                                    </li>
-                                                    <li class="">
-                                                        <a href="javascript:void(0);" id="current-gateway">2</a>
-                                                    </li>
-                                                    <li class="">
-                                                        <a href="javascript:void(0);" id="next-gateway">3</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0);" id="last-gateway">>></a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                         </div>
@@ -107,8 +141,8 @@
         </div>
     </div>
   
-
-
+<% include addNewGateway %>
+<% include editGateway   %>
 </body>
 <% include scripts %>
 <script type="text/javascript">

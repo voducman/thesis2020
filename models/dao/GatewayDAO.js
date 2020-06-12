@@ -1,10 +1,234 @@
 const BaseDAO = require("./BaseDAO");
+const PlcDAO  = require("./PlcDAO");
+const TagDAO  = require("./TagDAO");
 const Gateway = require("../Gateway");
+const PLC     = require("../PLC");
+const Tag     = require("../Tag");
 
 module.exports = class GatewayDAO extends BaseDAO{
     constructor(){
         super(Gateway);
+        this.plcDAO = new PlcDAO();
+        this.tagDAO = new TagDAO();
     }
 
-    
+    async getGatewayByEmailnUniqueId(email, uniqueId){
+        
+        let searchObj = {email, uniqueId};
+        try{
+            return await this.findOneByObject(searchObj);
+        }catch(e){
+            return Promise.reject(null);
+        }
+    }
+
+    async getPlcById(plcId){
+
+        try{
+            return await this.plcDAO.findOneById(plcId);
+        }catch(e){
+            return Promise.reject(null);
+        }
+    }
+
+    async getPlcByIpAddress(ipAddress){
+        try{
+            return await this.plcDAO.findOneByObject({ipAddress})
+        }catch(e){
+            return Promise.reject(null);
+        }
+    }
+
+    async getTagByGatewayIdnPlcIdnTagName(gatewayId, plcId, name){
+
+        let searchObj = {gatewayId, plcId, name};
+        try{
+            return await this.tagDAO.findOneByObject(searchObj);
+        }catch(e){
+            return Promise.reject(null);
+        }
+    }
+
+    createNewGateway(gatewayForm){
+        let gateway = new Gateway({
+            'email':       gatewayForm.email,
+            'uniqueId':    gatewayForm.uniqueId,
+            'name':        gatewayForm.name,
+            'address':     gatewayForm.address,
+            'scanTime':    gatewayForm.scanTime,
+            'longitude':  gatewayForm.longitude,
+            'latitude':    gatewayForm.latitude,
+            'description': gatewayForm.description,
+        })
+
+        return new Promise((resolve, reject) => {
+            gateway.save()
+            .then(() => {
+                return Gateway.find({'email': gatewayForm.email})
+            })
+            .then(gateways => {
+                return resolve(gateways);
+            })
+            .catch(e => reject(null))
+        })
+    }
+
+    createNewPlc(plcForm){
+        let plc = new PLC({
+            'gatewayId':   plcForm.gatewayId,
+            'name':        plcForm.name,
+            'ipAddress':   plcForm.ipAddress,
+            'producer':    plcForm.producer,
+            'type':        plcForm.type,
+            'protocol':    plcForm.protocol,
+            'description': plcForm.description
+        })
+
+        return new Promise((resolve, reject) => {
+            plc.save()
+            .then(() => {
+                return PLC.find({'gatewayId': plcForm.gatewayId})
+            })
+            .then(plcs => {
+                return resolve(plcs);
+            })
+            .catch(e => reject(null))
+        })
+    }
+
+    createNewTag(tagForm) {
+        let tag = new Tag({
+            'gatewayId':     tagForm.gatewayId,
+            'plcId':         tagForm.plcId,
+            'name':          tagForm.name,
+            'type':          tagForm.type,
+            'plcAddress':    tagForm.plcAddress,
+            'scale':         tagForm.scale,
+            'offset':        tagForm.offset,
+            'minimum':       tagForm.minimum,
+            'maximum':       tagForm.maximum,
+            'dataType':      tagForm.dataType,
+            'unit':          tagForm.unit,
+            'readOnly':      tagForm.readOnly,
+            'memoryAddress': tagForm.memoryAddress,
+            'deadBand':      tagForm.deadBand,
+            'alarm':         tagForm.alarm,
+            'trend':         tagForm.trend,
+            'description':   tagForm.description
+        })
+
+        return tag.save();
+    }
+
+    updateGateway(gateway, gatewayForm){
+        gateway.name         = gatewayForm.name;
+        gateway.address      = gatewayForm.address;
+        gateway.scanTime     = gatewayForm.scanTime;
+        gateway.longitude    = gatewayForm.longitude;
+        gateway.latitude     = gatewayForm.latitude;
+        gateway.description  = gatewayForm.description;
+        gateway.lastModified = Date.now();
+
+        return new Promise((resolve, reject) => {
+            gateway.save()
+            .then(() => {
+                return Gateway.find({'email': gatewayForm.email})
+            })
+            .then(gateways => {
+                return resolve(gateways);
+            })
+            .catch(e => reject(null))
+        })
+    }
+
+    updatePlc(plc, plcForm){
+        plc.gatewayId    = plcForm.gatewayId;
+        plc.name         = plcForm.name;
+        plc.ipAddress    = plcForm.ipAddress;
+        plc.producer     = plcForm.producer;
+        plc.type         = plcForm.type;
+        plc.protocol     = plcForm.protocol;
+        plc.description  = plcForm.description;
+        plc.lastModified = Date.now();
+
+        return plc.save();
+    }
+
+    updateTag(tag, tagForm){
+        tag.gatewayId     = tagForm.gatewayId;
+        tag.plcId         = tagForm.plcId;
+        tag.name          = tagForm.name;
+        tag.type          = tagForm.type;
+        tag.plcAddress    = tagForm.plcAddress;
+        tag.scale         = tagForm.scale;
+        tag.offset        = tagForm.offset;
+        tag.minimum       = tagForm.minimum;
+        tag.maximum       = tagForm.maximum;
+        tag.dataType      = tagForm.dataType;
+        tag.unit          = tagForm.unit;
+        tag.readOnly      = tagForm.readOnly;
+        tag.memoryAddress = tagForm.memoryAddress;
+        tag.deadBand      = tagForm.deadBand;
+        tag.alarm         = tagForm.alarm;
+        tag.trend         = tagForm.trend;
+        tag.description   = tagForm.description;
+        tag.lastModified  = Date.now();
+        
+        return tag.save();
+    }
+
+    async deleteGatewayByUniqueId(uniqueId, email){
+
+       try{
+        await this.deleteOneByKeynValue('uniqueId', uniqueId);
+        await this.plcDAO.deleteManyByKeynValue('gatewayId', uniqueId);
+        await this.tagDAO.deleteManyByKeynValue('gatewayId', uniqueId);
+
+        let gateways = await Gateway.find({'email': email});
+        console.log(gateways)
+        return gateways;
+       }catch(e){
+           return Promise.reject(null);
+       }
+        
+    }
+
+    async deletePLCById(plcId){
+        
+        try{
+            await this.plcDAO.deleteOneByKeynValue('_id', plcId);
+            await this.tagDAO.deleteManyByObject({gatewayId, plcId});
+
+            return true;
+           }catch(e){
+               return Promise.reject(false);
+           }
+    }
+
+    async deleteTagByPLCIdnTagName(plcId, name){
+
+        try{
+            await this.tagDAO.deleteOneByObject({plcId, name})
+            
+            return true;
+           }catch(e){
+               return Promise.reject(false);
+           }
+    }
+
+    async countTotalPLCnTag(gatewayId){
+        try {
+            let totalPlc = await this.plcDAO.countDocumentsByObject({ gatewayId });
+            let totalTag = await this.tagDAO.countDocumentsByObject({ gatewayId });
+            return {totalPlc, totalTag};
+        }catch(e){
+            return Promise.reject(null);
+        }
+    }
+
+   
+
+
+
+
 }

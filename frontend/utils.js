@@ -1,4 +1,5 @@
 const ReceiveForm = require('../models/form/CommonReceiveForm');
+const validate    = require('ip-validator');
 
 function showNotification(from, align, type, message){
 
@@ -230,6 +231,37 @@ function uploadCustomImage(image){
     return result;
  }
 
+ function showErrorOnField(selector){
+    $(selector).parent().addClass('has-error');
+}
+
+function isValidString(value, minLength){
+    if (typeof value !== 'string') return false;
+    if (!value.length) return false;
+
+    if (!minLength || minLength < 1) {
+        return true;
+    }else if (value.length < minLength){
+        return false;
+    }else{
+        return true;
+    }
+    
+}
+
+function isValidNumber(value, minValue){
+    if (isNaN(parseFloat(value))) return false;
+    if (typeof minValue !== 'undefined'){
+        if (parseFloat(value) >= parseFloat(minValue)) return true;
+        else  return false;
+    }
+    return true;
+}
+
+function isValidIP(ipAddress){
+    return validate.ipv4(ipAddress);
+}
+
 
  module.exports = {
     showNotification, 
@@ -239,5 +271,9 @@ function uploadCustomImage(image){
     showErrorNotification,
     showSuccessNotification,
     sendAjaxToServer,
-    uploadCustomImage
+    uploadCustomImage,
+    showErrorOnField,
+    isValidNumber,
+    isValidString,
+    isValidIP
  }

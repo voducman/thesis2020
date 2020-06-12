@@ -1,6 +1,3 @@
-import Gateway from './Gateway';
-import PLC     from './PLC';
-import Tag     from './Tag';
 
 window.data = {
     external: [],

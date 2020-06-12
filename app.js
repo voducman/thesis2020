@@ -46,7 +46,8 @@ app.set('views', [
   path.join(__dirname, 'views/pageerror'), 
   path.join(__dirname, 'views/authentication'),
   path.join(__dirname, 'views/drawmodal'),
-  path.join(__dirname, 'views/designmodal')
+  path.join(__dirname, 'views/designmodal'),
+  path.join(__dirname, 'views/gatewaymodal')
 ]);
 app.set('view engine', 'ejs');
 

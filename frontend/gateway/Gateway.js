@@ -1,71 +1,20 @@
-function Gateway(id, name, long, lat, pos, des, scanTime){
-    this.id = id;
+function Gateway(email, uniqueId, name, address, scanTime, longitude, latitude, description){
+    this.email = email;
+    this.uniqueId = uniqueId;
     this.name = name;
-    this.longitude = long;
-    this.latitude = lat;
-    this.position = pos;
-    this.description = des;
+    this.address = address;
     this.scanTime = scanTime;
-    this.PLCnum = 0;
-    this.Tagnum = 0;
-    this.createdTime = Date.now();
-    this.modified = Date.now();
-    this.status = false;
-    this.PLCs = [];
-
+    this.longitude = longitude;
+    this.latitude = latitude;
+    this.description = description;
 }
 
-Gateway.prototype.updatePLCnTag = function(){
-    let tagCount = 0;
-
-    this.PLCnum = this.PLCs.length;
-
-    if (this.PLCs.length > 0){
-        this.PLCs.forEach(function(plc, index){
-            tagCount += plc.Tags.length;
-        });
+Gateway.prototype.updateProperties = function(propertiesObj){
+    for (let property in propertiesObj){
+        if (this.hasOwnProperty(property) && propertiesObj[property]){
+            this[property] = propertiesObj[property];
+        }
     }
-    this.Tagnum = tagCount;
-}
-
-Gateway.prototype.getPLCByName = function(name){
-    let index = this.PLCs.findIndex(function(plc){
-        return plc.name == name;
-    })
-
-    return this.PLCs[index];
-}
-
-Gateway.prototype.getPLCList = function(){
-    return this.PLCs.map((plc)=> plc.name);
-}
-
-Gateway.prototype.updateModifyTime = function(){
-    this.modified = Date.now();
-}
-
-Gateway.prototype.updateName = function(name){
-    this.name = name;
-}
-
-Gateway.prototype.updateLongitude = function(long){
-    this.longitude = long;
-}
-
-Gateway.prototype.updateLatitude = function(lat){
-    this.latitude = lat;
-}
-
-Gateway.prototype.updatePosition = function(address){
-    this.position = address;
-}
-
-Gateway.prototype.updateDescription = function(des){
-    this.description = des;
-}
-
-Gateway.prototype.updateScantime = function(scantime){
-    this.scanTime = scantime;
 }
 
 module.exports = Gateway;

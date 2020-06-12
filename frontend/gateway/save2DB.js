@@ -1,4 +1,5 @@
 import {showNotification} from '../utils';
+import {sendAjaxToServer} from '../utils';
 
 // Add Control+S event to save data to Database on server
 $(window).keydown(function(event){
@@ -16,16 +17,16 @@ $(window).keydown(function(event){
  */
 window.putGatewaytoDatabase = function (){
 
-    let putData = {
+    let gateway = {
         external: JSON.stringify(data.external),
         internal: JSON.stringify(data.internal)
     }
 
-    console.log(putData)
-    $.ajax({
+    console.log(gateway)
+    /* $.ajax({
         url: '/gateway/save',
         method: 'PUT',
-        data: putData
+        data: gateway
     })
     .done(function(result){
         console.log("Save result: ", result);
@@ -38,5 +39,12 @@ window.putGatewaytoDatabase = function (){
     .fail(function(error){
         console.log('Save fail: ', error);
         showNotification("top", "right", "danger", `Error when call <b>/gateway/save</b>`);
+    }) */
+    sendAjaxToServer("/gateway/save", "PUT", JSON.stringify(gateway))
+    .then(function(responseForm){
+        console.log(responseForm);
+    })
+    .catch(function(e){
+        console.error(e + '');
     })
 }

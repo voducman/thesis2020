@@ -1,11 +1,12 @@
-const Gateway = require('./Gateway');
-const PLC     = require('./PLC');
-const Tag     = require('./Tag');
-const initPagigation = require('./pagigation');
+import Gateway from './Gateway';
+import PLC     from './PLC';
+import Tag     from './Tag';
+import initPagigation from './pagigation';
 /**
  * @summary function will self-call when render page
  */
-module.exports = function(){
+const initData = function(){
+
     $.get({
         url: '/gateway/fetch',
     }).done(function(result){
@@ -57,3 +58,6 @@ module.exports = function(){
         console.log('Fetch Fail: ', error);
     })
 }
+
+
+export default initData;

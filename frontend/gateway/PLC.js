@@ -1,20 +1,21 @@
 
-function PLC(producer, type, name, IPaddrr, protocol, des){
+function PLC(gatewayId, name, ipAddress, producer, type, protocol, description){
+    this.gatewayId = gatewayId;
+    this.name = name;
+    this.ipAddress = ipAddress;
     this.producer = producer;
     this.type = type;
-    this.name = name;
-    this.IPaddrress = IPaddrr;
     this.protocol = protocol;
-    this.description = des;
-    this.Tags = [];
-    this.modified = Date.now();
-    this.createdTime = Date.now();
+    this.description = description;
 }
 
-PLC.prototype.getTagByName = function(tagName){
-    let index = this.Tags.findIndex((tag) => tag.name == tagName);
-    if (index == -1) return false;
-    return this.Tags[index];
+
+PLC.prototype.updateProperties = function(propertiesObj){
+    for (let property in propertiesObj){
+        if (this.hasOwnProperty(property) && propertiesObj[property]){
+            this[property] = propertiesObj[property];
+        }
+    }
 }
 
 module.exports = PLC;

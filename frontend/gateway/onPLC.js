@@ -14,7 +14,7 @@ window.changePLCList = function () {
         case 'siemens':
             $('#plc-type').empty();
             $('#plc-type').append(`
-                <option value="S7-300">S7-300</option>
+                <option value="s7-300">S7-300</option>
                 <option value="s7-1200">S7-1200</option>
                 <option value="s7-1500">S7-1500</option>
             `)
@@ -34,7 +34,6 @@ window.changePLCList = function () {
 
 window.changePLCTypeList = function () {
     let PLCType = $('#plc-type').val();
-    console.log(PLCType)
     switch (PLCType) {
         case 's7-1500':
             $('#plc-protocol').empty();
@@ -45,6 +44,12 @@ window.changePLCTypeList = function () {
             `)
             break;
         case 's7-300':
+            $('#plc-protocol').empty();
+            $('#plc-protocol').append(`
+                <option value="modbus">Modbus TCP</option>
+                <option value="s7">Ethernet S7</option>
+            `)
+            break;
         case 's7-1200':
             $('#plc-protocol').empty();
             $('#plc-protocol').append(`
