@@ -285,19 +285,21 @@ module.exports = class GatewayDAO extends BaseDAO{
         }
    }
 
-   async getAllTagofUser(email){
-    try{
-         let tags = [];
-         let gateways = await this.findManyByObject({email});
-         for (let i = 0; i < gateways.length; i++){
-             let gateway = gateways[i];
-             let tag = await this.tagDAO.findManyByObject({'gatewayId': gateway.uniqueId});
-             tags.push(...tag);
-         }
-         return tags;
-    }catch(e){
-         return Promise.reject(null);
-     }
-}
+    async getAllTagofUser(email) {
+        try {
+            let tags = [];
+            let gateways = await this.findManyByObject({ email });
+            for (let i = 0; i < gateways.length; i++) {
+                let gateway = gateways[i];
+                let tag = await this.tagDAO.findManyByObject({ 'gatewayId': gateway.uniqueId });
+                tags.push(...tag);
+            }
+            return tags;
+        } catch (e) {
+            return Promise.reject(null);
+        }
+
+    }
+
 
 }

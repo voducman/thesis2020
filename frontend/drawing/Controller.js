@@ -1,12 +1,11 @@
-let url              = require('url');
-let onChange         = require('on-change');
-                       
-import resolution     from '../../models/constant/resolution';
-import BaseController from './BaseController';
-import View           from './View';
-import Model          from './Model';
-import modalEventUtil from './modalEventUtil';
-import modalUtil from './modalUtil';
+                    
+import resolution         from '../../models/constant/resolution';
+import BaseController     from './BaseController';
+import View               from './View';
+import Model              from './Model';
+import modalEventUtil     from './modalEventUtil';
+import eventUtil          from './eventUtil';
+import {sendAjaxToServer} from '../utils';
 
 let controller;                   
 
@@ -23,7 +22,42 @@ class Controller extends BaseController{
         this.model = Model;
     }
 
-    
+    async fetchListTag(){
+        try{
+            let gateways, plcs, tags, responseForm, results = [], tagPicker = $('#tagPicker tbody');
+            responseForm = await sendAjaxToServer("/gateway/json/list/gateways");
+            if (responseForm.success) gateways = responseForm.getData();
+            responseForm = await sendAjaxToServer("/gateway/json/list/plcs");
+            if (responseForm.success) plcs = responseForm.getData();
+            responseForm  = await sendAjaxToServer("/gateway/json/list/tags");
+            if (responseForm.success) tags = responseForm.getData();
+            
+            if (!gateways || !plcs || !tags) return;
+            if (Array.isArray(tags)){
+                tags.forEach(function(tag){
+                    if (tag.type === 'internal'){
+                        results.push(tag.name);
+                    }else{
+                        let tagName;
+                        let gatewayIndex = gateways.findIndex(gw => gw.uniqueId == tag.gatewayId);
+                        let plcIndex = plcs.findIndex(plc => plc._id == tag.plcId);
+                        if (gatewayIndex == -1 || plcIndex == -1) return;
+                        tagName = gateways[gatewayIndex].name + '_' + plcs[plcIndex].name + '_' + tag.name;
+                        results.push(tagName);
+                    }
+                })
+
+                results.forEach(function(tagName, index){
+                    tagPicker.append(`
+                        <tr>
+                            <td ondblclick="onPickTag('${tagName}')">${index+1}/ ${tagName}</td>
+                        </tr>`)
+                })
+            }
+        }catch(e){
+            console.log(e + '');
+        }
+    }
 
 
     async initDrawingBoard(){
@@ -38,15 +72,10 @@ class Controller extends BaseController{
             if (pageList.length > 0) this.setupAllEventSymbolButton();        
             // Loop in drawObject to re-render drawing page
             View.renderPageFromOldData(pageList, this);
+            this.fetchListTag();
         }catch(e){
-            console.log(e)
-        }
-
-
-
-        // Step x: Render previous drawing result
-       
-        
+            console.log(e + '');
+        }  
     }
 
     
@@ -78,7 +107,7 @@ class Controller extends BaseController{
 controller = new Controller();
 controller.initDrawingBoard();
 modalEventUtil.initEventApplyBtn();
-
+eventUtil.addHandlerEventTagBtn();
 
 
 

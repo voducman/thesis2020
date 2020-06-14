@@ -340,6 +340,23 @@ const eventUtil = (function(){
         assignDbclickToCamera(cameraRef){
             cameraRef.on('dblclick', showCameraProperties);
             cameraRef.on('contextmenu', openContextMenu);
+        },
+
+        addHandlerEventTagBtn(){
+            $('.browse-tag').each(function(){
+                $(this).click(function(){
+                    // Show Select Tags modal
+                    $('#tagPicker').modal('show');
+                    document.getElementById('tagPicker').textareaRef = $(this).prev('textarea');
+        
+                })
+            })
+
+            window.onPickTag = function(tagName){
+                $('#tagPicker').modal('hide');
+                const textarea = document.getElementById('tagPicker').textareaRef;
+                textarea.val(textarea.val() + tagName);
+            }
         }
 
 
