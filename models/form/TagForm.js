@@ -3,9 +3,9 @@ const TagForm = function(tag){
 
     this.gatewayId     = tag.gatewayId;
     this.plcId         = tag.plcId;
+    this.tagId         = tag.tagId;
     this.name          = tag.name;
     this.type          = tag.type;
-    this.plcAddress    = tag.plcAddress;
     this.scale         = tag.scale;
     this.offset        = tag.offset;
     this.minimum       = tag.minimum;
@@ -22,12 +22,14 @@ const TagForm = function(tag){
 
 TagForm.prototype.isValid = function(){
     let isValid = true;
-    if (!this.gatewayId || !this.plcId || !this.name || !this.type){
+    if (!this.gatewayId || (!this.plcId && this.type === 'external') || !this.name){
         isValid = false;
+        console.log("invalid here 1");
     }
 
-    if (!this.plcAddress || !this.dataType || !this.readOnly || !this.memoryAddress){
+    if (!this.dataType || (!this.memoryAddress && this.type === 'external')){
         isValid = false;
+        console.log("invalid here 2");
     }
 
     return isValid;

@@ -9,7 +9,7 @@ function showNotification(from, align, type, message){
 
     },{
         type: type,
-        timer: 2000,
+        timer: 100,
         placement: {
             from: from,
             align: align
@@ -31,7 +31,7 @@ function showFailNotification(message, code = 406){
 
     },{
         type: 'warning',
-        timer: 2000,
+        timer: 100,
         placement: {
             from: 'top',
             align: 'right'
@@ -53,7 +53,7 @@ function showErrorNotification(message, code = 500){
 
     },{
         type: 'danger',
-        timer: 2000,
+        timer: 100,
         placement: {
             from: 'top',
             align: 'right'
@@ -75,7 +75,7 @@ function showSuccessNotification(message, code = 200){
 
     },{
         type: 'success',
-        timer: 2000,
+        timer: 100,
         placement: {
             from: 'top',
             align: 'right'

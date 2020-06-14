@@ -174,10 +174,9 @@ router.put("/json/update/plc", isLoggedIn, function (req, res) {
     return res.status(500).send(JSON.stringify(responseForm));
   }
 
-  let { plcId } = plcForm;
+  let {plcId} = plcForm;
   gatewayDAO.getPlcById(plcId)
     .then(function (plc) {
-
       if (plc == null) {
        
         responseForm = new ResponseForm(false, "Not Found PLC With PLC's ID", null);
@@ -185,9 +184,9 @@ router.put("/json/update/plc", isLoggedIn, function (req, res) {
       } else {
 
         gatewayDAO.updatePlc(plc, plcForm)
-          .then(function (updatedPlc) {
+          .then(function (plcs) {
             
-            responseForm = new ResponseForm(true, "Update PLC Success", updatedPlc);
+            responseForm = new ResponseForm(true, "Update PLC Success", plcs);
             res.status(200).send(JSON.stringify(responseForm));
           })
       }
@@ -219,8 +218,7 @@ router.post("/json/fetch/plcs", isLoggedIn, function (req, res) {
 
 })
 
-
-router.put("/json/update/tag", isLoggedIn, function (req, res) {
+router.put("/json/create/tag", isLoggedIn, function (req, res){
   let email = req.user.local.email;
   let responseForm;
   let tagForm = new TagForm(req.body);
@@ -232,20 +230,50 @@ router.put("/json/update/tag", isLoggedIn, function (req, res) {
 
   let { gatewayId, plcId, name } = tagForm;
   gatewayDAO.getTagByGatewayIdnPlcIdnTagName(gatewayId, plcId, name)
+  .then(function(tag){  
+    if (tag == null) {
+      gatewayDAO.createNewTag(tagForm)
+        .then(function (tags) {
+
+          responseForm = new ResponseForm(true, "Create New Tag Success", tags);
+          res.status(200).send(JSON.stringify(responseForm));
+        })
+    } else {
+
+      responseForm = new ResponseForm(false, "Tag is duplicate", null);
+      res.status(406).send(JSON.stringify(responseForm));
+    }
+  })
+  .catch(function(e){
+
+    responseForm = new ResponseForm(false, "Create New Tag Get Error", null);
+    res.status(500).send(JSON.stringify(responseForm));
+  })
+})
+
+
+router.put("/json/update/tag", isLoggedIn, function (req, res) {
+  let email = req.user.local.email;
+  let responseForm;
+  let tagForm = new TagForm(req.body);
+  
+  if (!tagForm.isValid()) {
+    responseForm = new ResponseForm(false, "Tag Data Invalid", null);
+    return res.status(500).send(JSON.stringify(responseForm));
+  }
+  
+  let { tagId } = tagForm;
+  gatewayDAO.getTagById(tagId)
     .then(function (tag) {
-
       if (tag == null) {
-        gatewayDAO.createNewTag(tagForm)
-          .then(function (newTag) {
-
-            responseForm = new ResponseForm(true, "Create New Tag Success", newTag);
-            res.status(200).send(JSON.stringify(responseForm));
-          })
+        
+        responseForm = new ResponseForm(false, "Not Found Tag With Tag's ID", null);
+        res.status(404).send(JSON.stringify(responseForm));
       } else {
         gatewayDAO.updateTag(tag, tagForm)
-          .then(function (updatedTag) {
+          .then(function (tags) {
             
-            responseForm = new ResponseForm(true, "Update Tag Success", updatedTag);
+            responseForm = new ResponseForm(true, "Update Tag Success", tags);
             res.status(200).send(JSON.stringify(responseForm));
           })
       }
@@ -258,7 +286,23 @@ router.put("/json/update/tag", isLoggedIn, function (req, res) {
 
 })
 
+router.post("/json/fetch/tags", isLoggedIn, function (req, res) {
+  let email = req.user.local.email;
+  let responseForm;
 
+  let {gatewayId} = req.body;
+  gatewayDAO.tagDAO.findManyByObject({ gatewayId })
+    .then(tags => {
+
+      responseForm = new ResponseForm(true, "Fetch Tag List Success.", tags);
+      res.status(200).send(JSON.stringify(responseForm));
+    })
+    .catch(e => {
+      responseForm = new ResponseForm(false, "Fetch Tag List Get Error.", []);
+      res.status(500).send(JSON.stringify(responseForm));
+    })
+
+})
 
 
 
@@ -284,11 +328,11 @@ router.delete("/json/delete/plc", isLoggedIn, function (req, res) {
   let email = req.user.local.email;
   let responseForm;
 
-  let { plcId } = req.body;
-  gatewayDAO.deletePLCById(plcId)
-    .then(function (isSuccess) {
+  let { plcId, gatewayId } = req.body;
+  gatewayDAO.deletePLCById(gatewayId, plcId)
+    .then(function (plcs) {
 
-      responseForm = new ResponseForm(true, "Delete PLC Success", null);
+      responseForm = new ResponseForm(true, "Delete PLC Success", plcs);
       res.status(200).send(JSON.stringify(responseForm));
     })
     .catch(function (e) {
@@ -303,11 +347,11 @@ router.delete("/json/delete/tag", isLoggedIn, function (req, res) {
   let email = req.user.local.email;
   let responseForm;
 
-  let { plcId, name } = req.body;
-  gatewayDAO.deleteTagByGatewayIdnTagName(plcId, name)
-    .then(function (isSuccess) {
+  let {gatewayId, tagId } = req.body;
+  gatewayDAO.deleteTagById(gatewayId, tagId)
+    .then(function (tags) {
 
-      responseForm = new ResponseForm(true, "Delete Tag Success", null);
+      responseForm = new ResponseForm(true, "Delete Tag Success", tags);
       res.status(200).send(JSON.stringify(responseForm));
     })
     .catch(function (e) {
@@ -316,60 +360,78 @@ router.delete("/json/delete/tag", isLoggedIn, function (req, res) {
       res.status(500).send(JSON.stringify(responseForm));
     })
 })
+  
+  
+  router.get("/list/gateways", isLoggedIn, function(req, res){
+    const sessionUser = req.user.local;
+  
+    res.render("gatewayList", {title: "Advanced SCADA", user: sessionUser});
+  })
 
 
-
-router.get("/json/get/listGateway", isLoggedIn, function (req, res) {
+router.get("/json/list/gateways", isLoggedIn, function (req, res) {
   let email = req.user.local.email;
   let responseForm;
 
+  gatewayDAO.findManyByObject({ email })
+    .then(gateways => {
+
+      responseForm = new ResponseForm(true, "Fetch Gateway List Success.", gateways);
+      res.status(200).send(JSON.stringify(responseForm));
+    })
+    .catch(e => {
+      responseForm = new ResponseForm(false, "Fetch Gateway List Get Error.", []);
+      res.status(500).send(JSON.stringify(responseForm));
+    })
+
 })
-
-  router.get("/json/get/listPlc", isLoggedIn, function(req, res){
-    let email = req.user.local.email;
-    let responseForm;
-    
+  
+  router.get("/list/plcs", isLoggedIn, function(req, res){
+    const sessionUser = req.user.local;
+  
+    res.render("plcList", {title: "Advanced SCADA", user: sessionUser});
   })
 
-  router.get("/json/get/listTag", isLoggedIn, function(req, res){
+  router.get("/json/list/plcs", isLoggedIn, function (req, res) {
     let email = req.user.local.email;
     let responseForm;
-    
-  })
   
-  
-  router.get("/fetch", isLoggedIn, function(req, res){
-    let email = req.user.local.email;
-    Gateway.findOne({'email': email}, function(err, doc){
-      if (err){
-        console.log('error: ', err);
-        res.send(false);
-      }else{
-        console.log("query success: ", doc);
-        res.send(doc);
-        
-      }
+    gatewayDAO.getAllPLCofUser(email)
+    .then(function(plcs){
+     
+      responseForm = new ResponseForm(true, "Fetch PLC List Success.", plcs);
+      res.status(200).send(JSON.stringify(responseForm));
+    })
+    .catch(function(e){
+      
+      responseForm = new ResponseForm(false, "Fetch PLC List Get Error.", []);
+      res.status(500).send(JSON.stringify(responseForm));
     })
   })
+    
   
-  router.get("/list", isLoggedIn, function(req, res){
+  router.get("/list/tags", isLoggedIn, function(req, res){
     const sessionUser = req.user.local;
   
-    res.render("gateway-list", {title: "Advanced SCADA", user: sessionUser});
+    res.render("tagList", {title: "Advanced SCADA", user: sessionUser});
   })
   
-  router.get("/plc", isLoggedIn, function(req, res){
-    const sessionUser = req.user.local;
+  router.get("/json/list/tags", isLoggedIn, function (req, res) {
+    let email = req.user.local.email;
+    let responseForm;
   
-    res.render("gateway-plc", {title: "Advanced SCADA", user: sessionUser});
+    gatewayDAO.getAllTagofUser(email)
+    .then(function(tags){
+     
+      responseForm = new ResponseForm(true, "Fetch Tag List Success.", tags);
+      res.status(200).send(JSON.stringify(responseForm));
+    })
+    .catch(function(e){
+      
+      responseForm = new ResponseForm(false, "Fetch Tag List Get Error.", []);
+      res.status(500).send(JSON.stringify(responseForm));
+    })
   })
-  
-  router.get("/tag", isLoggedIn, function(req, res){
-    const sessionUser = req.user.local;
-  
-    res.render("gateway-tag", {title: "Advanced SCADA", user: sessionUser});
-  })
-  
-  
+    
 
 module.exports = router;

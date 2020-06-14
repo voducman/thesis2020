@@ -14,6 +14,7 @@ export default {
       },
   
       getLabelOfValue: function(value){
+        if (typeof value === 'undefined') return "";
         const map = {
           'siemens': 'Siemens',
           'schneider': 'Schneider',

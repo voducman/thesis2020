@@ -10,9 +10,9 @@ module.exports = {
         footer:   './frontend/footer.js',
         profile:  './frontend/profile.js',
         gateway:  './frontend/gateway/controller.js',
-        gatewayList: './frontend/manager/list.js',
-        gatewayPLC:  './frontend/manager/plc.js',
-        gatewayTag:  './frontend/manager/tag.js',
+        gatewayList: './frontend/manager/gateways.js',
+        gatewayPLC:  './frontend/manager/plcs.js',
+        gatewayTag:  './frontend/manager/tags.js',
         design:  './frontend/design/design.js',
         drawing:     './frontend/drawing/Controller.js',
         running:  './frontend/run/Controller.js'

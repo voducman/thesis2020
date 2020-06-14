@@ -47,13 +47,14 @@
                                             </div>
                                             <div class="row form-group">
                                                 <div class="col-xs-6 form-group">
-                                                    <span>Longitude* </span>
-                                                    <input name="longitude" type="number" class="input auto form-control" tabindex="5">
+                                                    <span>Latitude* </span>
+                                                    <input name="latitude" type="number" class="input auto form-control" tabindex="5">
                                                 </div>
                                                 <div class="col-xs-6 form-group">
-                                                    <span>Latitude* </span>
-                                                    <input name="latitude" type="number" class="input auto form-control" tabindex="6">
+                                                    <span>Longitude* </span>
+                                                    <input name="longitude" type="number" class="input auto form-control" tabindex="6">
                                                 </div>
+                                               
                                             </div>
                                             <div class="row form-group">
                                                 <div class="col-md-12 form-group">
@@ -124,6 +125,12 @@
                                                         <textarea name="description" type="text" class="custom form-control" rows="2" tabindex="7"></textarea>
                                                    </div>
                                                 </div>
+                                                <div class="row form-group" style="display: none;">
+                                                    <div class="col-xs-12 form-group">
+                                                        <span>plcId</span>
+                                                        <input name="plcId" type="text">
+                                                    </div>
+                                                 </div>
                                                 <div class="row save">
                                                     <div class="text-center">
                                                         <button type="button" rel="tooltip" class="btn btn-success btn-round btn-sm save"
@@ -166,7 +173,7 @@
                                                     </div>
                                                     <div class="col-xs-6 form-group external">
                                                         <span>PLC *</span>
-                                                        <select class="custom" name="plc">
+                                                        <select class="custom" name="plcId">
                                                             
                                                         </select>
                                                     </div>
@@ -197,9 +204,23 @@
                                                 <div class="row external form-group">
                                                     <div class="col-md-7" style="padding-left: 0;">
                                                         <div class="row form-group">
-                                                            <div class="col-xs-12 form-group">
+                                                            <div class="col-xs-6 form-group">
                                                                 <span>Tag Name *</span>
                                                                 <input name="name" type="text" class="input auto form-control">
+                                                            </div>
+                                                            <div class="col-xs-6 form-group">
+                                                                <span>Data Type *</span>
+                                                                <select class="custom" name="dataType">
+                                                                    <option value="boolean" selected>Boolean</option>
+                                                                    <option value="sbyte">sByte</option>
+                                                                    <option value="ubyte">uByte</option>
+                                                                    <option value="sint">sInt</option>
+                                                                    <option value="uint">uInt</option>
+                                                                    <option value="sdint">sDInt</option>
+                                                                    <option value="udint">uDInt</option>
+                                                                    <option value="double">Double</option>
+                                                                    <option value="string">String</option>
+                                                                </select>  
                                                             </div>
                                                         </div>
                                                         <div class="row form-group">
@@ -233,21 +254,21 @@
                                                             </div>
                                                         </div>
                                                         <div class="row alarm" style="display: none;">
-                                                            <div class="col-xs-6">
+                                                            <div class="col-xs-6 form-group">
                                                                 <span>HIHI</span>
                                                                 <input name="alarm-hihi" type="number" class="input auto form-control">
                                                             </div>
-                                                            <div class="col-xs-6">
+                                                            <div class="col-xs-6 form-group">
                                                                 <span>LOWLOW</span>
                                                                 <input name="alarm-lowlow" type="number" class="input auto form-control">
                                                             </div>
                                                         </div>
                                                         <div class="row alarm" style="display: none;">
-                                                            <div class="col-xs-6">
+                                                            <div class="col-xs-6 form-group">
                                                                 <span>HI</span>
                                                                 <input name="alarm-hi" type="number" class="input auto form-control">
                                                             </div>
-                                                            <div class="col-xs-6">
+                                                            <div class="col-xs-6 form-group">
                                                                 <span>LOW</span>
                                                                 <input name="alarm-low" type="number" class="input auto form-control">
                                                             </div>
@@ -275,11 +296,11 @@
                                                             </label>
                                                         </div>
                                                     </div>
-                                                    <div class="col-xs-4">
+                                                    <div class="col-xs-4 form-group">
                                                         <span>Memory Address *</span>
                                                         <input name="memory-address" type="text" class="input auto form-control">
                                                     </div>
-                                                    <div class="col-xs-4">
+                                                    <div class="col-xs-4 form-group">
                                                         <span>Deadband</span>
                                                         <input name="deadband" type="number" class="input auto form-control" value="0">
                                                     </div>
@@ -292,17 +313,29 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="row" id="Tag-new">
+                                                <div class="row form-group" style="display: none;">
+                                                    <div class="col-xs-12 form-group">
+                                                        <span>tagId</span>
+                                                        <input name="tagId" type="text">
+                                                    </div>
+                                                 </div>
+                                                <div class="row save">
                                                     <div class="text-center">
-                                                        <button type="button" rel="tooltip"
-                                                            class="btn btn-success btn-round btn-sm" title="Create New">
+                                                        <button type="button" rel="tooltip" class="btn btn-success btn-round btn-sm save"
+                                                            title="Create New" onclick="onClickSaveTag()">
                                                             <i class="material-icons">add_circle</i>
                                                             Create New
                                                         </button>
                                                     </div>
                                                 </div>
-                                                <div class="row hidden" id="Tag-edit">
-
+                                                <div class="row update" style="display: none;">
+                                                    <div class="text-center">
+                                                        <button type="button" rel="tooltip" class="btn btn-success btn-round btn-sm"
+                                                            title="Create New" onclick="onClickUpdateTag()">
+                                                            <i class="material-icons">add_circle</i>
+                                                            Update
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </fieldset>
@@ -374,11 +407,8 @@
                                                                     <th class="text-center">STT</th>
                                                                     <th class="text-center">Name</th>
                                                                     <th class="text-center">Type</th>
-                                                                    <th class="text-center">Unit</th>
                                                                     <th class="text-center">Address</th>
                                                                     <th class="text-center">DataType</th>
-                                                                    <th class="text-center">Trend</th>
-                                                                    <th class="text-center">Alarm</th>
                                                                     <th class="text-center">Action</th>
 
                                                                 </tr>

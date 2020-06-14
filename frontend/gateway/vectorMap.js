@@ -1,13 +1,5 @@
 
-function renderVectorMap(){
-
-    let makerList = data.getListGateway();
-    console.log(makerList)
-    let maker = makerList.map((ele) => {
-        return {latLng: ele.latLng, name: ele.name}
-    })
-
-    console.log(maker)
+export const renderVectorMap = function(gateways){
 
     // maker = [
     //     {latLng: [10.644324, 106.220406], name: 'Long An City'},
@@ -16,6 +8,16 @@ function renderVectorMap(){
     //     {latLng: [-8.51, 179.21], name: 'Tuvalu'},
     //     {latLng: [43.93, 12.46], name: 'San Marino'},
     // ],
+
+    let markers = [], mapContainer = $('#gateway-map');
+    if (Array.isArray(gateways)){
+        markers = gateways.map(function(gateway, index){
+            return {
+                latLng: [gateway.latitude, gateway.longitude],
+                name: gateway.name
+            }
+        })
+    }
 
     var mapData = {
            'VN': 50,
@@ -29,8 +31,8 @@ function renderVectorMap(){
            'SA': 15
        };
 
-       $('#gateway-map').empty();
-       $('#gateway-map').vectorMap({
+       mapContainer.empty();
+       mapContainer.vectorMap({
            map: 'asia_mill',
            backgroundColor: "transparent",
            zoomOnScroll: true,
@@ -57,14 +59,8 @@ function renderVectorMap(){
                  stroke: '#383f47'
                }
              },
-           markers: maker,
+           markers: markers,
        });
 }
 
-module.exports = {
-    renderVectorMap: function(){
-        
-    }
-
-}
 

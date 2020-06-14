@@ -40,10 +40,25 @@ module.exports = class GatewayDAO extends BaseDAO{
     }
 
     async getTagByGatewayIdnPlcIdnTagName(gatewayId, plcId, name){
-
-        let searchObj = {gatewayId, plcId, name};
         try{
+            let searchObj
+            if (plcId){
+                // External tag
+                searchObj = {gatewayId, plcId, name}; 
+            }else{
+                // Internal tag
+                searchObj = {gatewayId, name, 'type': 'internal'};
+            }
             return await this.tagDAO.findOneByObject(searchObj);
+        }catch(e){
+            return Promise.reject(null);
+        }
+       
+    }
+
+    async getTagById(tagId){
+        try{
+            return await this.tagDAO.findOneById(tagId);
         }catch(e){
             return Promise.reject(null);
         }
@@ -117,7 +132,16 @@ module.exports = class GatewayDAO extends BaseDAO{
             'description':   tagForm.description
         })
 
-        return tag.save();
+        return new Promise((resolve, reject) => {
+            tag.save()
+            .then(() => {
+                return Tag.find({'gatewayId': tagForm.gatewayId})
+            })
+            .then(tags => {
+                return resolve(tags);
+            })
+            .catch(e => reject(null))
+        })
     }
 
     updateGateway(gateway, gatewayForm){
@@ -151,7 +175,16 @@ module.exports = class GatewayDAO extends BaseDAO{
         plc.description  = plcForm.description;
         plc.lastModified = Date.now();
 
-        return plc.save();
+        return new Promise((resolve, reject) => {
+            plc.save()
+            .then(() => {
+                return PLC.find({'gatewayId': plcForm.gatewayId});
+            })
+            .then(plcs => {
+                return resolve(plcs);
+            })
+            .catch(e => reject(null))
+        })
     }
 
     updateTag(tag, tagForm){
@@ -174,7 +207,16 @@ module.exports = class GatewayDAO extends BaseDAO{
         tag.description   = tagForm.description;
         tag.lastModified  = Date.now();
         
-        return tag.save();
+        return new Promise((resolve, reject) => {
+            tag.save()
+            .then(() => {
+                return Tag.find({'gatewayId': tagForm.gatewayId})
+            })
+            .then(tags => {
+                return resolve(tags);
+            })
+            .catch(e => reject(null))
+        })
     }
 
     async deleteGatewayByUniqueId(uniqueId, email){
@@ -193,24 +235,26 @@ module.exports = class GatewayDAO extends BaseDAO{
         
     }
 
-    async deletePLCById(plcId){
+    async deletePLCById(gatewayId, plcId){
         
         try{
             await this.plcDAO.deleteOneByKeynValue('_id', plcId);
-            await this.tagDAO.deleteManyByObject({gatewayId, plcId});
+            await this.tagDAO.deleteManyByObject({plcId});
 
-            return true;
+            let plcs =  await PLC.find({gatewayId});
+            return plcs;
            }catch(e){
                return Promise.reject(false);
            }
     }
 
-    async deleteTagByPLCIdnTagName(plcId, name){
+    async deleteTagById(gatewayId, tagId){
 
         try{
-            await this.tagDAO.deleteOneByObject({plcId, name})
+            await this.tagDAO.deleteOneByKeynValue('_id', tagId);
             
-            return true;
+            let tags = await Tag.find({gatewayId});
+            return tags;
            }catch(e){
                return Promise.reject(false);
            }
@@ -226,9 +270,34 @@ module.exports = class GatewayDAO extends BaseDAO{
         }
     }
 
-   
+   async getAllPLCofUser(email){
+       try{
+            let plcs = [];
+            let gateways = await this.findManyByObject({email});
+            for (let i = 0; i < gateways.length; i++){
+                let gateway = gateways[i];
+                let plc = await this.plcDAO.findManyByObject({'gatewayId': gateway.uniqueId});
+                plcs.push(...plc);
+            }
+            return plcs;
+       }catch(e){
+            return Promise.reject(null);
+        }
+   }
 
-
-
+   async getAllTagofUser(email){
+    try{
+         let tags = [];
+         let gateways = await this.findManyByObject({email});
+         for (let i = 0; i < gateways.length; i++){
+             let gateway = gateways[i];
+             let tag = await this.tagDAO.findManyByObject({'gatewayId': gateway.uniqueId});
+             tags.push(...tag);
+         }
+         return tags;
+    }catch(e){
+         return Promise.reject(null);
+     }
+}
 
 }

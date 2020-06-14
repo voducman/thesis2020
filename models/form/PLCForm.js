@@ -1,5 +1,6 @@
 const PLCForm = function(plc){
   
+    this.plcId       = plc.plcId;
     this.gatewayId   = plc.gatewayId;
     this.name        = plc.name;
     this.ipAddress   = plc.ipAddress;

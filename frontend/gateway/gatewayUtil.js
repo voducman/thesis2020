@@ -42,6 +42,28 @@ export const showCreatePLCButton = function(isShow){
     }
 }
 
+export const showCreateTagButton = function(isShow){
+    let createBtn = $('#edit-tag .save');
+    let updateBtn = $('#edit-tag .update');
+    if (isShow){
+        createBtn.show();
+        updateBtn.hide();
+    }else{
+        createBtn.hide();
+        updateBtn.show();
+    }
+}
+
+export const showPLCOnSelectTag = function(plcs){
+    let selectTag = $('#editGateway .external select[name=plcId]');
+    selectTag.empty();
+    if (Array.isArray(plcs)){
+        plcs.forEach(function(plc){
+            selectTag.append(`<option value=${plc._id}>${plc.name}</option>`)
+        })
+    }
+}
+
 
 export const clearNewGatewayModal = function(){
 
@@ -73,8 +95,13 @@ export const clearNewTagModal = function(){
     $('#editGateway .external input[name=memory-address]').val('');
     $('#editGateway .external input[name=deadband]').val(0);
     $('#editGateway .external input[name=readOnly]').prop('checked', true);
-
+    $('#editGateway .external input[name=alarm-hihi]').val('');
+    $('#editGateway .external input[name=alarm-lowlow]').val('');
+    $('#editGateway .external input[name=alarm-hi]').val('');
+    $('#editGateway .external input[name=alarm-low]').val('');
     $('#editGateway .tag textarea[name=description]').val('');
+    $('#editGateway .external input[name=alarm-checkbox]').prop('checked', false);
+    $('#editGateway .external input[name=trend-checkbox]').prop('checked', false);
 }
 
 /**
@@ -106,15 +133,62 @@ export const parsePLCFromModal = function(){
     let protocol  = $(`#editGateway .plc select[name=protocol]`).val();
     let name      = $(`#editGateway .plc input[name=name]`).val();
     let ipAddress = $(`#editGateway .plc input[name=ip-address]`).val();
-    let description = $(`#editGateway .plc textarea[name=descripiton]`).val();
+    let description = $(`#editGateway .plc textarea[name=description]`).val();
+    let plcId     = $(`#editGateway .plc input[name=plcId]`).val();
     
     if (!isValidString(name, 1)) return showErrorOnField('#editGateway .plc input[name=name]');
     if (!isValidIP(ipAddress))   return showErrorOnField('#editGateway .plc input[name=ip-address]');
-    return {gatewayId, producer, type, protocol, name, ipAddress, description};
+    return {plcId, gatewayId, producer, type, protocol, name, ipAddress, description};
 }
 
 export const parseTagFromModal = function(){
+    let gatewayId = $(`#editGateway .gateway input[name=uniqueId]`).val();
+    let type = $(`#editGateway .tag select[name=tag-type]`).val();
+    let description = $(`#editGateway .tag textarea[name=description]`).val();
+    let tagId = $(`#editGateway .tag input[name=tagId]`).val();
 
+    if (type === 'internal'){
+        let dataType = $(`#editGateway .tag .internal select[name=dataType]`).val();
+        let name     = $(`#editGateway .tag .internal input[name=name]`).val();
+        let scale    = $(`#editGateway .tag .internal input[name=scale]`).val();
+        let offset   = $(`#editGateway .tag .internal input[name=offset]`).val();
+
+        if (!dataType) return;
+        if (!isValidString(name, 1)) return showErrorOnField('#editGateway .tag .internal input[name=name]');
+        return {gatewayId, tagId, type, dataType, name, scale, offset, description};
+    }else{
+        let plcId  = $(`#editGateway .tag .external select[name=plcId]`).val();
+        let dataType = $(`#editGateway .tag .external select[name=dataType]`).val();
+        let name   = $(`#editGateway .tag .external input[name=name]`).val();
+        let scale  = $(`#editGateway .tag .external input[name=scale]`).val();
+        let offset = $(`#editGateway .tag .external input[name=offset]`).val();
+        let minimum = $(`#editGateway .tag .external input[name=minimum]`).val();
+        let maximum = $(`#editGateway .tag .external input[name=maximum]`).val();
+        let readOnly = $(`#editGateway .tag .external input[name=readOnly]:checked`).val();
+        let memoryAddress = $(`#editGateway .tag .external input[name=memory-address]`).val();
+        let deadband = $(`#editGateway .tag .external input[name=deadband]`).val();
+        let alarm = $(`#editGateway .tag .external input[name=alarm-checkbox]`).prop('checked');
+        let trend = $(`#editGateway .tag .external input[name=trend-checkbox]`).prop('checked');
+        if (alarm){
+            alarm = {};
+            alarm.hihi = $(`#editGateway .tag .external input[name=alarm-hihi]`).val();
+            alarm.hi = $(`#editGateway .tag .external input[name=alarm-hi]`).val();
+            alarm.low = $(`#editGateway .tag .external input[name=alarm-low]`).val();
+            alarm.lowlow = $(`#editGateway .tag .external input[name=alarm-lowlow]`).val();
+        }
+
+        if (!plcId) return;
+        if (!isValidString(name, 1)) return showErrorOnField('#editGateway .tag .external input[name=name]');
+        if (!isValidString(dataType, 1)) return;
+        if (!isValidString(memoryAddress, 1)) return showErrorOnField('#editGateway .tag .external input[name=memory-address]');
+        if (alarm){
+            if (!isValidString(alarm.hihi, 1)) return showErrorOnField('#editGateway .tag .external input[name=alarm-hihi]');
+            if (!isValidString(alarm.hi))      return showErrorOnField('#editGateway .tag .external input[name=alarm-hi]');
+            if (!isValidString(alarm.low))     return showErrorOnField('#editGateway .tag .external input[name=alarm-low]');
+            if (!isValidString(alarm.lowlow))  return showErrorOnField('#editGateway .tag .external input[name=alarm-lowlow]');
+        }
+        return {gatewayId, tagId,type, plcId, name, dataType, scale, offset, minimum, maximum, readOnly, memoryAddress, deadband, alarm, trend, description}
+    }
 }
 
 export const parseGatewayIdFromModal = function(){
@@ -152,7 +226,7 @@ export const updateGatewayOnPopup = function(gateway, dataContainerRef){
     })
 }
 
-export const updatePLCTableOnPupup = function(plcs){
+export const updatePLCTableOnPopup = function(plcs){
     $('#plc-popup').empty();
     if (Array.isArray(plcs)){
         plcs.forEach(function(plc, index){
@@ -161,6 +235,56 @@ export const updatePLCTableOnPupup = function(plcs){
         })
     }
 
+}
+
+export const updatePLCOnPopup = function(plc){
+    $(`#editGateway .plc select[name=producer]`).val(plc.producer);
+    $(`#editGateway .plc select[name=type]`).val(plc.type);
+    $(`#editGateway .plc select[name=protocol]`).val(plc.protocol);
+    $(`#editGateway .plc input[name=name]`).val(plc.name);
+    $(`#editGateway .plc input[name=ip-address]`).val(plc.ipAddress);
+    $(`#editGateway .plc textarea[name=description]`).val(plc.description);
+    $(`#editGateway .plc input[name=plcId]`).val(plc._id);
+}
+
+export const updateTagTableOnPopup = function(tags){
+    $('#tag-popup').empty();
+    if (Array.isArray(tags)){
+        tags.forEach(function(tag, index){
+            let row = createRowTableOfTag(tag, index + 1);
+            $('#tag-popup').append(row);
+        })
+    }
+}
+
+export const updateTagOnPopup = function(tag){
+    $(`#editGateway .tag select[name=tag-type]`).val(tag.type);
+    $(`#editGateway .tag textarea[name=description]`).val(tag.description);
+    $(`#editGateway .tag input[name=tagId]`).val(tag._id);
+
+    if (tag.type === 'internal'){
+        $(`#editGateway .tag .internal select[name=dataType]`).val(tag.dataType);
+        $(`#editGateway .tag .internal input[name=name]`).val(tag.name);
+        $(`#editGateway .tag .internal input[name=scale]`).val(tag.scale);
+        $(`#editGateway .tag .internal input[name=offset]`).val(tag.offset);
+    }else{
+        $(`#editGateway .tag .external select[name=plcId]`).val(tag.plcId);
+        $(`#editGateway .tag .external select[name=dataType]`).val(tag.dataType);
+        $(`#editGateway .tag .external input[name=name]`).val(tag.name);
+        $(`#editGateway .tag .external input[name=scale]`).val(tag.scale);
+        $(`#editGateway .tag .external input[name=offset]`).val(tag.offset);
+        $(`#editGateway .tag .external input[name=minimum]`).val(tag.minimum);
+        $(`#editGateway .tag .external input[name=maximum]`).val(tag.maximum);
+        $(`#editGateway .tag .external input[name=readOnly]:checked`).val(tag.readOnly);
+        $(`#editGateway .tag .external input[name=memory-address]`).val(tag.memoryAddress);
+        $(`#editGateway .tag .external input[name=deadband]`).val(tag.deadBand);
+        $(`#editGateway .tag .external input[name=alarm-checkbox]`).prop('checked', tag.alarm);
+        $(`#editGateway .tag .external input[name=trend-checkbox]`).prop('checked', tag.trend);
+        $(`#editGateway .tag .external input[name=alarm-hihi]`).val(tag.alarm.hihi);
+        $(`#editGateway .tag .external input[name=alarm-hi]`).val(tag.alarm.hi);
+        $(`#editGateway .tag .external input[name=alarm-low]`).val(tag.alarm.low);
+        $(`#editGateway .tag .external input[name=alarm-lowlow]`).val(tag.alarm.lowlow);
+    }
 }
 
 export const onChangeProducer = function(e){
@@ -224,16 +348,6 @@ export const onChangeAlarmEnable = function(e){
     }else{
         $('#editGateway .tag .alarm').hide();
     }
-}
-
-export const onChangePLCMode = function(){
-    let isEditMode = $('#switch-PLC input').prop('checked');
-    console.log(isEditMode);
-}
-
-export const onChangeTagMode = function(){
-    let isEditMode = $('#switch-Tag input').prop('checked');
-    console.log(isEditMode);
 }
 
 function createRowTableOnMainPage(gateway, index){
@@ -312,7 +426,7 @@ function createRowTableOfPLC(plc, index){
                     <i class="material-icons">edit</i>
                 </button>
                 <button type="button" rel="tooltip" class="btn btn-danger"
-                    data-original-title="Delete PLC" title="Delete PLC" onclick="onDeletePLC('${plc._id}')">
+                    data-original-title="Delete PLC" title="Delete PLC" ondblclick="onDeletePLC('${plc.gatewayId}', '${plc._id}')">
                     <i class="material-icons">close</i>
                 </button>
             </td>
@@ -320,5 +434,23 @@ function createRowTableOfPLC(plc, index){
 }
 
 function createRowTableOfTag(tag, index){
-
+    const bgColor = (index % 2 == 0) ? 'background-color: #e7e497;' : '';
+    return `
+        <tr id="tag-${tag._id}"  class="tag" style="${bgColor}">
+            <td class="text-center">${(index<10)?"0"+index:index}</td>
+            <td class="text-center">${tag.name}</td>
+            <td class="text-center">${tag.type}</td>
+            <td class="text-center">${tag.memoryAddress}</td>
+            <td class="text-center">${tag.dataType}</td>
+            <td class="td-actions text-center">
+                <button type="button" rel="tooltip" class="btn btn-success"
+                    data-original-title="" title="Edit TAG" onclick="onEditTag('${tag._id}')">
+                    <i class="material-icons">edit</i>
+                </button>
+                <button type="button" rel="tooltip" class="btn btn-danger"
+                    data-original-title="" title="Delete TAG" ondblclick="onDeleteTag('${tag.gatewayId}', '${tag._id}')">
+                    <i class="material-icons">close</i>
+                </button>
+            </td>
+        </tr>`
 }

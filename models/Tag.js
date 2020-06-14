@@ -5,7 +5,6 @@ let userSchema = mongoose.Schema({
     plcId: String,
     name: String,
     type: String,
-    plcAddress: String,
     scale: Number,
     offset: Number,
     minimum: Number,
