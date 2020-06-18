@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <% include metadata %>
+    <style>
+        textarea{
+            width: 90%;
+            border-radius: 5px;
+            padding-left: 10px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="wrapper" id="main-view">
+        <% include sidebar %>
+        <div class="main-panel">
+            <% include header %>
+            <div class="content" style="padding-bottom: 0;">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-12 text-center">
+                            <textarea rows="20" placeholder="Type your log format..." id="history-text"><%=log.value%></textarea>
+                        </div>
+                        <div class="col-sm-12 text-center">
+                            <button class="btn btn-success" id="history-save">
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <% include footer %>
+            </div>
+        </div>
+
+</body>
+<% include scripts %>
+
+<script type="text/javascript" src="/static/javascripts/history.bundle.js"></script>
+</html>

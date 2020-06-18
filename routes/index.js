@@ -160,6 +160,10 @@ router.put("/profile/:command", utils.isLoggedIn, function(req, res){
 })
 
 
+router.get("/checkConnection", function(req, res){
+  res.status(200).send(true);
+})
+
 
 
 module.exports = router;

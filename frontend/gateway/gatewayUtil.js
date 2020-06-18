@@ -358,10 +358,20 @@ function createRowTableOnMainPage(gateway, index){
             <td class="text-center">${(index<10)?"0"+index:index}</td>
             <td class="uniqueId">${gateway.uniqueId}</td>
             <td>${gateway.name}</td>   
-            <td>${moment(gateway.createdTime).format('h:mm:ss A')}</td>
-            <td>${moment(gateway.lastModified).format('h:mm:ss A')}</td>
-            <td class="text-center status"><i class="material-icons disconnected">lens</i>
+            <td>${moment(gateway.createdTime).format('DD:MM:YYYY h:mm:ss A')}</td>
+            <td>${moment(gateway.lastModified).format('DD:MM:YYYY h:mm:ss A')}</td>
+            <td class="text-center" style="padding: 0">
+                <button type="button" rel="tooltip" class="btn btn-success btn-sm"
+                    data-original-title="Force Gateway Update" onclick="">
+                    <i class="material-icons">system_update_alt</i>
+                </button>
             </td>
+            <td class="text-center" style="padding: 0">
+            <a type="button" rel="tooltip" class="btn btn-info btn-sm" target="_blank"
+                data-original-title="Setup Log" href="/history/${gateway.uniqueId}">
+                <i class="material-icons">history</i>
+            </a>
+        </td>
             <td class="td-actions text-center">
                 <button type="button" rel="tooltip" class="btn btn-danger"
                     onclick="countTotalPLCnTag('${gateway.uniqueId}')"
@@ -390,12 +400,12 @@ function createRowTableOnMainPage(gateway, index){
                 <div class="row">
                     <div class="col-md-4"><b>Latitude</b>:  ${gateway.latitude}</div>
                     <div class="col-md-4"><b>Longitude</b>:  ${gateway.longitude}</div>
-                    <div class="col-md-4"><b>Create Time</b>:  ${moment(gateway.createdTime).format('h:mm:ss A')}</div>
+                    <div class="col-md-4"><b>Create Time</b>:  ${moment(gateway.createdTime).format('DD:MM:YYYY h:mm:ss A')}</div>
                 </div>  
                 <div class="row">
                     <div class="col-md-4"><b>Total PLC:&nbsp;</b><span class="totalPlc"></span></div>
                     <div class="col-md-4"><b>Total Tag:&nbsp;</b><span class="totalTag"></span></div>
-                    <div class="col-md-4"><b>Modified Time</b>:  ${moment(gateway.lastModified).format('h:mm:ss A')}</div>
+                    <div class="col-md-4"><b>Modified Time</b>:  ${moment(gateway.lastModified).format('DD:MM:YYYY h:mm:ss A')}</div>
                 </div>  
                 <div class="row">
                     <div class="col-md-12"><b>Address</b>:  ${gateway.address}</div>

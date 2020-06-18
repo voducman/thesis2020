@@ -59,14 +59,3 @@ function isLoggedIn(req, res, next) {
 }
 
 module.exports = router;
-
-// function(req, res){
-// if (dbModel.checkUNnPW(req.body)){
-//   // TO-DO list when sign-up success
-//   req.flash('success', 'register done.');
-//   res.status(200).send('success');
-// ...
-// }else{
-//   req.flash('error','register unsuccess.');
-//   res.status(400).send('unsuccess');
-// }

@@ -449,6 +449,29 @@ router.get("/json/list/gateways", isLoggedIn, function (req, res) {
       res.status(500).send(JSON.stringify(responseForm));
     })
   })
+
+  router.get("/config/:uniqueId", function(req, res){
+    let responseForm;
+    let uniqueId = req.params.uniqueId;
+    
+    if (!uniqueId) {
+      responseForm = new ResponseForm(false, null, null);
+      return res.status(406).send(JSON.stringify(responseForm));
+    }
+
+    gatewayDAO.fetchGatewayConfig(uniqueId)
+    .then(responseData =>{
+
+      responseForm = new ResponseForm(true, null, responseData);
+      res.status(200).send(JSON.stringify(responseForm));
+    })
+    .catch(e => {
+
+      responseForm = new ResponseForm(false, null, null);
+      res.status(500).send(JSON.stringify(responseForm));
+    })
+
+  })
     
 
 module.exports = router;

@@ -15,7 +15,8 @@ module.exports = {
         gatewayTag:  './frontend/manager/tags.js',
         design:  './frontend/design/design.js',
         drawing:     './frontend/drawing/Controller.js',
-        running:  './frontend/run/Controller.js'
+        running:  './frontend/run/Controller.js',
+        history:  './frontend/history/controller.js'
     },
     output: {
         filename: './[name].bundle.js',

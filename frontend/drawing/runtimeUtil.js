@@ -294,7 +294,7 @@ function initProcessingRuntime(runningCollection){
 function stopProcessingRuntime(){
     let email = window.sessionUser.email;
     socket.emit('outRoom', email);
-    socket.off('data');
+    socket.off('read');
     intervalId.forEach(function(id){
         clearInterval(id);
     })

@@ -6,6 +6,7 @@ const PLC     = require("../PLC");
 const Tag     = require("../Tag");
 
 module.exports = class GatewayDAO extends BaseDAO{
+    
     constructor(){
         super(Gateway);
         this.plcDAO = new PlcDAO();
@@ -301,5 +302,15 @@ module.exports = class GatewayDAO extends BaseDAO{
 
     }
 
+    async fetchGatewayConfig(gatewayId){
+        try{
+            let gateway = await this.findOneByKeynValue('uniqueId', gatewayId);
+            let plcs    = await this.plcDAO.findManyByObject({gatewayId});
+            let tags    = await this.tagDAO.findManyByObject({gatewayId});
+            return {gateway, plcs, tags};
+        }catch(e){
+            return Promise.reject(null);
+        }
+    }
 
 }
