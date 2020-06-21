@@ -308,7 +308,7 @@ class View extends BaseView{
                 }
 
                 if (symbolType === 'switch'){
-                    let symbolRender = wb.foreignObject(0,0).draggable(symbol.dragDesign);
+                    let symbolRender = wb.foreignObject(200,30).draggable(symbol.dragDesign);
                     symbolRender.id(symbolId).addClass('symbol');
                     elementsUtil.renderSwitch(symbolId);
                     let symbolPros = new Switch(symbolId, symbolRender);

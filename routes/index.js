@@ -69,7 +69,7 @@ router.get("/logout", function(req, res) {
 router.get("/dashboard", utils.isLoggedIn, function(req, res){
   const sessionUser = req.user.local;
 
-  res.render("dashboard", {title: "Advanced SCADA", user: sessionUser});
+  res.render("dashboard", {title: "Light SCADA", user: sessionUser});
 })
 
 
@@ -78,7 +78,7 @@ router.get("/profile", utils.isLoggedIn, function(req, res){
   let sessionUser = req.user.local;
       console.log(sessionUser);
       //res.send("success");
-      res.render("profile",{title: "Advanced SCADA", user: sessionUser});
+      res.render("profile",{title: "Light SCADA", user: sessionUser});
 
 })
 

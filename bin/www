@@ -34,58 +34,61 @@ server.on('listening', onListening);
  * Create socket.io listener
  */
 const io = socket(server);
-let development = io.of('/development');
-let production  = io.of('/production');
 
-development.on('connection', function(socket){
+io.on('connection', function(socket){
   
-  socket.on('registerRoom', function(roomId){
-    socket.emit('registerRoom', `Register success to Room [${roomId}]`);
-    socket.join(roomId);
+  socket.on('registerRoom', function({roomId, isBrowser}){
+
+    if (isBrowser){
+      socket.emit('registerRoom', `Register success to Room [${roomId}-browser]`);
+      socket.join(roomId + '-browser');
+      console.log("Client join room [" + roomId + "-browser]");
+    }else{
+      socket.emit('registerRoom', `Register success to Room [${roomId}]`);
+      socket.join(roomId);
+    }
+    
   })
 
-  socket.on('outRoom', function(roomId){
-    socket.leave(roomId);
-    socket.emit('outRoom', `You have left room [${roomId}]`);
+  socket.on('outRoom', function({roomId, isBrowser}){
+
+    if (isBrowser){
+      socket.leave(roomId + '-browser');
+      socket.emit('outRoom', `You have left room [${roomId}-browser]`);
+      console.log("Client leave room [" + roomId + "-browser]");
+    }else{
+      socket.leave(roomId);
+      socket.emit('outRoom', `You have left room [${roomId}]`);
+    }
+    
   })
 
   socket.on('write', function(updateTag){
-    console.log(updateTag);
+    let browserRoomId = '';
+    for (let roomId in socket.rooms){
+      if (socket.id !== roomId) {
+        browserRoomId = roomId;
+        break;
+      }
+    }
+
+    socket.to(browserRoomId.replace('-browser','')).broadcast.emit('write', updateTag);
+  })
+
+  socket.on('read', function(valuesTag){
+    //console.log(valuesTag);
+    let gatewayRoomId;
+    for (let roomId in socket.rooms){
+      if (socket.id !== roomId) {
+        gatewayRoomId = roomId;
+        break;
+      }
+    }
+    
+    socket.to(gatewayRoomId + '-browser').emit('read', valuesTag);
   })
 })
 
-
-production.on('connection', function(socket){
-
-})
-
-const roomId = 'ducman1998@gmail.com';
-/**
- * Create Mqtt client listener
- */
-let value = 0;
-let startTime = Date.now();
-setInterval(function(){
-
-  if (development.adapter.rooms[roomId]){
-    const data = [
-      {'Bump_Speed': {
-        'value': value,
-        'timestamp': Date.now() - startTime,
-        'status': 'ok',
-      }},
-      {'Bump_Pressure': {
-        'value': Math.random()*20,
-        'timestamp': Date.now(),
-        'status': 'ok',
-      }},
-    ]
-
-    development.to(roomId).emit('read', data);
-  }
-  value += 20;
-  if (value > 1000) value = 0;
-}, 500)
 
 /**
  * Normalize a port into a number, string, or false.

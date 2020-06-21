@@ -118,7 +118,7 @@ router.get("/:designName/:designId", Utils.isLoggedIn, function(req, res){
         .then(design => {
 
             resolution = Resolution[design.resolution];
-            res.status(200).render('drawing', { title: "Advanced SCADA", user: sessionUser, resolution, symbols});
+            res.status(200).render('drawing', { title: "Light SCADA", user: sessionUser, resolution, symbols});
         })
         .catch(e => {
             res.redirect("/design");

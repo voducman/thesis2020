@@ -1,7 +1,7 @@
 import io from 'socket.io-client';
 let intervalId = [], runExpCollection;
 
-const socket = io('localhost:3000/development');
+const socket = io('http://localhost:3000');
 
 socket.on('connect', function () {
    document.getElementById('check-connection').querySelector('i').classList.add('connected');
@@ -27,7 +27,7 @@ function initProcessingRuntime(runningCollection){
     runExpCollection = runningCollection;
     let status = false;
     let email = window.sessionUser.email;
-    socket.emit('registerRoom', email);
+    socket.emit('registerRoom', {'roomId': email, 'isBrowser': true});
 
     const symtemTags = {
         'Bump_Speed': {
@@ -294,7 +294,7 @@ function initProcessingRuntime(runningCollection){
 function stopProcessingRuntime(){
     let email = window.sessionUser.email;
     socket.emit('outRoom', email);
-    socket.off('data');
+    socket.off('read');
     intervalId.forEach(function(id){
         clearInterval(id);
     })

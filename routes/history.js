@@ -8,7 +8,7 @@ router.get("/:gatewayId", isLoggedIn,async function(req, res){
     let sessionUser = req.user.local;
     let gatewayId = req.params.gatewayId;
     let log = await Log.findOne({gatewayId});
-    res.render('history', { title: "Light SCADA", user: sessionUser, log });
+    res.render('history', { title: "Light SCADA", user: sessionUser, log: log || {value: ''} });
 })
 
 

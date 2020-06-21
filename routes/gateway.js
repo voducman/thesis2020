@@ -20,7 +20,7 @@ const gatewayDAO = new GatewayDAO();
 router.get("/", isLoggedIn, function (req, res) {
   let sessionUser = req.user.local;
 
-  res.render('gateway', { title: "Advanced SCADA", user: sessionUser });
+  res.render('gateway', { title: "Light SCADA", user: sessionUser });
 })
 
 
@@ -365,7 +365,7 @@ router.delete("/json/delete/tag", isLoggedIn, function (req, res) {
   router.get("/list/gateways", isLoggedIn, function(req, res){
     const sessionUser = req.user.local;
   
-    res.render("gatewayList", {title: "Advanced SCADA", user: sessionUser});
+    res.render("gatewayList", {title: "Light SCADA", user: sessionUser});
   })
 
 
@@ -389,7 +389,7 @@ router.get("/json/list/gateways", isLoggedIn, function (req, res) {
   router.get("/list/plcs", isLoggedIn, function(req, res){
     const sessionUser = req.user.local;
   
-    res.render("plcList", {title: "Advanced SCADA", user: sessionUser});
+    res.render("plcList", {title: "Light SCADA", user: sessionUser});
   })
 
   router.get("/json/list/plcs", isLoggedIn, function (req, res) {
@@ -413,7 +413,7 @@ router.get("/json/list/gateways", isLoggedIn, function (req, res) {
   router.get("/list/tags", isLoggedIn, function(req, res){
     const sessionUser = req.user.local;
   
-    res.render("tagList", {title: "Advanced SCADA", user: sessionUser});
+    res.render("tagList", {title: "Light SCADA", user: sessionUser});
   })
   
   router.get("/json/list/tags", isLoggedIn, function (req, res) {

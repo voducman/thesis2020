@@ -17,7 +17,7 @@ const designDAO = new DesignDAO();
 
 router.get("/", Utils.isLoggedIn, function (req, res) {
   let sessionUser = req.user.local;
-  res.render('design', { title: "Advanced SCADA", user: sessionUser });
+  res.render('design', { title: "Light SCADA", user: sessionUser });
 })
 
 router.get("/json/fetch/designList", Utils.isLoggedIn, function (req, res) {
