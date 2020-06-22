@@ -16,7 +16,7 @@ const TagForm = function(tag){
     this.memoryAddress = tag.memoryAddress;
     this.deadBand      = tag.deadBand;
     this.alarm         = tag.alarm;
-    this.trend         = tag.trend;
+    this.log           = tag.log;
     this.description   = tag.description;
 }
 

@@ -101,7 +101,7 @@ export const clearNewTagModal = function(){
     $('#editGateway .external input[name=alarm-low]').val('');
     $('#editGateway .tag textarea[name=description]').val('');
     $('#editGateway .external input[name=alarm-checkbox]').prop('checked', false);
-    $('#editGateway .external input[name=trend-checkbox]').prop('checked', false);
+    $('#editGateway .external input[name=log-checkbox]').prop('checked', false);
 }
 
 /**
@@ -166,9 +166,9 @@ export const parseTagFromModal = function(){
         let maximum = $(`#editGateway .tag .external input[name=maximum]`).val();
         let readOnly = $(`#editGateway .tag .external input[name=readOnly]:checked`).val();
         let memoryAddress = $(`#editGateway .tag .external input[name=memory-address]`).val();
-        let deadband = $(`#editGateway .tag .external input[name=deadband]`).val();
+        let deadBand = $(`#editGateway .tag .external input[name=deadband]`).val();
         let alarm = $(`#editGateway .tag .external input[name=alarm-checkbox]`).prop('checked');
-        let trend = $(`#editGateway .tag .external input[name=trend-checkbox]`).prop('checked');
+        let log = $(`#editGateway .tag .external input[name=log-checkbox]`).prop('checked');
         if (alarm){
             alarm = {};
             alarm.hihi = $(`#editGateway .tag .external input[name=alarm-hihi]`).val();
@@ -187,7 +187,7 @@ export const parseTagFromModal = function(){
             if (!isValidString(alarm.low))     return showErrorOnField('#editGateway .tag .external input[name=alarm-low]');
             if (!isValidString(alarm.lowlow))  return showErrorOnField('#editGateway .tag .external input[name=alarm-lowlow]');
         }
-        return {gatewayId, tagId,type, plcId, name, dataType, scale, offset, minimum, maximum, readOnly, memoryAddress, deadband, alarm, trend, description}
+        return {gatewayId, tagId,type, plcId, name, dataType, scale, offset, minimum, maximum, readOnly, memoryAddress, deadBand, alarm, log, description}
     }
 }
 
@@ -279,7 +279,7 @@ export const updateTagOnPopup = function(tag){
         $(`#editGateway .tag .external input[name=memory-address]`).val(tag.memoryAddress);
         $(`#editGateway .tag .external input[name=deadband]`).val(tag.deadBand);
         $(`#editGateway .tag .external input[name=alarm-checkbox]`).prop('checked', tag.alarm);
-        $(`#editGateway .tag .external input[name=trend-checkbox]`).prop('checked', tag.trend);
+        $(`#editGateway .tag .external input[name=log-checkbox]`).prop('checked', tag.log);
         $(`#editGateway .tag .external input[name=alarm-hihi]`).val(tag.alarm.hihi);
         $(`#editGateway .tag .external input[name=alarm-hi]`).val(tag.alarm.hi);
         $(`#editGateway .tag .external input[name=alarm-low]`).val(tag.alarm.low);
@@ -357,15 +357,12 @@ function createRowTableOnMainPage(gateway, index){
         <tr id="${gateway.uniqueId}" class="gateway" style="${bgColor}">
             <td class="text-center">${(index<10)?"0"+index:index}</td>
             <td class="uniqueId">${gateway.uniqueId}</td>
-            <td>${gateway.name}</td>   
+            <td>${gateway.name}</td> 
+            <td>${gateway.scanTime}</td> 
+            <td>${gateway.longitude}</td>   
+            <td>${gateway.latitude}</td>   
             <td>${moment(gateway.createdTime).format('DD:MM:YYYY h:mm:ss A')}</td>
             <td>${moment(gateway.lastModified).format('DD:MM:YYYY h:mm:ss A')}</td>
-            <td class="text-center" style="padding: 0">
-                <button type="button" rel="tooltip" class="btn btn-success btn-sm"
-                    data-original-title="Force Gateway Update" onclick="">
-                    <i class="material-icons">system_update_alt</i>
-                </button>
-            </td>
             <td class="text-center" style="padding: 0">
             <a type="button" rel="tooltip" class="btn btn-info btn-sm" target="_blank"
                 data-original-title="Setup Log" href="/history/${gateway.uniqueId}">

@@ -87,6 +87,30 @@ io.on('connection', function(socket){
     
     socket.to(gatewayRoomId + '-browser').emit('read', valuesTag);
   })
+
+  socket.on('status', function(msg){
+    let gatewayRoomId;
+    for (let roomId in socket.rooms){
+      if (socket.id !== roomId) {
+        gatewayRoomId = roomId;
+        break;
+      }
+    }
+    console.log(msg);
+    socket.to(gatewayRoomId + '-browser').emit('status', msg);
+  })
+
+  socket.on('control', function(command){
+    let browserRoomId = '';
+    for (let roomId in socket.rooms){
+      if (socket.id !== roomId) {
+        browserRoomId = roomId;
+        break;
+      }
+    }
+    console.log(command);
+    socket.to(browserRoomId.replace('-browser','')).broadcast.emit('control', command);
+  })
 })
 
 
