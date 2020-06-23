@@ -89,7 +89,19 @@ function generateRowOfGatewayTable(gateway, index){
                 <td class="text-center">${gateway.longitude}</td>
                 <td class="text-center">${moment(gateway.createdTime).format('DD/MM/YYYY HH:mm:ss A')}</td>
                 <td class="text-center">${moment(gateway.lastModified).format('DD/MM/YYYY HH:mm:ss A')}</td>
-                <td class="text-center"><i class="material-icons disconnected" id="${gateway.uniqueId}">lens</i></td>
+                <td class="text-center" style="padding: 0">
+                    <button type="button" rel="tooltip" class="btn btn-info btn-sm"
+                        data-original-title="Force Gateway Update" onclick="forceGatewayUpdate('${gateway.uniqueId}')">
+                        <i class="material-icons">system_update_alt</i>
+                    </button>
+                </td>
+                <td class="text-center" style="padding: 0">
+                    <button type="button" rel="tooltip" class="btn btn-danger btn-sm"
+                        data-original-title="Reset Gateway" onclick="resetGateway('${gateway.uniqueId}')">
+                        <i class="material-icons">new_releases</i>
+                    </button>
+                </td>
+                <td class="text-center"><input type="text" id="${gateway.uniqueId}" value="OFFLINE" readonly style="width: 100px; color: black; font-weight: 600; text-align: center;"></td>
                 <td class="td-actions text-center">
                     <button type="button" rel="tooltip" class="btn btn-info"
                         data-original-title="Gateway Info" title="Show Description/Position"
@@ -162,7 +174,7 @@ function generateRowOfTagTable(tag, index){
                 <td class="text-center">${tag.memoryAddress}</td>
                 <td class="text-center">${tag.dataType}</td>
                 <td class="text-center" >${tag.deadBand}</td>
-                <td class="text-center" style="font-weight: 400;">${(tag.trend)? 'true':'false'}</td>
+                <td class="text-center" style="font-weight: 400;">${(tag.log)? 'true':'false'}</td>
                 <td class="text-center" style="font-weight: 400;">${(tag.alarm)? 'true':'false'}</td>
                 <td class="td-actions text-center">
                     <button type="button" rel="tooltip" class="btn btn-info"

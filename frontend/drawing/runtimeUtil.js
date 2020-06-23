@@ -1,26 +1,49 @@
-import io from 'socket.io-client';
+// import io from 'socket.io-client';
+import Worker from './runtimeSocketIO.worker.js';
 import {sendAjaxToServer} from '../utils';
 let intervalId = [], runExpCollection;
 
-const socket = io('http://localhost:3000');
+let worker = new Worker();
 
-socket.on('connect', function () {
-   document.getElementById('check-connection').querySelector('i').classList.add('connected');
-   document.getElementById('check-connection').querySelector('i').classList.remove('disconnected');
-})
+worker.onmessage = function(e){
+    let command  = e.data.command;
+    let message = e.data.message;
 
-socket.on('disconnect', function(reason){
-    document.getElementById('check-connection').querySelector('i').classList.remove('connected');
-    document.getElementById('check-connection').querySelector('i').classList.add('disconnected');
-})
+    if (command === 'connect'){
+        document.getElementById('check-connection').querySelector('i').classList.add('connected');
+        document.getElementById('check-connection').querySelector('i').classList.remove('disconnected');
+    }
 
-socket.on('registerRoom', function(msg){
-    console.info(msg);
-})
+    if (command === 'disconnect'){
+        document.getElementById('check-connection').querySelector('i').classList.remove('connected');
+        document.getElementById('check-connection').querySelector('i').classList.add('disconnected');
+    }
 
-socket.on('outRoom', function(msg){
-    console.info(msg);
-})
+    if (command === 'registerRoom'){
+        console.info(message);
+    }
+
+    if (command === 'outRoom'){
+        console.info(message);
+    }
+
+    if (command === 'read'){
+        console.log(message);
+        // message is Tag data array received from gateway
+        if (Array.isArray(message)){
+            
+            message.forEach(function(tag){
+                
+                let tagName = tag.name
+                if (systemTags[tagName]){
+                    eval(`${tagName}            =  tag.value;`);
+                    eval(`${tagName}__timestamp =  tag.timestamp;`);
+                    eval(`${tagName}__status    =  tag.status;`);
+                }
+            })
+        }
+    }
+}
 
 
 async function initProcessingRuntime(runningCollection){
@@ -29,7 +52,7 @@ async function initProcessingRuntime(runningCollection){
     let status = false;
     let email = window.sessionUser.email;
 
-    socket.emit('registerRoom', {'roomId': email, 'isBrowser': true});
+    worker.postMessage({'command': 'registerRoom', 'message': {'roomId': email, 'isBrowser': true}});
 
     try{
         if (!window.systemTags){
@@ -59,20 +82,7 @@ async function initProcessingRuntime(runningCollection){
 
     }
 
-    socket.on('read', function(data){
-
-        if (Array.isArray(data)){
-            data.forEach(function(tag){
-                
-                let tagName = tag.name
-                if (systemTags[tagName]){
-                    eval(`${tagName}            =  tag.value;`);
-                    eval(`${tagName}__timestamp =  tag.timestamp;`);
-                    eval(`${tagName}__status    =  tag.status;`);
-                }
-            })
-        }
-    })
+    worker.postMessage({'command': 'read'});
 
     let interId = setInterval(function(){
 
@@ -298,8 +308,9 @@ async function initProcessingRuntime(runningCollection){
 
 function stopProcessingRuntime(){
     let email = window.sessionUser.email;
-    socket.emit('outRoom', {'roomId': email, 'isBrowser': true});
-    socket.off('read');
+    worker.postMessage({'command': 'outRoom', 'message': {'roomId': email, 'isBrowser': true}});
+    worker.postMessage({'command': 'off', 'message': 'read'});
+    
     intervalId.forEach(function(id){
         clearInterval(id);
     })
@@ -352,7 +363,8 @@ function sendUpdatedTags(updatedTag){
     }
 
     if (update.length){
-        socket.emit('write', update);
+        //socket.emit('write', update);
+        worker.postMessage({'command': 'write', 'message': update});
         console.log('Write success: ', update);
         for (let tagName in updatedTag){
             updatedTag[tagName] = null;

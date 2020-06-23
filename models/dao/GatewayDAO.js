@@ -129,7 +129,7 @@ module.exports = class GatewayDAO extends BaseDAO{
             'memoryAddress': tagForm.memoryAddress,
             'deadBand':      tagForm.deadBand,
             'alarm':         tagForm.alarm,
-            'trend':         tagForm.trend,
+            'log':           tagForm.log,
             'description':   tagForm.description
         })
 
@@ -204,7 +204,7 @@ module.exports = class GatewayDAO extends BaseDAO{
         tag.memoryAddress = tagForm.memoryAddress;
         tag.deadBand      = tagForm.deadBand;
         tag.alarm         = tagForm.alarm;
-        tag.trend         = tagForm.trend;
+        tag.log           = tagForm.log;
         tag.description   = tagForm.description;
         tag.lastModified  = Date.now();
         

@@ -92,7 +92,7 @@ const elementsUtil = (function(){
                         try{
                             hslider.setValues(eval(sliderRoot.parentElement.properties.assignTag));
                         }catch(e){ console.error(e + '')}
-                    }, 3000)
+                    }, 5000)
                 }          
             });
 
@@ -160,7 +160,7 @@ const elementsUtil = (function(){
                     try{
                         slider.noUiSlider.set(eval(slider.parentElement.properties.assignTag));
                     }catch(e){ console.error(e + '')}
-                }, 3000)
+                }, 5000)
             })
 
             slider.parentElement.properties.changeSliderRange = function(min, max){

@@ -15,7 +15,7 @@ let userSchema = mongoose.Schema({
     memoryAddress: String,
     deadBand: Number,
     alarm: Object,
-    trend: Boolean, 
+    log: Boolean, 
     description: String,
     createdTime:  {type: Date, default: Date.now },
     lastModified: {type: Date, default: Date.now }
