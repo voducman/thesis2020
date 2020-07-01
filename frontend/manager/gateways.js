@@ -4,7 +4,7 @@ import {showSuccessNotification} from '../utils';
 
 fetchGateways("/gateway/json/list/gateways");
 
-let socket = io('http://localhost:3000');
+let socket = io('https://lightscada.com');
 let email, lastPing = {};
 
 socket.on('connect', function(){
