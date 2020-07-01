@@ -15,21 +15,7 @@
               </tr>
             </thead>
             <tbody class="table-body">
-              <tr>
-                <td>1</td>
-                <td><input type="text" value="honda"></td>
-                <td class="td-actions text-center"><a rel="tooltip" class="btn btn-danger btn-xs"><i class="material-icons">close</i></a></td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td><input type="text" value="honda"></td>
-                <td class="td-actions text-center"><a rel="tooltip" class="btn btn-danger btn-xs"><i class="material-icons">close</i></a></td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td><input type="text" value="honda"></td>
-                <td class="td-actions text-center"><a rel="tooltip" class="btn btn-danger btn-xs"><i class="material-icons">close</i></a></td>
-              </tr>
+              
             </tbody>
           </table>
         </div>
@@ -79,8 +65,8 @@
 
       // Get list page and add to table
       $('#tab-management li').each(function(){
+        if ($(this).find('a').attr('href') === '#alarm') return;
         let pageName = $(this).find('span').text();
-        console.log(pageName);
         if (pageName.length == 0){
           return;
         }
