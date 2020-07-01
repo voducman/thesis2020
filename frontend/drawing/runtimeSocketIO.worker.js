@@ -2,7 +2,7 @@ import io       from 'socket.io-client';
 import moment   from'moment';
 
 
-const socket = io('http://localhost:3000');
+const socket = io('https://lightscada.com');
 
 socket.on('connect', function () {
     postMessage({'command': 'connect', 'message': null});

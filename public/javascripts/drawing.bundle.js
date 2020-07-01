@@ -657,7 +657,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("module.exports = function() {\n  return new Worker(\"/static/javascripts/\" + \"worker.a69c259abf13793c5a9b.js\");\n};\n\n//# sourceURL=webpack:///./frontend/drawing/runtimeSocketIO.worker.js?");
+eval("module.exports = function() {\n  return new Worker(\"/static/javascripts/\" + \"worker.9a9a6611234062d5653b.js\");\n};\n\n//# sourceURL=webpack:///./frontend/drawing/runtimeSocketIO.worker.js?");
 
 /***/ }),
 
