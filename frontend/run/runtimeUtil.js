@@ -1,76 +1,150 @@
-import io from 'socket.io-client';
+import {saveAs}            from 'file-saver';
+import Worker              from './runtimeSocketIO.worker.js';
+import {sendAjaxToServer}  from '../utils';
+import {updateAlarmTable}  from './alarmUtil';
+import {paginationSetup}   from './alarmUtil';
+import {prependLogToTable}   from './logUtil';
+import {getExportFilterTime} from './logUtil';
+
+
 let intervalId = [], runExpCollection;
+let totalGatewayAlarms = {};
 
-const socket = io('http://localhost:3000');
+let worker = new Worker();
 
-socket.on('connect', function () {
-   document.getElementById('check-connection').querySelector('i').classList.add('connected');
-   document.getElementById('check-connection').querySelector('i').classList.remove('disconnected');
-})
+worker.onmessage = function(e){
+    let command  = e.data.command;
+    let message = e.data.message;
 
-socket.on('disconnect', function(reason){
-    document.getElementById('check-connection').querySelector('i').classList.remove('connected');
-    document.getElementById('check-connection').querySelector('i').classList.add('disconnected');
-})
+    if (command === 'connect'){
+        document.getElementById('check-connection').querySelector('i').classList.add('connected');
+        document.getElementById('check-connection').querySelector('i').classList.remove('disconnected');
+        return;
+    }
 
-socket.on('registerRoom', function(msg){
-    console.info(msg);
-})
+    if (command === 'disconnect'){
+        document.getElementById('check-connection').querySelector('i').classList.remove('connected');
+        document.getElementById('check-connection').querySelector('i').classList.add('disconnected');
+        return;
+    }
 
-socket.on('outRoom', function(msg){
-    console.info(msg);
-})
+    if (command === 'registerRoom'){
+        console.info(message);
+        return;
+    }
+
+    if (command === 'outRoom'){
+        console.info(message);
+        return;
+    }
+
+    if (command === 'read'){
+        //console.log(message);
+        // message is Tag data array received from gateway
+        if (Array.isArray(message)){
+            
+            message.forEach(function(tag){
+
+                let tagName = tag.name
+                if (systemTags[tagName]){
+                    eval(`${tagName}            =  tag.value;`);
+                    eval(`${tagName}__timestamp =  tag.timestamp;`);
+                    eval(`${tagName}__status    =  tag.status;`);
+                }
+            })
+        }
+        return;
+    }
+
+    if (command === 'alarm'){
+        let {gatewayId, alarms} = message;
+        totalGatewayAlarms[gatewayId] = alarms;
+        let totalAlarms = [];
+
+        for (let gatewayId in totalGatewayAlarms){
+            totalAlarms.push(...totalGatewayAlarms[gatewayId]);
+        }
+
+        updateAlarmTable(totalAlarms);
+        paginationSetup(totalAlarms.length, 'alarm');
+        document.getElementById('alarm-counter').textContent = totalAlarms.length;
+        return;
+    }
+
+    if (command === 'log'){
+        let {gatewayId, log} = message;
+        console.log(log);
+        prependLogToTable(log, gatewayId);
+        return;
+    }
+
+    if (command === 'exportLog'){
+        let blob = new Blob(message,  {type: "text/plain;charset=utf-8"});
+        saveAs(blob, 'Logs.txt');
+    }
+}
+
+window.ackAlarm = function(tagName, isAckAll){
+    if (isAckAll){
+        worker.postMessage({'command': 'ackAlarm', 'message': [{}] });
+    }else{
+        worker.postMessage({'command': 'ackAlarm', 'message': [tagName] })
+    }
+    
+}
+
+window.updateLogRealtime = function(isRealtime){
+
+    if (isRealtime){
+        worker.postMessage({'command': 'continuousLog', 'message': true});
+    }else{
+        worker.postMessage({'command': 'continuousLog', 'message': false});
+    }
+}
+
+window.exportLogs = function(){
+    let rangeTime = getExportFilterTime();
+    worker.postMessage({'command': 'exportLog', 'message': rangeTime})
+}
 
 
-function initProcessingRuntime(runningCollection){
+async function initProcessingRuntime(runningCollection){
     console.log(runningCollection);
     runExpCollection = runningCollection;
     let status = false;
     let email = window.sessionUser.email;
-    socket.emit('registerRoom', {'roomId': email, 'isBrowser': true});
 
-    const symtemTags = {
-        'Bump_Speed': {
-            'value': null, 
-            'timestamp': null,
-            'status': null,
-            'dataType': 'integer',
-        },
-        'Bump_Pressure': {
-            'value': null, 
-            'timestamp': null,
-            'status': null,
-            'dataType': 'float',
+    worker.postMessage({'command': 'registerRoom', 'message': {'roomId': email, 'isBrowser': true}});
+
+    try{
+        if (!window.systemTags){
+            window.systemTags = await fetchTagSystem();
         }
+    }catch(e){
+        console.error("Fetch system tags error.");
+        window.systemTags = {};
     }
 
-    window.tagChanges = {
-        'Bump_Speed': null,
-        'Bump_Pressure': null
-    }
+    window.tagChanges = {};
     
-    for (let tag in symtemTags){
-        eval(`window._pre_${tag}       =  null;`);
-        eval(`window.${tag}            =  symtemTags['${tag}'].value;`);
-        eval(`window.${tag}__timestamp =  symtemTags['${tag}'].timestamp;`);
-        eval(`window.${tag}__status    =  symtemTags['${tag}'].status;`);
+    for (let tag in systemTags){
+
+        if (systemTags[tag].type === 'internal'){
+            // internal tags
+            eval(`window._pre_${tag}       =  null;`);
+            eval(`window.${tag}            =  systemTags['${tag}'].value;`);
+        }else{
+            // external tags
+            eval(`window._pre_${tag}       =  null;`);
+            eval(`window.${tag}            =  systemTags['${tag}'].value;`);
+            eval(`window.${tag}__timestamp =  systemTags['${tag}'].timestamp;`);
+            eval(`window.${tag}__status    =  systemTags['${tag}'].status;`);
+            tagChanges[tag] = null;
+        }
+
     }
 
-    socket.on('read', function(data){
-        
-        
-        if (Array.isArray(data)){
-            data.forEach(function(tag){
-
-                let tagName = Object.keys(tag)[0];
-                if (symtemTags[tagName]){
-                    eval(`${tagName}            =  tag['${tagName}'].value;`);
-                    eval(`${tagName}__timestamp =  tag['${tagName}'].timestamp;`);
-                    eval(`${tagName}__status    =  tag['${tagName}'].status;`);
-                }
-            })
-        }
-    })
+    worker.postMessage({'command': 'read'});
 
     let interId = setInterval(function(){
 
@@ -193,7 +267,7 @@ function initProcessingRuntime(runningCollection){
         $(`#${symbol.id}`).click(function (e) {
             try {
                 // Update pre-tag to compare after click
-                for (let tag in symtemTags) {
+                for (let tag in systemTags) {
                     eval(`_pre_${tag} = ${tag}`);
                 }
 
@@ -203,7 +277,7 @@ function initProcessingRuntime(runningCollection){
                 // Check if value of tag has change?
                 // if true, send change value to server to update tag
                 // if false, do nothing
-                for (let tag in symtemTags) {
+                for (let tag in systemTags) {
                     eval(`
                         if (_pre_${tag} !=  ${tag}) tagChanges['${tag}'] = ${tag};
                         else tagChanges['${tag}'] = null;
@@ -222,14 +296,14 @@ function initProcessingRuntime(runningCollection){
             if (!$(this).prop('checked')) return;
             try{
                
-                for (let tag in symtemTags) {
+                for (let tag in systemTags) {
                     eval(`_pre_${tag} = ${tag}`);
                 }
 
                 eval(symbol.runOnExp);
                 console.log('click runOn');
 
-                for (let tag in symtemTags) {
+                for (let tag in systemTags) {
                     eval(`
                         if (_pre_${tag} !=  ${tag}) tagChanges['${tag}'] = ${tag};
                         else tagChanges['${tag}'] = null;
@@ -248,14 +322,14 @@ function initProcessingRuntime(runningCollection){
             if ($(this).prop('checked')) return;
             try{
             
-                for (let tag in symtemTags) {
+                for (let tag in systemTags) {
                     eval(`_pre_${tag} = ${tag}`);
                 }
 
                 eval(symbol.runOffExp);
                 console.log('click runOff');
 
-                for (let tag in symtemTags) {
+                for (let tag in systemTags) {
                     eval(`
                         if (_pre_${tag} !=  ${tag}) tagChanges['${tag}'] = ${tag};
                         else tagChanges['${tag}'] = null;
@@ -275,6 +349,9 @@ function initProcessingRuntime(runningCollection){
             $(symbol.SVG.node.querySelector('input')).change(function(e){
                 eval(`tagChanges['${symbol.assignTag.trim()}'] = e.target.value || null`);
                 sendUpdatedTags(tagChanges);
+                setTimeout(function(){
+                    $(symbol.SVG.node.querySelector('input')).val(eval(symbol.assignTag));
+                }, 3000)
             })
         }
 
@@ -291,72 +368,64 @@ function initProcessingRuntime(runningCollection){
 }
 
 
-function stopProcessingRuntime(){
-    let email = window.sessionUser.email;
-    socket.emit('outRoom', email);
-    socket.off('read');
-    intervalId.forEach(function(id){
-        clearInterval(id);
-    })
-
-    for (let expType in runExpCollection){
-        if (!Array.isArray(runExpCollection[expType])) continue;
-        runExpCollection[expType].forEach(function(symbol){
-            symbol.updateSymbol();
-        })
-    }
-
-    runExpCollection['hiddenExp'].forEach(function(symbol){
-        symbol.hiddenAfterValidateExp(false);
-    })   
-
-    // Remove all click event on button symbols
-    runExpCollection['runExp'].forEach(function(symbol){
-        $(`#${symbol.id}`).off('click');
-    })
-
-    runExpCollection['runOnExp'].forEach(function(symbol){
-        $(symbol.SVG.node.querySelector('input')).off('change');
-    })
-
-    runExpCollection['runOffExp'].forEach(function(symbol){
-        $(symbol.SVG.node.querySelector('input')).off('change');
-    })
-
-    runExpCollection['assignTag'].forEach(function(symbol){
-        let symbolType = symbol.id.replace(/-[0-9]+/i, '');
-        if (symbolType === 'input'){
-            $(symbol.SVG.node.querySelector('input')).off('change');
-        }
-
-        if (['h-slider','v-slider'].includes(symbolType)){
-            symbol.isRun = false;
-        }
-    })
-
-
-    runExpCollection = null;
-}
-
 function sendUpdatedTags(updatedTag){
-    let isUpdate = false;
+    let update = [];
     for (let tagName in updatedTag){
         if (updatedTag[tagName] != null){
-            isUpdate = true;
+            update.push({'name': tagName, 'value': updatedTag[tagName]});
         }
     }
 
-    if (isUpdate){
-        socket.emit('write', updatedTag);
-        console.log('Write success: ', updatedTag);
+    if (update.length){
+        //socket.emit('write', update);
+        worker.postMessage({'command': 'write', 'message': update});
+        console.log('Write success: ', update);
         for (let tagName in updatedTag){
             updatedTag[tagName] = null;
         }
     }
 }
 
+async function fetchTagSystem(){
+    try{
+        let gateways, plcs, tags, responseForm, results = {};
+        responseForm = await sendAjaxToServer("/gateway/json/list/gateways");
+        if (responseForm.success) gateways = responseForm.getData();
+        responseForm = await sendAjaxToServer("/gateway/json/list/plcs");
+        if (responseForm.success) plcs = responseForm.getData();
+        responseForm = await sendAjaxToServer("/gateway/json/list/tags");
+        if (responseForm.success) tags = responseForm.getData();
+
+        if (!gateways || !plcs || !tags) return;
+        if (Array.isArray(tags)) {
+            tags.forEach(function (tag) {
+                if (tag.type === 'internal') {
+                    results.push(tag.name);
+                } else {
+                    let tagName;
+                    let gatewayIndex = gateways.findIndex(gw => gw.uniqueId == tag.gatewayId);
+                    let plcIndex = plcs.findIndex(plc => plc._id == tag.plcId);
+                    if (gatewayIndex == -1 || plcIndex == -1) return;
+                    tagName = gateways[gatewayIndex].name + '_' + plcs[plcIndex].name + '_' + tag.name;
+
+                    results[tagName] = {
+                        'status': null,
+                        'dataType': tag.dataType,
+                        'timestamp': null,
+                        'type': tag.type
+                    }
+
+                }
+            })
+        }
+
+        return results;
+    }catch(e){
+        return {};
+    }
+}
+
 
 export {
-    initProcessingRuntime,
-    stopProcessingRuntime
+    initProcessingRuntime
 }

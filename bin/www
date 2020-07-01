@@ -36,7 +36,7 @@ server.on('listening', onListening);
 const io = socket(server);
 
 io.on('connection', function(socket){
-  
+
   socket.on('registerRoom', function({roomId, isBrowser}){
 
     if (isBrowser){
@@ -96,7 +96,7 @@ io.on('connection', function(socket){
         break;
       }
     }
-    console.log(msg);
+
     socket.to(gatewayRoomId + '-browser').emit('status', msg);
   })
 
@@ -108,9 +108,59 @@ io.on('connection', function(socket){
         break;
       }
     }
-    console.log(command);
+
     socket.to(browserRoomId.replace('-browser','')).broadcast.emit('control', command);
   })
+
+  socket.on('alarm', function(msg){
+    let gatewayRoomId;
+    for (let roomId in socket.rooms){
+      if (socket.id !== roomId) {
+        gatewayRoomId = roomId;
+        break;
+      }
+    }
+    
+    socket.to(gatewayRoomId + '-browser').emit('alarm', msg);
+  })
+
+  socket.on('ackAlarm', function(msg){
+    let browserRoomId = '';
+    for (let roomId in socket.rooms){
+      if (socket.id !== roomId) {
+        browserRoomId = roomId;
+        break;
+      }
+    }
+
+    socket.to(browserRoomId.replace('-browser','')).broadcast.emit('ackAlarm', msg);
+  })
+
+  socket.on('log', function(msg){
+    let gatewayRoomId;
+    for (let roomId in socket.rooms){
+      if (socket.id !== roomId) {
+        gatewayRoomId = roomId;
+        break;
+      }
+    }
+ 
+    socket.to(gatewayRoomId + '-browser').emit('log', msg);
+  })
+
+
+  socket.on('exportLog', function(msg){
+    let gatewayRoomId;
+    for (let roomId in socket.rooms){
+      if (socket.id !== roomId) {
+        gatewayRoomId = roomId;
+        break;
+      }
+    }
+    
+    socket.to(gatewayRoomId + '-browser').emit('exportLog', msg);
+  })
+
 })
 
 

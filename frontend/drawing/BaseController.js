@@ -19,6 +19,8 @@ class BaseController extends PositionHandlerUtil {
             let pageInfoList = [], designId = View.getDesignId();
             // TO-DO here 
             document.getElementById('whiteboard-management').children.forEach(function(page){
+                let pageId = page.getAttribute('id');
+                if ( pageId === 'alarm' || pageId === 'log') return;
                 let pageObj = View.parseJsonPageById(page.getAttribute('id'));
                 pageInfoList.push(pageObj);
             })

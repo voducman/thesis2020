@@ -1,7 +1,14 @@
-// import io from 'socket.io-client';
-import Worker from './runtimeSocketIO.worker.js';
-import {sendAjaxToServer} from '../utils';
+import {saveAs}            from 'file-saver';
+import Worker              from './runtimeSocketIO.worker.js';
+import {sendAjaxToServer}  from '../utils';
+import {updateAlarmTable}  from './alarmUtil';
+import {paginationSetup}   from './alarmUtil';
+import {prependLogToTable}   from './logUtil';
+import {getExportFilterTime} from './logUtil';
+
+
 let intervalId = [], runExpCollection;
+let totalGatewayAlarms = {};
 
 let worker = new Worker();
 
@@ -12,28 +19,32 @@ worker.onmessage = function(e){
     if (command === 'connect'){
         document.getElementById('check-connection').querySelector('i').classList.add('connected');
         document.getElementById('check-connection').querySelector('i').classList.remove('disconnected');
+        return;
     }
 
     if (command === 'disconnect'){
         document.getElementById('check-connection').querySelector('i').classList.remove('connected');
         document.getElementById('check-connection').querySelector('i').classList.add('disconnected');
+        return;
     }
 
     if (command === 'registerRoom'){
         console.info(message);
+        return;
     }
 
     if (command === 'outRoom'){
         console.info(message);
+        return;
     }
 
     if (command === 'read'){
-        console.log(message);
+        //console.log(message);
         // message is Tag data array received from gateway
         if (Array.isArray(message)){
             
             message.forEach(function(tag){
-                
+
                 let tagName = tag.name
                 if (systemTags[tagName]){
                     eval(`${tagName}            =  tag.value;`);
@@ -42,9 +53,59 @@ worker.onmessage = function(e){
                 }
             })
         }
+        return;
+    }
+
+    if (command === 'alarm'){
+        let {gatewayId, alarms} = message;
+        totalGatewayAlarms[gatewayId] = alarms;
+        let totalAlarms = [];
+
+        for (let gatewayId in totalGatewayAlarms){
+            totalAlarms.push(...totalGatewayAlarms[gatewayId]);
+        }
+
+        updateAlarmTable(totalAlarms);
+        paginationSetup(totalAlarms.length, 'alarm');
+        document.getElementById('alarm-counter').textContent = totalAlarms.length;
+        return;
+    }
+
+    if (command === 'log'){
+        let {gatewayId, log} = message;
+        console.log(log);
+        prependLogToTable(log, gatewayId);
+        return;
+    }
+
+    if (command === 'exportLog'){
+        let blob = new Blob(message,  {type: "text/plain;charset=utf-8"});
+        saveAs(blob, 'Logs.txt');
     }
 }
 
+window.ackAlarm = function(tagName, isAckAll){
+    if (isAckAll){
+        worker.postMessage({'command': 'ackAlarm', 'message': [{}] });
+    }else{
+        worker.postMessage({'command': 'ackAlarm', 'message': [tagName] })
+    }
+    
+}
+
+window.updateLogRealtime = function(isRealtime){
+
+    if (isRealtime){
+        worker.postMessage({'command': 'continuousLog', 'message': true});
+    }else{
+        worker.postMessage({'command': 'continuousLog', 'message': false});
+    }
+}
+
+window.exportLogs = function(){
+    let rangeTime = getExportFilterTime();
+    worker.postMessage({'command': 'exportLog', 'message': rangeTime})
+}
 
 async function initProcessingRuntime(runningCollection){
     console.log(runningCollection);
@@ -308,8 +369,8 @@ async function initProcessingRuntime(runningCollection){
 
 function stopProcessingRuntime(){
     let email = window.sessionUser.email;
-    worker.postMessage({'command': 'outRoom', 'message': {'roomId': email, 'isBrowser': true}});
     worker.postMessage({'command': 'off', 'message': 'read'});
+    worker.postMessage({'command': 'outRoom', 'message': {'roomId': email, 'isBrowser': true}});
     
     intervalId.forEach(function(id){
         clearInterval(id);

@@ -167,6 +167,7 @@ function generateRowOfTagTable(tag, index){
                 <td class="text-center">${(index < 10) ? ("0" + index) : index}</td>
                 <td class="text-center">${tag.name}</td>
                 <td class="text-center">${tag.type}</td>
+                <td class="text-center">${(tag.readOnly)? 'READ':'READ/WRITE'}</td>
                 <td class="text-center">${tag.scale}</td>
                 <td class="text-center">${tag.offset}</td>
                 <td class="text-center">${tag.minimum}</td>

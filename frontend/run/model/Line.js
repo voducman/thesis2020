@@ -62,7 +62,6 @@ export default class Line extends BaseSymbol{
 
     updateModal(){
         this.updatePosition();
-        modalUtil.updateLineModal(this);
     }
 
     updateSymbol(){

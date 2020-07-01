@@ -49,7 +49,7 @@ const elementsUtil = (function(){
         renderSwitch: function(id){
             $(`#${id}`).append(` 
             <div class="togglebutton text-center">
-                <label  data-size="lg">
+                <label>
                         <span class="before-text">OFF</span>
                         <input type="checkbox" checked>
                         <span class="toggle"></span>
@@ -65,6 +65,12 @@ const elementsUtil = (function(){
                 </label>
             </div>`);
 
+            setTimeout(function(){
+                let toggle = $(`#${id} .togglebutton .toggle`);
+                if (toggle.length > 1){
+                    toggle[1].remove();
+                }
+            }, 0)
         },
 
         renderInput: function(id, width, height){

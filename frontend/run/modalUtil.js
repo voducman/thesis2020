@@ -1416,13 +1416,7 @@ const modalUtil = (function(){
             targetProperties.radius = readSizeRadius(SYMBOLID.CAMERA);
             targetProperties.rtspURL = readByAttribute(SYMBOLID.CAMERA, 'textarea', 'rtsp-url');
             targetProperties.updateSymbol();
-        }
-
-
-
-
-
-
+        },
 
 
     }

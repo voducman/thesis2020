@@ -7,6 +7,35 @@
     <link rel="stylesheet" href="/static/css/drawing-modal.css">
     <script src="/static/context-menu/context-menu.js"></script>
     <link rel="stylesheet" href="/static/context-menu/context-menu.css"> 
+    <style>
+        #log input[type=checkbox]:checked + span.toggle{ background-color: red; } 
+        #log textarea{
+            border-radius: 4px;
+            min-width: 600px;
+            border: 1px solid #777;
+        }
+
+        #timepickerFrom, #timepickerTo{
+            width: 280px!important;
+            padding-top: 20px;
+        }
+
+        #timepickerFrom input, #timepickerTo input{
+            width: 150px!important;
+            margin: 0;
+            border: 1px solid #a5a5a5;
+            border-radius: 4px;
+            padding-left: 5px;
+        }
+        
+        #timepickerFrom span, #timepickerTo span{
+            font-weight: 500;
+        }
+
+        button.btn-round{
+            margin-top: 18px;
+        }
+    </style>
 </head>
 <body>
     <div class="wrapper" id="main-view" style="background-color: #343435;">
@@ -16,14 +45,131 @@
                     <div class="row">
                         <div class="col-md-12 pd-mg-0" style="width: <%= resolution.width %>px;">
                             <ul class="nav nav-tabs" id="tab-management" style="background-color: #343435;">
-                                
+
+                                <li>
+                                    <a data-toggle="tab" href="#alarm"><i class="material-icons"  style="color: red">warning</i>
+                                        Alarms &nbsp;<span class="badge text-warning" id="alarm-counter">0</span>
+                                    </a>
+                                </li>
+                                <li class="active">
+                                    <a data-toggle="tab" href="#log"><i class="material-icons" style="color: red">history</i>
+                                        Logs
+                                    </a>
+                                </li>
                                 <div>
                                     <% include header-running %>
                                 </div>
                             </ul>
     
                             <div class="tab-content" id="whiteboard-management" data-width="<%= resolution.width %>" data-height="<%= resolution.height %>">
-
+                                <div id="alarm" class="tab-pane fade in drawing-page">
+                                    <div class="col-md-12"  style="background-color: #e4e4e4; position: absolute; width: <%= resolution.width %>px;">
+                                       <div class="row" style="padding: 0 20px;">
+                                        <div class="table-responsive">
+                                            <div class="col-md-3 col-md-offset-9 text-right" style="margin-bottom: 3px;">
+                                                <button type="button" rel="tooltip" class="btn btn-info btn-round btn-sm"
+                                                    onclick="ackAlarm(null, true)">
+                                                    <i class="material-icons">verified</i>
+                                                    Acknowledge All
+                                                </button>
+                                            </div>
+                                            <table class="table table-hover" style="font-size: small;">
+                                                <thead style="background-color: #3caea3; font-weight: 900!important;">
+                                                    <tr>
+                                                        <th class="text-center">#</th>
+                                                        <th class="text-center">Name</th>
+                                                        <th class="text-center">Type</th>
+                                                        <th class="text-center">Value</th>
+                                                        <th class="text-center">HIHI</th>
+                                                        <th class="text-center">HI</th>
+                                                        <th class="text-center">LOW</th>
+                                                        <th class="text-center">LOWLOW</th>
+                                                        <th class="text-center">Timestamp</th>
+                                                        <th class="text-center">Status</th>
+                                                        <th class="text-center">Action</th>
+                                
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="alarm-table">
+                                                
+                                                </tbody>
+                                            </table>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <ul class="pagination pagination-info" id="pagination">
+                                                        <p>Showing 1 to * of * entries</p>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-md-3 col-md-offset-6 text-right">
+                                                    <ul class="pagination pagination-info">
+                                                        <li>
+                                                            <a href="javascript:void(0);" id="first"><<</a>
+                                                        </li>
+                                                        <li class="active">
+                                                            <a href="javascript:void(0);" id="back">1</a>
+                                                        </li>
+                                                        <li class="">
+                                                            <a href="javascript:void(0);" id="current">2</a>
+                                                        </li>
+                                                        <li class="">
+                                                            <a href="javascript:void(0);" id="next">3</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="javascript:void(0);" id="last">>></a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                       </div>                       
+                                    </div>
+                                </div>
+                                <div id="log" class="tab-pane fade in active drawing-page">
+                                    <div class="col-md-12"  style="background-color: #e4e4e4; position: absolute; width: <%= resolution.width %>px;">
+                                        <div class="row" style="padding: 0 20px;">
+                                         <div class="table-responsive" style="min-height: 500px;">
+                                             <div class="col-md-3" style="padding-top: 25px; font-weight: 500;">
+                                                <div class="togglebutton text-left">
+                                                    <span>Update Realtime </span>
+                                                    <label>
+                                                        <input type="checkbox" onchange="updateLogRealtime(this.checked)">
+                                                    </label>
+                                                </div>
+                                             </div>
+                                             <div class="col-md-9 text-right" style="margin-bottom: 3px;">
+                                                <div id="timepickerFrom" class="col-md-4">
+                                                    <span>From Time: </span>
+                                                <input type="text" class="datetimepicker" />
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </div>
+                                                <div id="timepickerTo" class="col-md-4">
+                                                    <span>To Time: </span>
+                                                    <input type="text" class="datetimepicker" />
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </div>
+                                                <button type="button" rel="tooltip" class="btn btn-info btn-round btn-sm" onclick="exportLogs()">
+                                                    <i class="material-icons">save</i>
+                                                    Export Log
+                                                </button>
+                                             </div>
+                                            <table class="table table-hover" style="font-size: small;">
+                                                <thead style="background-color: #3caea3; font-weight: 900!important;">
+                                                    <tr>
+                                                        <th class="text-center">Gateway ID</th>
+                                                        <th class="text-center">Timestamp</th>
+                                                        <th class="text-center">Log Messages</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="log-table">
+                
+                                                </tbody>
+                                            </table>
+                                             
+                                             </div>
+                                         </div>
+                                        </div>                       
+                                     </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -36,12 +182,22 @@
 
 <script type="text/javascript" src="/static/javascripts/running.bundle.js"></script>
 <script type="text/javascript">
-    (function(){
-       $(document.body).tooltip({ selector: "[data-toggle=tooltip]" });
-    })()
+    $(document).ready(function () {
+            $(document.body).tooltip({ selector: "[data-toggle=tooltip]" });
+            $('.datetimepicker').datetimepicker({
+                icons: {
+                    time: "fa fa-clock-o",
+                    date: "fa fa-calendar",
+                    up: "fa fa-chevron-up",
+                    down: "fa fa-chevron-down",
+                    previous: 'fa fa-chevron-left',
+                    next: 'fa fa-chevron-right',
+                    today: 'fa fa-screenshot',
+                    clear: 'fa fa-trash',
+                    close: 'fa fa-remove'
+                }
+            });
 
-    $(document).ready(function(){
-        console.log('update time')
         let startTime = Date.now();
         setInterval(function () {
             let totalSeconds = Date.now() - startTime;

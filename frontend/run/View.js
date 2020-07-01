@@ -3,7 +3,6 @@ import PageInfo from './form/PageInfo';
 import {SVG}    from '@svgdotjs/svg.js';
 import interact from 'interactjs';
 import '@svgdotjs/svg.draggable.js'
-import eventUtil from './eventUtil';
 import elementsUtil from './elementsUtil';
 import htmlSymbolUtil from './htmlSymbolUtil';
 import chartUtil from './chartUtil';
@@ -62,15 +61,15 @@ class View extends BaseView{
         return [width, height];
     }
 
-    static createNewPage2Drawing(pageId, pageName, icon){
+    static createNewPage2Drawing(pageId, pageName, icon) {
         let [width, height] = View.getResolution();
         // De-active other pages
-        $('#tab-management > li').each(function(){
+        $('#tab-management > li').each(function () {
             $(this).removeClass("active");
         })
 
-        $('#tab-management div').before(`
-            <li class="active"><a data-toggle="tab" href="#${pageId}"><i class="material-icons">${icon}</i><span>${pageName}<span></a></li>
+        $("#tab-management li a[href='#alarm']").parent().before(`
+            <li class="active"><a data-toggle="tab" href="#${pageId}"><i class="material-icons" style="color: blue;">${icon}</i><span>${pageName}<span></a></li>
         `);
 
         $('#whiteboard-management').append(`
@@ -105,7 +104,6 @@ class View extends BaseView{
                     symbolRender.rotate(symbol.degree);
 
                     document.getElementById(symbolId).properties = symbolPros;
-                    eventUtil.assignDbclickToLine(symbolRender);
                     return;
                 }
 
@@ -118,7 +116,6 @@ class View extends BaseView{
                     symbolRender.rotate(symbol.degree);
 
                     document.getElementById(symbolId).properties = symbolPros;
-                    eventUtil.assingDbclickToPolyline(symbolRender);
                     return;
                 }
 
@@ -131,7 +128,6 @@ class View extends BaseView{
                     symbolRender.rotate(symbol.degree);
 
                     document.getElementById(symbolId).properties = symbolPros;
-                    eventUtil.assignDbclickToEllipse(symbolRender);
                     return;
                 }
 
@@ -144,7 +140,6 @@ class View extends BaseView{
                     symbolRender.rotate(symbol.degree);
 
                     document.getElementById(symbolId).properties = symbolPros;
-                    eventUtil.assignDbclickToCircle(symbolRender);
                     return;
                 }
 
@@ -157,7 +152,6 @@ class View extends BaseView{
                     symbolRender.rotate(symbol.degree);
 
                     document.getElementById(symbolId).properties = symbolPros;
-                    eventUtil.assignDbclickToRectangle(symbolRender);
                     return;
                 }
 
@@ -170,7 +164,6 @@ class View extends BaseView{
                     symbolRender.rotate(symbol.degree);
 
                     document.getElementById(symbolId).properties = symbolPros;
-                    eventUtil.assignDbclickToPolygon(symbolRender);
                     return;
                 }
 
@@ -183,7 +176,6 @@ class View extends BaseView{
                     symbolRender.rotate(symbol.degree);
 
                     document.getElementById(symbolId).properties = symbolPros;
-                    eventUtil.assignDbclickToTextblock(symbolRender);
                     return;
                 }
 
@@ -197,7 +189,6 @@ class View extends BaseView{
                     symbolRender.rotate(symbol.degree);
 
                     document.getElementById(symbolId).properties = symbolPros;
-                    eventUtil.assignDbclickToPencil(symbolRender);
                     return;
                 }
 
@@ -211,7 +202,6 @@ class View extends BaseView{
                     symbolRender.rotate(symbol.degree);
 
                     document.getElementById(symbolId).properties = symbolPros;
-                    eventUtil.assignDbclickToGraphView(symbolRender);
                     return;
                 }
 
@@ -224,7 +214,6 @@ class View extends BaseView{
                     symbolRender.rotate(symbol.degree);
 
                     document.getElementById(symbolId).properties = symbolPros;
-                    eventUtil.assignDbclickToDisplayValue(symbolRender);
                     return;
                 }
 
@@ -238,12 +227,11 @@ class View extends BaseView{
                     symbolRender.rotate(symbol.degree);
 
                     document.getElementById(symbolId).properties = symbolPros;
-                    eventUtil.assignDbclickToButton(symbolRender);
                     return;
                 }
 
                 if (symbolType === 'switch'){
-                    let symbolRender = wb.foreignObject(0,0).draggable(symbol.dragRun);
+                    let symbolRender = wb.foreignObject(200,30).draggable(symbol.dragRun);
                     symbolRender.id(symbolId).addClass('symbol');
                     elementsUtil.renderSwitch(symbolId);
                     let symbolPros = new Switch(symbolId, symbolRender);
@@ -252,7 +240,6 @@ class View extends BaseView{
                     symbolRender.rotate(symbol.degree);
 
                     document.getElementById(symbolId).properties = symbolPros;
-                    eventUtil.assignDbclickToSwitch(symbolRender);
                     return;
                 }
 
@@ -266,7 +253,6 @@ class View extends BaseView{
                     symbolRender.rotate(symbol.degree);
 
                     document.getElementById(symbolId).properties = symbolPros;
-                    eventUtil.assignDbclickToInput(symbolRender);
                     return;
                 }
 
@@ -281,8 +267,6 @@ class View extends BaseView{
                     elementsUtil.renderHorizontalSlider(`child-${symbolId}`, symbol.width, symbol.height);
                     symbolPros.updateSymbol();
                     symbolRender.rotate(symbol.degree);
-
-                    eventUtil.assignDbclickToHoriSlider(symbolRender);
                     return;
                 }
 
@@ -297,8 +281,6 @@ class View extends BaseView{
                     elementsUtil.renderVerticalSlider(`child-${symbolId}`, symbol.width, symbol.height)
                     symbolPros.updateSymbol();
                     symbolRender.rotate(symbol.degree);
-
-                    eventUtil.assignDbclickToVerSlider(symbolRender);
                     return;
                 }
 
@@ -317,7 +299,6 @@ class View extends BaseView{
                     symbolRender.rotate(symbol.degree);
                     symbolPros.updateSymbol();
                     document.getElementById(symbolId).properties = symbolPros;
-                    eventUtil.assignDbclickToProgressBar(symbolRender);
                     return;
                 }
 
@@ -331,7 +312,6 @@ class View extends BaseView{
                     symbolRender.rotate(symbol.degree);
 
                     document.getElementById(symbolId).properties = symbolPros;
-                    eventUtil.assignDbclickToCheckbox(symbolRender);
                     return;
                 }
 
@@ -345,7 +325,6 @@ class View extends BaseView{
                     symbolRender.rotate(symbol.degree);
 
                     document.getElementById(symbolId).properties = symbolPros;
-                    eventUtil.assignDbclickToSymbolSet(symbolRender);
                     return;
                 }
 
@@ -360,8 +339,6 @@ class View extends BaseView{
                     chartUtil.renderLineChart(`child-${symbolId}`);
                     symbolPros.updateSymbol();
                     symbolRender.rotate(symbol.degree);
-                   
-                    eventUtil.assignDbclickToLineChart(symbolRender);
                     return;
                 }
 
@@ -376,8 +353,6 @@ class View extends BaseView{
                     chartUtil.renderBarChart(`child-${symbolId}`);
                     symbolPros.updateSymbol();
                     symbolRender.rotate(symbol.degree);
-                   
-                    eventUtil.assignDbclickToBarChart(symbolRender);
                     return;
                 }
 
@@ -389,14 +364,10 @@ class View extends BaseView{
 
                     let symbolPros = new PieChart(symbolId, symbolRender);
                     symbolPros.initOnlyProperties(symbol);
-                    console.log('test pie chart: ', symbolPros);
                     document.getElementById(symbolId).properties = symbolPros;
                     chartUtil.renderPieChart(`child-${symbolId}`);
                     symbolPros.updateSymbol();
                     symbolRender.rotate(symbol.degree);
-
-                    eventUtil.assignDbclickToPieChart(symbolRender);
-
                     return;
                 }
 
@@ -411,8 +382,6 @@ class View extends BaseView{
                     chartUtil.renderDonutChart(`child-${symbolId}`);
                     symbolPros.updateSymbol();
                     symbolRender.rotate(symbol.degree);
-                   
-                    eventUtil.assignDbclickToDonutChart(symbolRender);
                     return;
                 }
 
@@ -427,8 +396,6 @@ class View extends BaseView{
                     chartUtil.renderRadialGaugeChart(`child-${symbolId}`);
                     symbolPros.updateSymbol();
                     symbolRender.rotate(symbol.degree);
-                   
-                    eventUtil.assignDbclickToRadialGauge(symbolRender);
                     return;
                 }
 
@@ -443,8 +410,6 @@ class View extends BaseView{
                     chartUtil.renderSpeedometer(`child-${symbolId}`);
                     symbolPros.updateSymbol();
                     symbolRender.rotate(symbol.degree);
-                   
-                    eventUtil.assignDbclickToSpeedometer(symbolRender);
                     return;
                 }
 
@@ -460,8 +425,6 @@ class View extends BaseView{
                     chartUtil.renderLinearGaugeChart(`child-${symbolId}`);
                     symbolPros.updateSymbol();
                     symbolRender.rotate(symbol.degree);
-                   
-                    eventUtil.assignDbclickToLinearGauge(symbolRender);
                     return;
                 }
 
@@ -476,7 +439,6 @@ class View extends BaseView{
 
                     symbolPros.updateSymbol();
                     symbolRender.rotate(symbol.degree);
-                    eventUtil.assignDbclickToRadialClock(symbolRender);
                     return;
                 }
 
@@ -491,8 +453,6 @@ class View extends BaseView{
                     document.getElementById(symbolId).properties = symbolPros;
                     symbolPros.updateSymbol();
                     symbolRender.rotate(symbol.degree);
-
-                    eventUtil.assignDbclickToDigitalClock(symbolRender);
                     return;
                 }
 
@@ -508,7 +468,6 @@ class View extends BaseView{
                     clockUtil.renderCameraViewer(symbolId);
                     symbolPros.updateSymbol();
                     symbolRender.rotate(symbol.degree);
-                    eventUtil.assignDbclickToCamera(symbolRender);
                     return;
                 }
 

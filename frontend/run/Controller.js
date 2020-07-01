@@ -1,6 +1,5 @@
 import {RunningExpressionCollection} from './form/RunningExpressionCollection';
 import {initProcessingRuntime}       from './runtimeUtil';
-import {stopProcessingRuntime}       from './runtimeUtil';
 import View           from './View';
 import Model          from './Model';
 
@@ -22,7 +21,7 @@ class Controller{
             // Loop in drawObject to re-render drawing page
             View.renderPageFromOldData(pageList, this);
         }catch(e){
-            console.log(e)
+            console.log(e + '');
         }
     }
 

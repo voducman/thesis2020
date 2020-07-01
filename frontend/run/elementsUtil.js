@@ -49,7 +49,7 @@ const elementsUtil = (function(){
         renderSwitch: function(id){
             $(`#${id}`).append(` 
             <div class="togglebutton text-center">
-                <label  data-size="lg">
+                <label>
                         <span class="before-text">OFF</span>
                         <input type="checkbox" checked>
                         <span class="toggle"></span>
@@ -65,6 +65,12 @@ const elementsUtil = (function(){
                 </label>
             </div>`);
 
+            setTimeout(function(){
+                let toggle = $(`#${id} .togglebutton .toggle`);
+                if (toggle.length > 1){
+                    toggle[1].remove();
+                }
+            }, 0)
         },
 
         renderInput: function(id, width, height){
@@ -88,6 +94,11 @@ const elementsUtil = (function(){
                 set: [25],  
                 onChange: function(value){
                     sliderRoot.parentElement.properties.onChange(parseFloat(value));
+                    setTimeout(function(){
+                        try{
+                            hslider.setValues(eval(sliderRoot.parentElement.properties.assignTag));
+                        }catch(e){ console.error(e + '')}
+                    }, 5000)
                 }          
             });
 
@@ -151,6 +162,11 @@ const elementsUtil = (function(){
             
             slider.noUiSlider.on('update', function(values, handle){
                 slider.parentElement.properties.onChange(values[handle]);
+                setTimeout(function(){
+                    try{
+                        slider.noUiSlider.set(eval(slider.parentElement.properties.assignTag));
+                    }catch(e){ console.error(e + '')}
+                }, 5000)
             })
 
             slider.parentElement.properties.changeSliderRange = function(min, max){

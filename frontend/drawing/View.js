@@ -101,8 +101,8 @@ class View extends BaseView{
             $(this).removeClass("active");
         })
 
-        $('#tab-management li').last().before(`
-            <li class="active"><a data-toggle="tab" href="#${pageId}"><i class="material-icons">${icon}</i><span>${pageName}<span></a></li>
+        $("#tab-management li a[href='#alarm']").parent().before(`
+            <li class="active"><a data-toggle="tab" href="#${pageId}"><i class="material-icons" style="color: blue;">${icon}</i><span>${pageName}<span></a></li>
         `);
 
         $('#whiteboard-management').append(`
