@@ -371,15 +371,14 @@ async function initProcessingRuntime(runningCollection){
 function sendUpdatedTags(updatedTag){
     let update = [];
     for (let tagName in updatedTag){
-        if (updatedTag[tagName] != null){
-            update.push({'name': tagName, 'value': updatedTag[tagName]});
+        let deviceId = getDeviceIdOfTag(tagName, systemTags);
+        if (updatedTag[tagName] != null &&  deviceId != null){
+            update.push({'name': tagName, 'value': updatedTag[tagName], deviceId});
         }
     }
 
     if (update.length){
-        //socket.emit('write', update);
         worker.postMessage({'command': 'write', 'message': update});
-        console.log('Write success: ', update);
         for (let tagName in updatedTag){
             updatedTag[tagName] = null;
         }
@@ -400,7 +399,11 @@ async function fetchTagSystem(){
         if (Array.isArray(tags)) {
             tags.forEach(function (tag) {
                 if (tag.type === 'internal') {
-                    results.push(tag.name);
+                    results[tagName] = {
+                        'status': null,
+                        'timestamp': null,
+                        'type': 'internal',   
+                    }
                 } else {
                     let tagName;
                     let gatewayIndex = gateways.findIndex(gw => gw.uniqueId == tag.gatewayId);
@@ -410,9 +413,9 @@ async function fetchTagSystem(){
 
                     results[tagName] = {
                         'status': null,
-                        'dataType': tag.dataType,
                         'timestamp': null,
-                        'type': tag.type
+                        'type': 'external',
+                        'deviceId': tag.gatewayId
                     }
 
                 }
@@ -423,6 +426,15 @@ async function fetchTagSystem(){
     }catch(e){
         return {};
     }
+}
+
+function getDeviceIdOfTag(tagName, systemTags){
+    for (let name in systemTags){
+        if (tagName === name && systemTags[name].type === 'external'){
+            return systemTags[name].deviceId;
+        }
+    }
+    return null;
 }
 
 

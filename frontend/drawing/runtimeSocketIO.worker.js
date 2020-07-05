@@ -1,8 +1,9 @@
 import io       from 'socket.io-client';
 import moment   from'moment';
+import {SOCKET_URL} from '../../env';
 
 
-const socket = io('https://lightscada.com');
+const socket = io(SOCKET_URL);
 
 socket.on('connect', function () {
     postMessage({'command': 'connect', 'message': null});
@@ -67,7 +68,21 @@ onmessage = function(e){
     }
 
     if (command === 'write'){
-        socket.emit('write', message);
+        let writeMsg = {};
+        if (!Array.isArray(message)) return;
+
+        message.forEach(tagValue => {
+            if (typeof writeMsg[tagValue.deviceId] === 'undefined'){
+                writeMsg[tagValue.deviceId] = [{'name': tagValue.name, 'value': tagValue.value}];
+            }else{
+                writeMsg[tagValue.deviceId].push({'name': tagValue.name, 'value': tagValue.value});
+            }
+        })
+
+        for (let deviceId in writeMsg){
+            socket.emit('write', {'deviceId': deviceId, 'updateTag': writeMsg[deviceId]});
+        }
+        
         return;
     }
 

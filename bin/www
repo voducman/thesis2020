@@ -11,22 +11,48 @@ const http    = require('http');
 const https   = require('https');
 const socket  = require('socket.io');
 
-const options = {
-  key:  fs.readFileSync('/etc/letsencrypt/live/lightscada.com/privkey.pem'),
-  cert: fs.readFileSync('/etc/letsencrypt/live/lightscada.com/fullchain.pem')
+const {caculateHashKeyWithNonce} = require('../encrypt');
+const {encryptionWithAES256}     = require('../encrypt');
+const {decryptionWithAES256}     = require('../encrypt');
+const DeviceKey = require('../models/DeviceKey');
+const { get } = require('jquery');
+
+const StatusKeyExchange = {
+  NotFound: -1,
+  Ok: 0,
+  Error: 1,
+  TimeOut: 2
 }
+
+let options;
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+var port;
+if (process.env.ENV === 'dev'){
+  port = normalizePort(process.env.PORT_DEV || '3000');
+}else{
+  port = normalizePort(process.env.PORT_PRO || '443');
+  options = {
+    key:  fs.readFileSync('/etc/letsencrypt/live/lightscada.com/privkey.pem'),
+    cert: fs.readFileSync('/etc/letsencrypt/live/lightscada.com/fullchain.pem')
+  }
+}
+
 app.set('port', port);
 
 /**
  * Create HTTP server.
  */
+var server;
+if (process.env.ENV === 'dev'){
+  server = http.createServer(app);
+}else{
+  server = https.createServer(options, app);
+}
 
-var server = https.createServer(options, app);
+
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -40,19 +66,48 @@ server.on('listening', onListening);
 /**
  * Create socket.io listener
  */
+function getRoomId(socket){
+  for (let roomId in socket.rooms){
+    if (socket.id !== roomId) {
+      return roomId;
+    }
+  }
+}
+
 const io = socket(server);
 
 io.on('connection', function(socket){
 
-  socket.on('registerRoom', function({roomId, isBrowser}){
+  socket.on('registerRoom', function ({ roomId, isBrowser, nonce, deviceId }) {
 
-    if (isBrowser){
+    if (isBrowser) {
       socket.emit('registerRoom', `Register success to Room [${roomId}-browser]`);
       socket.join(roomId + '-browser');
       console.log("Client join room [" + roomId + "-browser]");
-    }else{
-      socket.emit('registerRoom', `Register success to Room [${roomId}]`);
-      socket.join(roomId);
+    } else {
+
+      DeviceKey.findOne({ deviceId })
+        .then(deviceKey => {
+          console.log({deviceKey});
+          if (deviceKey === null) {
+            return socket.emit('registerRoom', { status: StatusKeyExchange.NotFound });
+          }
+          console.log("Join room success B0")
+          let sessionKey = caculateHashKeyWithNonce(deviceKey.secretKey, nonce);
+          console.log("Join room success B1")
+          deviceKey.updateSessionKey(sessionKey);
+          
+          socket.join(roomId);
+          console.log("Join room success B2")
+          socket.emit('registerRoom', { status: StatusKeyExchange.Ok});
+          
+          return deviceKey.save();
+        })
+        .catch(e => {
+          console.log(e);
+          console.log("Key exchange get ERROR [deviceId: " + deviceId + "]");
+          socket.emit('registerRoom', { status: StatusKeyExchange.NotFound });
+        })
     }
     
   })
@@ -70,101 +125,77 @@ io.on('connection', function(socket){
     
   })
 
-  socket.on('write', function(updateTag){
-    let browserRoomId = '';
-    for (let roomId in socket.rooms){
-      if (socket.id !== roomId) {
-        browserRoomId = roomId;
-        break;
-      }
-    }
+  socket.on('write', function({deviceId, updateTag}){
+    let browserRoomId = getRoomId(socket);
+   
+    DeviceKey.findOne({ deviceId })
+    .then(deviceKey => {
 
-    socket.to(browserRoomId.replace('-browser','')).broadcast.emit('write', updateTag);
+      if (deviceKey === null) return;
+      if (!deviceKey.isSessionKeyTimeValid()) {
+        return socket.emit('registerRoom', { status: StatusKeyExchange.TimeOut });
+      }
+
+      let sessionKey = deviceKey.sessionKey;
+      let encryptValuesTag = encryptionWithAES256(JSON.stringify(updateTag), sessionKey)
+      socket.to(browserRoomId.replace('-browser','')).broadcast.emit('write', {'gatewayId': deviceId, 'encryptTags': encryptValuesTag});
+    })
+    .catch(e => { console.log(e)});
+    
   })
 
-  socket.on('read', function(valuesTag){
-    //console.log(valuesTag);
-    let gatewayRoomId;
-    for (let roomId in socket.rooms){
-      if (socket.id !== roomId) {
-        gatewayRoomId = roomId;
-        break;
-      }
-    }
-    
-    socket.to(gatewayRoomId + '-browser').emit('read', valuesTag);
+
+  socket.on('read', function(message){
+
+    let deviceId = message.deviceId;
+    let encryptValuesTag = message.data;
+    let gatewayRoomId = getRoomId(socket);
+
+    DeviceKey.findOne({ deviceId })
+      .then(deviceKey => {
+
+        if (deviceKey === null) return;
+        if (!deviceKey.isSessionKeyTimeValid()) {
+          return socket.emit('registerRoom', { status: StatusKeyExchange.TimeOut });
+        }
+
+        let sessionKey = deviceKey.sessionKey;
+        let valuesTag = decryptionWithAES256(encryptValuesTag, sessionKey)
+
+        if (!Array.isArray(JSON.parse(valuesTag))) return;
+        socket.to(gatewayRoomId + '-browser').emit('read', JSON.parse(valuesTag));
+        })
+        .catch(e => { console.log(e)});
   })
 
   socket.on('status', function(msg){
-    let gatewayRoomId;
-    for (let roomId in socket.rooms){
-      if (socket.id !== roomId) {
-        gatewayRoomId = roomId;
-        break;
-      }
-    }
-
+    let gatewayRoomId = getRoomId(socket);
     socket.to(gatewayRoomId + '-browser').emit('status', msg);
   })
 
   socket.on('control', function(command){
-    let browserRoomId = '';
-    for (let roomId in socket.rooms){
-      if (socket.id !== roomId) {
-        browserRoomId = roomId;
-        break;
-      }
-    }
-
+    let browserRoomId = getRoomId(socket);
     socket.to(browserRoomId.replace('-browser','')).broadcast.emit('control', command);
   })
 
   socket.on('alarm', function(msg){
-    let gatewayRoomId;
-    for (let roomId in socket.rooms){
-      if (socket.id !== roomId) {
-        gatewayRoomId = roomId;
-        break;
-      }
-    }
-    
+    let gatewayRoomId = getRoomId(socket);
     socket.to(gatewayRoomId + '-browser').emit('alarm', msg);
   })
 
   socket.on('ackAlarm', function(msg){
-    let browserRoomId = '';
-    for (let roomId in socket.rooms){
-      if (socket.id !== roomId) {
-        browserRoomId = roomId;
-        break;
-      }
-    }
-
+    let browserRoomId = getRoomId(socket);
     socket.to(browserRoomId.replace('-browser','')).broadcast.emit('ackAlarm', msg);
   })
 
   socket.on('log', function(msg){
-    let gatewayRoomId;
-    for (let roomId in socket.rooms){
-      if (socket.id !== roomId) {
-        gatewayRoomId = roomId;
-        break;
-      }
-    }
- 
+    let gatewayRoomId = getRoomId(socket);
     socket.to(gatewayRoomId + '-browser').emit('log', msg);
   })
 
 
   socket.on('exportLog', function(msg){
-    let gatewayRoomId;
-    for (let roomId in socket.rooms){
-      if (socket.id !== roomId) {
-        gatewayRoomId = roomId;
-        break;
-      }
-    }
-    
+    let gatewayRoomId = getRoomId(socket);
     socket.to(gatewayRoomId + '-browser').emit('exportLog', msg);
   })
 

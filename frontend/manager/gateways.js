@@ -1,10 +1,11 @@
 import io from 'socket.io-client';
+import {SOCKET_URL} from '../../env';
 import {fetchGateways} from './dataContainer';
 import {showSuccessNotification} from '../utils';
 
 fetchGateways("/gateway/json/list/gateways");
 
-let socket = io('https://lightscada.com');
+let socket = io(SOCKET_URL);
 let email, lastPing = {};
 
 socket.on('connect', function(){
