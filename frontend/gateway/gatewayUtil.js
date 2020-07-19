@@ -388,7 +388,7 @@ function createRowTableOnMainPage(gateway, index){
         </tr>
         <tr id="row-${gateway.uniqueId}" class="collapse" style="background-color: #dddfd4;">
             <td></td>
-            <td colspan="7" rowspan="3">                                                      
+            <td colspan="9" rowspan="3">                                                      
                 <div class="row">
                     <div class="col-md-4"><b>UniqueId</b>:  ${gateway.uniqueId}</div>
                     <div class="col-md-4"><b>Name</b>:  ${gateway.name}</div>
@@ -412,6 +412,8 @@ function createRowTableOnMainPage(gateway, index){
                 </div>                                                       
             </td>
         </tr>
+        <tr></tr>
+        <tr></tr>
         <tr></tr>
         <tr></tr>`
 }

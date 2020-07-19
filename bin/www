@@ -15,7 +15,7 @@ const {caculateHashKeyWithNonce} = require('../encrypt');
 const {encryptionWithAES256}     = require('../encrypt');
 const {decryptionWithAES256}     = require('../encrypt');
 const DeviceKey = require('../models/DeviceKey');
-const { get } = require('jquery');
+
 
 const StatusKeyExchange = {
   NotFound: -1,
@@ -106,7 +106,7 @@ io.on('connection', function(socket){
         .catch(e => {
           console.log(e);
           console.log("Key exchange get ERROR [deviceId: " + deviceId + "]");
-          socket.emit('registerRoom', { status: StatusKeyExchange.NotFound });
+          socket.emit('registerRoom', { status: StatusKeyExchange.Error });
         })
     }
     
@@ -163,6 +163,7 @@ io.on('connection', function(socket){
         let valuesTag = decryptionWithAES256(encryptValuesTag, sessionKey)
 
         if (!Array.isArray(JSON.parse(valuesTag))) return;
+       
         socket.to(gatewayRoomId + '-browser').emit('read', JSON.parse(valuesTag));
         })
         .catch(e => { console.log(e)});
@@ -170,33 +171,51 @@ io.on('connection', function(socket){
 
   socket.on('status', function(msg){
     let gatewayRoomId = getRoomId(socket);
-    socket.to(gatewayRoomId + '-browser').emit('status', msg);
+    
+    if (gatewayRoomId){
+      socket.to(gatewayRoomId + '-browser').emit('status', msg);
+    }
   })
 
   socket.on('control', function(command){
     let browserRoomId = getRoomId(socket);
-    socket.to(browserRoomId.replace('-browser','')).broadcast.emit('control', command);
+
+    if (browserRoomId){
+      socket.to(browserRoomId.replace('-browser','')).broadcast.emit('control', command);
+    }
   })
 
   socket.on('alarm', function(msg){
     let gatewayRoomId = getRoomId(socket);
-    socket.to(gatewayRoomId + '-browser').emit('alarm', msg);
+
+    if (gatewayRoomId){
+      socket.to(gatewayRoomId + '-browser').emit('alarm', msg);
+    }
   })
 
   socket.on('ackAlarm', function(msg){
     let browserRoomId = getRoomId(socket);
-    socket.to(browserRoomId.replace('-browser','')).broadcast.emit('ackAlarm', msg);
+
+    if (browserRoomId){
+      socket.to(browserRoomId.replace('-browser','')).broadcast.emit('ackAlarm', msg);
+    }
   })
 
   socket.on('log', function(msg){
     let gatewayRoomId = getRoomId(socket);
-    socket.to(gatewayRoomId + '-browser').emit('log', msg);
+
+    if (gatewayRoomId){
+      socket.to(gatewayRoomId + '-browser').emit('log', msg);
+    }
   })
 
 
   socket.on('exportLog', function(msg){
     let gatewayRoomId = getRoomId(socket);
-    socket.to(gatewayRoomId + '-browser').emit('exportLog', msg);
+
+    if (gatewayRoomId){
+      socket.to(gatewayRoomId + '-browser').emit('exportLog', msg);
+    }
   })
 
 })

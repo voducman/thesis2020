@@ -433,6 +433,24 @@ router.get("/json/list/gateways", isLoggedIn, function (req, res) {
     })
   })
 
+
+  router.get("/json/list/tagsV2", isLoggedIn, function (req, res) {
+    let email = req.user.local.email;
+    let responseForm;
+  
+    gatewayDAO.getAllTagofUserV2(email)
+    .then(function(tags){
+     
+      responseForm = new ResponseForm(true, "Fetch Tag List Success.", tags);
+      res.status(200).send(JSON.stringify(responseForm));
+    })
+    .catch(function(e){
+      
+      responseForm = new ResponseForm(false, "Fetch Tag List Get Error.", []);
+      res.status(500).send(JSON.stringify(responseForm));
+    })
+  })
+
   router.get("/json/tags", isLoggedIn, function (req, res) {
     let email = req.user.local.email;
     let responseForm;

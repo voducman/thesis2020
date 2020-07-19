@@ -175,8 +175,10 @@ function generateRowOfTagTable(tag, index){
                 <td class="text-center">${tag.memoryAddress}</td>
                 <td class="text-center">${tag.dataType}</td>
                 <td class="text-center" >${tag.deadBand}</td>
-                <td class="text-center" style="font-weight: 400;">${(tag.log)? 'true':'false'}</td>
-                <td class="text-center" style="font-weight: 400;">${(tag.alarm)? 'true':'false'}</td>
+                ${(tag.log)? '<td class="text-center" style="font-weight: 600; color: red;">true</td>':
+                             '<td class="text-center" style="font-weight: 600;">false</td>'}
+                ${(tag.alarm)? '<td class="text-center" style="font-weight: 600; color: red;">true</td>':
+                              '<td class="text-center" style="font-weight: 600;">false</td>'}
                 <td class="td-actions text-center">
                     <button type="button" rel="tooltip" class="btn btn-info"
                         data-original-title="Gateway Info" title="Show Tag Details"

@@ -44,12 +44,13 @@ worker.onmessage = function(e){
         if (Array.isArray(message)){
             
             message.forEach(function(tag){
-
+    
                 let tagName = tag.name
                 if (systemTags[tagName]){
+                    
                     eval(`${tagName}            =  tag.value;`);
                     eval(`${tagName}__timestamp =  tag.timestamp;`);
-                    eval(`${tagName}__status    =  tag.status;`);
+                    eval(`${tagName}__status    =  tag.status;`);               
                 }
             })
         }

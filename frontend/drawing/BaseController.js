@@ -152,7 +152,7 @@ class BaseController extends PositionHandlerUtil {
                     let icon =  $('#addNewPage input[name=icon]').val() || "av_timer";
 
                     // Maximum page is 10
-                    if (View.getTotalNumPage() >= 5){
+                    if (View.getTotalNumPage() >= 8){
                         Util.showFailNotification("Exceeded number of pages allowed");
                         $('#addNewPage').modal('hide');
                         return;

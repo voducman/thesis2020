@@ -302,6 +302,35 @@ module.exports = class GatewayDAO extends BaseDAO{
 
     }
 
+
+    async getAllTagofUserV2(email) {
+        try {
+            let totalTags = [];
+            let gateways = await this.findManyByObject({ email });
+
+            for (let i = 0; i < gateways.length; i++) {
+                let gateway = gateways[i];
+                let plcs = await this.plcDAO.findManyByObject({'gatewayId': gateway.uniqueId});
+
+                for (let k = 0; k < plcs.length; k++){
+                    let plc = plcs[k], tag;
+                    let tags = await this.tagDAO.findManyByObject({ 'plcId': plc['_id'] });
+
+                    for (let m = 0; m < tags.length; m++){
+                       tag = tags[m];
+                       tag.name = gateway.name + '_' + plc.name + '_' + tag.name;
+                       totalTags.push(tag);
+                    }
+                }
+            }
+
+            return totalTags;
+        } catch (e) {
+            return Promise.reject(null);
+        }
+
+    }
+
     async fetchGatewayConfig(gatewayId){
         try{
             let gateway = await this.findOneByKeynValue('uniqueId', gatewayId);

@@ -90,7 +90,7 @@ controller = new Controller();
 controller.initDrawingBoard();
 setTimeout(function(){
     controller.initProcessRuntime();
-}, 1000)
+}, 3000)
 
 
 
