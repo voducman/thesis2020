@@ -447,7 +447,7 @@ async function fetchTagSystem(){
         if (Array.isArray(tags)) {
             tags.forEach(function (tag) {
                 if (tag.type === 'internal') {
-                    results[tagName] = {
+                    results[tag.name] = {
                         'status': null,
                         'timestamp': null,
                         'type': 'internal',   
