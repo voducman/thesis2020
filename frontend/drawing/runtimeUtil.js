@@ -412,7 +412,11 @@ function stopProcessingRuntime(){
         }
     })
 
-
+    // clear all interval and timeout
+    for (let i = 0; i < 100000; i++){
+        clearInterval(i);
+        clearTimeout(i);
+    }
     runExpCollection = null;
 }
 
