@@ -12,9 +12,10 @@ const passport = require("passport");
 const utils    = require('../controller/Utils');
 const BaseDAO  = require('../models/dao/BaseDAO');
 const ResponseForm = require('../models/form/CommonResponseForm');
+const { isLoggedIn } = require("../controller/Utils");
 
 router.get("/", utils.isLoggedIn, function(req, res){
-  res.redirect('/dashboard');
+  res.redirect('/profile');
 });
 
 router.get("/files/:name", function(req, res) {
@@ -162,6 +163,22 @@ router.put("/profile/:command", utils.isLoggedIn, function(req, res){
 
 router.get("/checkConnection", function(req, res){
   res.status(200).send(true);
+})
+
+router.get("/aboutus", isLoggedIn,function(req, res){
+  const sessionUser = req.user.local;
+  res.render("aboutus", {title: "Light SCADA", user: sessionUser});
+})
+
+router.get("/contactus", isLoggedIn, function(req, res){
+  const sessionUser = req.user.local;
+  res.render("contactus", {title: "Light SCADA", user: sessionUser});
+})
+
+router.get("/userguide", isLoggedIn, function(req, res){
+  const sessionUser = req.user.local;
+  // res.render("userguide", {title: "Light SCADA", user: sessionUser});
+  res.render("thesisReport");
 })
 
 

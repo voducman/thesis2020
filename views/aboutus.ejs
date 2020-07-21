@@ -1,0 +1,55 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <% include metadata %>
+</head>
+
+<body>
+    <div class="wrapper" id="main-view">
+        <% include sidebar %>
+        <div class="main-panel" id="main-panel">
+            <% include header %>
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-content">
+                                    <h3 class="card-title text-center"><b>VỀ CHÚNG TÔI</b></h3>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h6><b>Tên dự án</b></h6>
+                                            <p>Phần mềm Could-based SCADA và Gateway hỗ trợ giám sát và vận hành nhà máy từ xa.</p>
+                                            <h6><b>Mục tiêu:</b></h6>
+                                            <p>
+                                                Phần mềm này là kết quả làm việc liên tục trong suốt hơn 4 tháng của tác giả nhằm tạo ra một phần mềm SCADA mã nguồn mở, phù hợp cho các ứng dụng vừa và nhỏ của các doanh nghiệp hay cá nhân tại Việt Nam. Với sự hỗ trợ của phần mềm miễn phí này, các kĩ sư vận hành có thể tạo ra các ứng dụng SCADA một cách nhanh chóng, tiện lợi cho các ứng dụng sẵn có mà không phải tác động đến hệ thống đã sẵn có.
+                                            </p>
+                                            <h6><b>Thành phần</b></h6>
+                                            Hệ thống được xây dựng gồm các thành phần sau:
+                                            <ul>
+                                                <li><b>Cloud-based SCADA:</b> Hỗ trợ giao diện online cho thiết kế, vận hành, giám sát ứng dụng và gateway từ xa.</li>
+                                                <li><b>Gateway:</b> Hỗ trợ các giao thức như OPCUA, Modbus TCP & S7 Protocol cho Read/Write dữ liệu từ PLC/thiết bị có hỗ trợ 3 giao thức này. Gateway sẽ chịu trách nhiệm tương tác với hệ thống thực tế, đồng thời giao tiếp với Server trên một kết nối được mã hóa vô cùng an toàn.</li>
+                                            </ul>
+                                            <img style="width: 80%; height: 90%; display: block; margin: auto;" src="/static/images/StructureSystem.png">
+                                            <h6><b>Kết quả</b></h6>
+                                            <p>Tác giả đã xây dựng thành công một Cloud-based SCADA và được triển khai trên Microsoft Azure Virtual Machine. Đồng thời hoàn thiện một chương trình Gateway có thể chạy trên các máy tính nhúng hoặc mini-computer cho phép dễ dàng triển khai.</p>
+                                            <h6><b>Người thực hiện</b></h6>
+                                            <p>Sinh viên: <b class="text-info">Võ Đức Mẫn</b></p>
+                                            <p>Mã số sinh viên: <b class="text-info">1611998</b></p>
+                                            <h6><b>Người hướng dẫn</b></h6>
+                                            <p>Giảng viên <b class="text-info">TS. Trương Đình Châu</b></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+            </div>
+            <% include footer %>
+        </div>
+    </div>
+</body>
+<% include scripts %>
+</html>
