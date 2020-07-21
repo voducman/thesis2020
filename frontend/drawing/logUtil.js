@@ -3,7 +3,7 @@ import moment from 'moment';
 export const prependLogToTable = function(log, gatewayId){
     let row = createRowLogTable(log, gatewayId);
     $('#log-table').prepend(row);
-    if ($('#log-table tr').length > 10){
+    if ($('#log-table tr').length > 50){
         $('#log-table tr').last().remove();
     }
 }

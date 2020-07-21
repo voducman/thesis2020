@@ -91,7 +91,7 @@ const elementsUtil = (function(){
                 scale: false,
                 labels: false,
                 tooltip: false,
-                set: [25],  
+                set: [0],  
                 onChange: function(value){
                     sliderRoot.parentElement.properties.onChange(parseFloat(value));
                     setTimeout(function(){
@@ -136,7 +136,7 @@ const elementsUtil = (function(){
         renderVerticalSlider: function(id, width, height){
             let slider = document.getElementById(id);
                 noUiSlider.create(slider, {
-                    start: 25,
+                    start: 0,
                     connect: 'lower',
                     range: {
                         'min': 0,

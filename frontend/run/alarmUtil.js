@@ -11,10 +11,10 @@ export const updateAlarmTable = function(alarms){
 }
 
 function createRowAlarmTable(alarm, index){
-    const isFirstRender = (index < 11)? '' : 'display: none;';
+    //const isFirstRender = (index < 11)? '' : 'display: none;';
     return `
         <tr class="alarm ${alarm.tagName}" id="row-${index}" 
-            style="background-color: ${(alarm.state)? '#9aff9a': '#d6d3d3'}; ${isFirstRender}"
+            style="background-color: ${(alarm.state)? '#9aff9a': '#d6d3d3'};"
             onmouseover="this.style.backgroundColor = 'white';"
             onmouseout="this.style.backgroundColor = '${(alarm.state)? '#9aff9a': '#d6d3d3'}';"
         >

@@ -164,7 +164,7 @@ class View extends BaseView{
                 if (symbolType === 'line') {
                     let symbolRender = wb.line(0, 0, 1, 1).draggable(symbol.dragDesign);
                     symbolRender.id(symbolId).addClass('symbol');
-                    let symbolPros = new Line(symbolId, symbolRender);
+                    let symbolPros = new Line(symbolId, symbolRender);  
                     symbolPros.initOnlyProperties(symbol);
                     symbolPros.updateSymbol();
                     symbolRender.rotate(symbol.degree);

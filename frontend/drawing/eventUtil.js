@@ -401,7 +401,7 @@ function openContextMenu(evt){
         'theme': 'default',
           'items': [
               { 'icon': 'trash', 'name': 'Delete',           action: () => deleteSymbol(elementId) },
-              { 'icon': 'clone', 'name': 'Duplicate ',       action: () => cloneSymbol(elementId) },
+            //   { 'icon': 'clone', 'name': 'Duplicate ',       action: () => cloneSymbol(elementId) },
               { 'icon': 'backward', 'name': 'To Back',       action: () => moveSymbolToBack(elementId) },
               { 'icon': 'step-backward', 'name': 'Backward', action: () => moveSymbolBackward(elementId) }, 
               { 'icon': 'step-forward', 'name': 'Forward',   action: () => moveSymbolForward(elementId) },

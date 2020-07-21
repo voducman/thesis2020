@@ -66,7 +66,7 @@ worker.onmessage = function(e){
         }
 
         updateAlarmTable(totalAlarms);
-        paginationSetup(totalAlarms.length, 'alarm');
+        //paginationSetup(totalAlarms.length, 'alarm');
         document.getElementById('alarm-counter').textContent = totalAlarms.length;
         return;
     }
