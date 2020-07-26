@@ -71,6 +71,7 @@ export default class Input extends BaseSymbol{
         console.log(this);
         this.SVG.move(this.x, this.y);
         this.SVG.size(this.width, this.height);
+        this.changeSliderRange(this.tagRange.min, this.tagRange.max);
         
         this.SVG.node.querySelector(`#child-${this.id}`).style.width = this.width + 'px';
         this.SVG.node.querySelector(`#child-${this.id}`).style.height = this.height + 'px';
@@ -81,7 +82,6 @@ export default class Input extends BaseSymbol{
         // Background color
         this.SVG.node.querySelector('.noUi-connects').style.backgroundColor = this.backgroundColor;
         this.SVG.node.querySelector('.noUi-connects').style.width = this.width + 'px';
-        this.setValue(parseFloat(this.getValue()) + 1)
     }
 
 

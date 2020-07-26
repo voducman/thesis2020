@@ -32,7 +32,7 @@ export default class HorizontalSlider extends BaseSymbol{
             if (this.isRun){
                 try{
                     eval(`_pre_${this.assignTag.trim()} = ${this.assignTag.trim()}`);
-                    eval(`${this.assignTag.trim()} = parseFloat(value) + parseFloat(this.tagRange.min)`);
+                    eval(`${this.assignTag.trim()} = parseFloat(value)`);
                     console.log('Value change: ', parseFloat(value) + parseFloat(this.tagRange.min));
 
                     eval(`
